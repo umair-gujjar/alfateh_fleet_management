@@ -1,0 +1,17 @@
+<openerp>
+    <data>
+        <record id="fleet_mang_custom_view_form" model="ir.ui.view">
+            <field name="name">fleet_mang_custom_view_form</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vin_sn']" position="after">
+                    <field name="engine_num"/>
+                    <field name="average_consumption"/>
+		    <field name="expiry_token"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</openerp>

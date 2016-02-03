@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_alfateh_fleet_management_alfateh_fleet_management,alfateh_fleet_management.alfateh_fleet_management,model_alfateh_fleet_management_alfateh_fleet_management,,1,0,0,0

@@ -1,0 +1,8 @@
+# -*- coding: utf-8 -*-
+
+from openerp import models, fields, api
+
+# class alfateh_fleet_management(models.Model):
+#     _name = 'alfateh_fleet_management.alfateh_fleet_management'
+
+#     name = fields.Char()
