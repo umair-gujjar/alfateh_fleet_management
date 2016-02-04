@@ -22,5 +22,6 @@
         'vechicle_view.xml',
         'route_management_view.xml',
         'trip_management_view.xml',
+        'fuel_card_management_view.xml',
     ],
 }
