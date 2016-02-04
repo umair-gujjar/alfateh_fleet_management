@@ -9,10 +9,11 @@
                 
                 <form string="Route Management">
                     <sheet>
+                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="route_defination"/>
-                                <field name="route_time"/>
+                                <field name="route_time" widget="float_time" sum="Total Hours"/>
                                 <field name="route_cost"/>
                             </group>
                     
@@ -43,7 +44,7 @@
             <field name="arch" type="xml">
                 <tree string="Route Management">
                     <field name="route_defination"/>
-                    <field name="route_time"/>
+                    <field name="route_time" widget="float_time" sum="Total Hours"/>
                     <field name="route_distance" />
                     <field name="route_fuel" />
                 </tree>
