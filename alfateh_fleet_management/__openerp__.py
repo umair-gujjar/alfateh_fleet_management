@@ -18,6 +18,8 @@
     'depends': ['base','fleet'],
     'data': [
         # 'security/ir.model.access.csv',
-        'templates.xml',
+        #'templates.xml',
+        'vechicle_view.xml',
+        'route_management_view.xml',
     ],
 }
