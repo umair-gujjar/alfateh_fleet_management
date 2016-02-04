@@ -83,5 +83,54 @@
         </record>
         <menuitem name="Trip" id="menu_trip_mang_root" parent="fleet.menu_root" sequence="2"/>
         <menuitem name="Trip Management" id="menu_trip_mang_child_one" parent="menu_trip_mang_root" action="action_trip_mang" sequence="0"/>
+
+        <!-- Route Management Form View -->
+        <record id="alfateh_route_mang_view_form" model="ir.ui.view">
+            <field name="name">alfateh_route_mang_view_form</field>
+            <field name="model">route.management</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Route Management">
+                    <sheet>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="route_destination"/>
+                                <field name="route_time"/>
+                            </group>
+                    
+                            <group name="group_right">
+                                <field name="route_distance" />
+                                <field name="route_fuel" />
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        
+
+        <record id="alfateh_route_mang_view_tree" model="ir.ui.view">
+            <field name="name">alfateh_route_mang_view_tree</field>
+            <field name="model">route.management</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Route Management">
+                    <field name="route_destination"/>
+                    <field name="route_time"/>
+                    <field name="route_distance" />
+                    <field name="route_fuel" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_route_mang">
+            <field name="name">Route Management</field>
+            <field name="res_model">route.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Route" id="menu_route_mang_root" parent="fleet.menu_root" sequence="2"/>
+        <menuitem name="Route Management" id="menu_route_mang_child_one" parent="menu_route_mang_root" action="action_route_mang" sequence="0"/>
     </data>
 </openerp>

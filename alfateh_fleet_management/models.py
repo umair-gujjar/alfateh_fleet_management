@@ -21,8 +21,9 @@ class trip_management(models.Model):
 # Route Management
 class route_management(models.Model):
 	_name = 'route.management'
-	route_def = fields.Char('Route Defination')
+	route_destination = fields.Char('Route Destination')
 	route_time = fields.Float('Time')
-	route_distance = fields.Float('KM')
+	route_distance = fields.Float('Distance(km)')
+	route_fuel = fields.Float('Fuel')
 
 
