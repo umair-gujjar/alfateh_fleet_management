@@ -1,0 +1,67 @@
+<openerp>
+    <data>
+        <!-- Route Management Form View -->
+        <record id="alfateh_fuel_card_mang_view_form" model="ir.ui.view">
+            <field name="name">alfateh_fuel_card_mang_view_form</field>
+            <field name="model">fuelcard.management</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Fuel Card Management">
+                    <sheet>
+                        <!--<h1><field name="card_name" attrs="{'invisible': [('card_name','=','/')]}"/></h1>-->
+                         <div class="oe_title">
+                            <label for="card_name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="card_name"/>
+                            </h1>
+                        </div>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="card_company"/>
+                                <field name="card_limit"/>
+                            </group>
+                    
+                            <group name="group_right">
+                                <field name="card_issue_data" />
+                                <field name="card_expiry_data" />
+                            </group>
+                        </group>
+                        <notebook colspan="3">
+                            <page string="Details" >
+                                <group string="Add Description">
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="alfateh_fuel_card_mang_view_tree" model="ir.ui.view">
+            <field name="name">alfateh_fuel_card_mang_view_tree</field>
+            <field name="model">fuelcard.management</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Fuel Card Management">
+                    <field name="card_company"/>
+                    <field name="card_limit"/>
+                    <field name="card_issue_data" />
+                    <field name="card_expiry_data" />
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_fuelcard_mang">
+            <field name="name">Fuel Card Management</field>
+            <field name="res_model">fuelcard.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Fuel Cards" id="menu_fuelcard_mang_root" parent="fleet.menu_root" sequence="2"/>
+        <menuitem name="Fuel Card Management" id="menu_fuelcard_mang_child_one" parent="menu_fuelcard_mang_root" action="action_fuelcard_mang" sequence="0"/>
+    </data>
+</openerp>
