@@ -1,0 +1,74 @@
+<openerp>
+    <data>
+        
+        <!-- Trip Management Form View -->
+        <record id="alfateh_trip_mang_view_form" model="ir.ui.view">
+            <field name="name">alfateh_trip_mang_view_form</field>
+            <field name="model">trip.management</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Trip Management">
+                    <sheet>
+                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <group name="group_top">
+                            <group name="group_left">
+
+                                <field name="vehicle"/>
+                                <field name="route_distance"/>
+                                <field name="trip_cost"/>
+                        
+                            </group>
+                    
+                            <group name="group_right">
+                                <field name="projected_trip_cost"/>
+                                <field name="actual_trip_cost"/> 
+        
+                            </group>
+                        </group>
+                        <notebook colspan="3">
+                            <page string="Details" >
+                                <group string="Add Description">
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+        
+
+        <record id="alfateh_trip_mang_view_tree" model="ir.ui.view">
+            <field name="name">alfateh_trip_mang_view_tree</field>
+            <field name="model">trip.management</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+
+                <tree string="Trip Management">
+
+                    <field name="vehicle"/>
+                    <field name="route_distance" />
+                    <field name="trip_cost" />
+                    <field name="projected_trip_cost"/>
+                    <field name="actual_trip_cost"/>
+
+                </tree>
+               
+            </field>
+
+        </record>
+        <record model="ir.actions.act_window" id="action_trip_mang">
+            <field name="name">Trip Management</field>
+            <field name="res_model">trip.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Trip" id="menu_trip_mang_root" parent="fleet.menu_root" sequence="2"/>
+        <menuitem name="Trip Management" id="menu_trip_mang_child_one" parent="menu_trip_mang_root" action="action_trip_mang" sequence="0"/>
+    </data>
+</openerp>
