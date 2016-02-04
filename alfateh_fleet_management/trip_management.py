@@ -6,7 +6,7 @@ from openerp import models, fields, api
 class trip_management(models.Model):
 	_name = 'trip.management'
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
-	name = fields.Float('Name')
+	name = fields.Char('Name')
 	route_distance = fields.Float('KM')
 	trip_cost = fields.Float('Trip Total Cost')
 	projected_trip_cost = fields.Float('Projected Cost')
