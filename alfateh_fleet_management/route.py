@@ -9,5 +9,5 @@ class route_management(models.Model):
 	route_time = fields.Float('Time(hours)')
 	route_distance = fields.Float('Distance(km)')
 	route_fuel = fields.Float('Fuel(liters)')
-
+	route_cost = fields.Float('Cost')
 

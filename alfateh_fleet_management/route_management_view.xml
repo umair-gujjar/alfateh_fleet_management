@@ -13,6 +13,7 @@
                             <group name="group_left">
                                 <field name="route_defination"/>
                                 <field name="route_time"/>
+                                <field name="route_cost"/>
                             </group>
                     
                             <group name="group_right">
