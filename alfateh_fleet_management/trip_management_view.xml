@@ -1,6 +1,6 @@
 <openerp>
     <data>
-        
+
         <!-- Trip Management Form View -->
         <record id="alfateh_trip_mang_view_form" model="ir.ui.view">
             <field name="name">alfateh_trip_mang_view_form</field>
@@ -15,14 +15,19 @@
                             <group name="group_left">
 
                                 <field name="vehicle"/>
+                                <field name="projected_trip_time" widget="float_time" sum="Total Hours"/>
+                                <field name="projected_trip_fuel"/>
+                                <field name="projected_trip_cost"/>
                                 <field name="route_distance"/>
-                                <field name="trip_cost"/>
                         
                             </group>
                     
                             <group name="group_right">
-                                <field name="projected_trip_cost"/>
+                                <field name="route"/>
+                                <field name="actual_trip_time" widget="float_time" sum="Total Time"/>
+                                <field name="actual_trip_fuel"/>
                                 <field name="actual_trip_cost"/> 
+                                <field name="trip_cost"/>  
         
                             </group>
                         </group>
@@ -52,10 +57,15 @@
                 <tree string="Trip Management">
 
                     <field name="vehicle"/>
-                    <field name="route_distance" />
-                    <field name="trip_cost" />
+                    <field name="projected_trip_time" widget="float_time" sum="Total Hours"/>
+                    <field name="projected_trip_fuel"/>
                     <field name="projected_trip_cost"/>
-                    <field name="actual_trip_cost"/>
+                    <field name="route_distance"/>
+                    <field name="route"/>
+                    <field name="actual_trip_time" widget="float_time" sum="Total Time"/>
+                    <field name="actual_trip_fuel"/>
+                    <field name="actual_trip_cost"/> 
+                    <field name="trip_cost"/> 
 
                 </tree>
                
@@ -68,7 +78,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem name="Trip" id="menu_trip_mang_root" parent="fleet.menu_root" sequence="2"/>
+        <menuitem name="Trip" id="menu_trip_mang_root" parent="fleet.menu_root" sequence="3"/>
         <menuitem name="Trip Management" id="menu_trip_mang_child_one" parent="menu_trip_mang_root" action="action_trip_mang" sequence="0"/>
     </data>
 </openerp>
