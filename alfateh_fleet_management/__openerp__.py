@@ -21,5 +21,6 @@
         #'templates.xml',
         'vechicle_view.xml',
         'route_management_view.xml',
+        'trip_management_view.xml',
     ],
 }
