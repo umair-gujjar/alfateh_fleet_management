@@ -11,7 +11,7 @@
                     <sheet>
                         <group name="group_top">
                             <group name="group_left">
-                                <field name="route_destination"/>
+                                <field name="route_defination"/>
                                 <field name="route_time"/>
                             </group>
                     
