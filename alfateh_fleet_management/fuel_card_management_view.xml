@@ -30,6 +30,7 @@
                         <notebook colspan="3">
                             <page string="Details" >
                                 <group string="Add Description">
+                                    <field name="card_description" nolabel='1' placeholder="Add Description here ...." />
                                 </group>
                             </page>
                         </notebook>
@@ -55,11 +56,24 @@
                 </tree>
             </field>
         </record>
+
+        <record id="alfateh_fuel_card_mang_view_graph" model="ir.ui.view">
+             <field name="name">alfateh_fuel_card_mang_view_graph</field>
+             <field name="model">fuelcard.management</field>
+             <field name="view_type">form</field>
+             <field name="view_mode">tree,form,graph</field>
+             <field name="arch" type="xml">
+                 <graph type="pivot">
+                 </graph>
+             </field>
+        </record>
+
+
         <record model="ir.actions.act_window" id="action_fuelcard_mang">
             <field name="name">Fuel Card Management</field>
             <field name="res_model">fuelcard.management</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
         </record>
         <menuitem name="Fuel Cards" id="menu_fuelcard_mang_root" parent="fleet.menu_root" sequence="2"/>
         <menuitem name="Fuel Card Management" id="menu_fuelcard_mang_child_one" parent="menu_fuelcard_mang_root" action="action_fuelcard_mang" sequence="0"/>
