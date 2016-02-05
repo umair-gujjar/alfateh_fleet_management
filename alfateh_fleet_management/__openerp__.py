@@ -19,6 +19,7 @@
     'data': [
         # 'security/ir.model.access.csv',
         #'templates.xml',
+        'sequence.xml',
         'vechicle_view.xml',
         'route_management_view.xml',
         'trip_management_view.xml',

@@ -6,7 +6,7 @@ from openerp import models, fields, api
 class trip_management(models.Model):
 	_name = 'trip.management'
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
-	name = fields.Char('Name')
+	name = fields.Char('Name', readonly=True)
 	vehicle = fields.Many2one('fleet.vehicle','Vehicle')
 	route = fields.Many2one('route.management','Route')
 	route_distance = fields.Float('Route Distance')
@@ -19,6 +19,11 @@ class trip_management(models.Model):
 	road_trip_taxes = fields.Float('Road Taxes Amount')
 	trip_cost = fields.Float('Trip Total Cost')
 	trip_description = fields.Text('Description')
+
+	def create(self, cr, uid, vals, context=None):
+		sequence=self.pool.get('ir.sequence').get(cr, uid, 'trip.management')
+		vals['name']=sequence
+		return super(trip_management, self).create(cr, uid, vals, context=context)
 
 	@api.onchange('route')
 	def onchange_route_field(self):
