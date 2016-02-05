@@ -40,6 +40,7 @@
                         <notebook colspan="3">
                             <page string="Details" >
                                 <group string="Add Description">
+                                    <field name="trip_description" nolabel='1' placeholder="Add Description here ...." />
                                 </group>
                             </page>
                         </notebook>
@@ -79,11 +80,23 @@
             </field>
 
         </record>
+
+        <record id="alfateh_trip_mang_view_graph" model="ir.ui.view">
+            <field name="name">alfateh_trip_mang_view_graph</field>
+            <field name="model">trip.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="arch" type="xml">
+                <graph type="pivot">
+                </graph>
+            </field>
+        </record>
+
         <record model="ir.actions.act_window" id="action_trip_mang">
             <field name="name">Trip Management</field>
             <field name="res_model">trip.management</field>
             <field name="view_type">form</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form,graph</field>
         </record>
         <menuitem name="Trip" id="menu_trip_mang_root" parent="fleet.menu_root" sequence="2"/>
         <menuitem name="Trip Management" id="menu_trip_mang_child_one" parent="menu_trip_mang_root" action="action_trip_mang" sequence="0"/>

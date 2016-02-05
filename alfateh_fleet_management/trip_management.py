@@ -18,6 +18,7 @@ class trip_management(models.Model):
 	actual_trip_cost = fields.Float('Actual Cost')
 	road_trip_taxes = fields.Float('Road Taxes Amount')
 	trip_cost = fields.Float('Trip Total Cost')
+	trip_description = fields.Text('Description')
 
 	@api.onchange('route')
 	def onchange_route_field(self):
