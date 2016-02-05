@@ -31,7 +31,8 @@
                                 <field name="route"/>
                                 <field name="actual_trip_time" widget="float_time" sum="Total Time"/>
                                 <field name="actual_trip_fuel"/>
-                                <field name="actual_trip_cost"/> 
+                                <field name="actual_trip_cost"/>
+                                <field name="road_trip_taxes"/> 
                                 <field name="trip_cost"/>  
         
                             </group>
@@ -69,7 +70,8 @@
                     <field name="route"/>
                     <field name="actual_trip_time" widget="float_time" sum="Total Time"/>
                     <field name="actual_trip_fuel"/>
-                    <field name="actual_trip_cost"/> 
+                    <field name="actual_trip_cost"/>
+                    <field name="road_trip_taxes"/> 
                     <field name="trip_cost"/> 
 
                 </tree>

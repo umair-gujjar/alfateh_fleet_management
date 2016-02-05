@@ -16,7 +16,9 @@ class trip_management(models.Model):
 	actual_trip_time = fields.Float('Actual Time')
 	actual_trip_fuel = fields.Float('Actual Fuel')
 	actual_trip_cost = fields.Float('Actual Cost')
+	road_trip_taxes = fields.Float('Road Taxes Amount')
 	trip_cost = fields.Float('Trip Total Cost')
+
 	@api.onchange('route')
 	def onchange_route_field(self):
 		self.route_distance = self.route.route_distance
