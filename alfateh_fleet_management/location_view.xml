@@ -27,20 +27,8 @@
             </field>
         </record>
 
-        <!--<record id="alfateh_route_location_view_graph" model="ir.ui.view">
-             <field name="name">alfateh_route_location_view_graph</field>
-             <field name="model">route.locations</field>
-             <field name="view_type">form</field>
-             <field name="view_mode">tree,form,graph</field>
-             <field name="arch" type="xml">
-                 <graph type="pivot">
-                 </graph>
-             </field>
-        </record> -->
-
-
         <record model="ir.actions.act_window" id="action_route_location">
-            <field name="name">Route Management</field>
+            <field name="name">Route Location</field>
             <field name="res_model">route.locations</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
