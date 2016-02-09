@@ -12,7 +12,7 @@
                         <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
                         <group name="group_top">
                             <group name="group_left">
-                                <field name="route_defination"/>
+                                <field name="route_defination" widget="many2many_tags"/>
                                 <field name="route_time" widget="float_time" sum="Total Hours"/>
                                 <field name="route_cost"/>
                             </group>
