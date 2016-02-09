@@ -27,13 +27,32 @@
                                 <field name="card_expiry_data" />
                             </group>
                         </group>
-                        <notebook colspan="3">
-                            <page string="Details" >
-                                <group string="Add Description">
-                                    <field name="card_description" nolabel='1' placeholder="Add Description here ...." />
+                        <notebook>
+                            <page string="Consume History">
+                                <group>
+                                    <tree>
+                                        <field name="consume_id" nolabel="1" >
+                                            <tree editable="bottom"  >
+                                                <field name="card_consume_amount" />
+                                                <field name="card_consume_liter" />
+                                            </tree>    
+                                        </field>
+                                    </tree>    
+                                </group>
+                            </page>
+                            <page string="Recharge History">
+                                <group>
+                                    <tree>
+                                        <field name="card_recharge_amount" />
+                                        <field name="card_recharge_liter" />
+                                    </tree>    
                                 </group>
                             </page>
                         </notebook>
+                        
+                        <group string="Add Description">
+                            <field name="card_description" nolabel='1' placeholder="Add Description here ...." />
+                        </group>
                     </sheet>
                     <div class="oe_chatter">
                         <field name="message_follower_ids" widget="mail_followers"/>
@@ -42,6 +61,7 @@
                 </form>
             </field>
         </record>
+
 
         <record id="alfateh_fuel_card_mang_view_tree" model="ir.ui.view">
             <field name="name">alfateh_fuel_card_mang_view_tree</field>
