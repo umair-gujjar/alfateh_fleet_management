@@ -1,2 +1,9 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_alfateh_fleet_management_alfateh_fleet_management,alfateh_fleet_management.alfateh_fleet_management,model_alfateh_fleet_management_alfateh_fleet_management,,1,0,0,0
+﻿id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_gatepass_group_user,inwardpass,model_inwardpass,base.group_user,1,1,1,1
+access_inward,inward,model_inward,base.group_user,1,1,1,1
+access_inwardshop,inwardshop,model_inwardshop,base.group_user,1,1,1,1
+access_inshop,inshop,model_inshop,base.group_user,1,1,1,1
+access_inwardgen,inwardgen,model_inwardgen,base.group_user,1,1,1,1
+access_ingen,ingen,model_ingen,base.group_user,1,1,1,1
+access_inwardret,inwardret,model_inwardret,base.group_user,1,1,1,1
+access_inret,inret,model_inret,base.group_user,1,1,1,1

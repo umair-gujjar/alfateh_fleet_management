@@ -15,7 +15,7 @@
     'website': "http://www.oxenlab.com",
     'category': 'aaps',
     'version': '0.1',
-    'depends': ['base','fleet'],
+    'depends': ['base','mail','fleet','stock'],
     'data': [
         # 'security/ir.model.access.csv',
         #'templates.xml',
@@ -25,5 +25,8 @@
         'trip_management_view.xml',
         'fuel_card_management_view.xml',
         'location_view.xml',
+        'inwardpass.xml',
+        'security/inwardpass_security.xml',
+        'security/ir.model.access.csv',
     ],
 }

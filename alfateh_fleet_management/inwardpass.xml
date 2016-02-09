@@ -1,0 +1,483 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+
+
+        <record id="view_inwardpass_form" model="ir.ui.view">
+            <field name="name">inwardpass_form</field>
+            <field name="model">inwardpass</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Inwardpass">
+                    <header>
+        <button string="Start Engine" type="object" name="vehicle_process" attrs="{'invisible': [('state', '!=', 'vehicle_enter')]}"/>
+        <!--The oe_highlight class gives the button a red color when it is saved.
+        It is usually used to indicate the expected behaviour. -->
+        <button string="Stop Engine" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
+        <button string="Set to Start Engine" type="object" name="vehicle_enter" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+        <!--This will create the statusbar, thanks to the widget. -->
+        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <group name="group_top">
+                            <group name="group_left">
+
+                                
+                                <field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="document_type" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="invoice_ref" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="supplier_details" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_date" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_nature" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_sron" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_supplier_details" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+
+                        
+                            </group>
+                    
+                            <group name="group_right">
+
+                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="lc" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="bilty" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> 
+        
+                            </group>
+                        </group>
+                    
+                    <notebook colspan="3">
+                        <page string="Details" >
+                            <group>
+                                    <field name="inward_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            <field name="uom"/>
+                                            <field name="qty"/>
+                                            <field name="item"/>
+                                        </tree>
+                                    </field>
+                            </group>
+                        </page>
+                        <page string="Remarks" >
+                            <group>
+                                    <field name="remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+                    </notebook>
+                    </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+        
+
+        <record id="view_inwardpass_tree" model="ir.ui.view">
+            <field name="name">inwardpass</field>
+            <field name="model">inwardpass</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+
+                <tree string="inwardpass">
+
+                    <field name="name"/>
+                    <field name="document_type" />
+                    <field name="invoice_ref" />
+                    <field name="time_in"/>
+                    <field name="supplier_details"/>
+                    <field name="gin" readonly="1"/>
+                    <field name="lc"/>
+                    <field name="bilty"/>
+                    <field name="time_out" />
+                    <field name="vehicle"/>
+                    <field name="out_date" />
+                    <field name="out_nature" />
+                    <field name="out_sron" />
+                    <field name="out_supplier_details" />
+                    <field name="out_gon" readonly="1" />
+                    <field name="out_time_out" />
+                    <field name="out_vehicle" /> 
+
+                </tree>
+               
+            </field>
+
+        </record>
+        <record model="ir.actions.act_window" id="action_inwardpass">
+            <field name="name">GOI Supplier</field>
+            <field name="res_model">inwardpass</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="view_inwardshop_form" model="ir.ui.view">
+            <field name="name">inwardshop_form</field>
+            <field name="model">inwardshop</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Inwardshop">
+                    <header>
+        <button string="Start Engine" type="object" name="vehicle_process" attrs="{'invisible': [('state', '!=', 'vehicle_enter')]}"/>
+        <!--The oe_highlight class gives the button a red color when it is saved.
+        It is usually used to indicate the expected behaviour. -->
+        <button string="Stop Engine" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
+        <button string="Set to Start Engine" type="object" name="vehicle_enter" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+        <!--This will create the statusbar, thanks to the widget. -->
+        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="date" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="srin" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="branch" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_show_reference" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_reference_field" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('out_show_reference', '!=', True)]}"  />
+                                <field name="out_date" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+
+                        
+                            </group>
+                    
+                            <group name="group_right">
+
+                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="fleet_vehicle_id" on_change="on_change_vehicle(fleet_vehicle_id)" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="driver" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_driver" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_fleet_vehicle_id" on_change="on_change_vehicle(fleet_vehicle_id)" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                
+        
+                            </group>
+                        </group>
+                    
+                    <notebook colspan="3">
+                        <page string="Details" >
+                            <group>
+                                    <field name="inshop_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            <field name="uom"/>
+                                            <field name="qty"/>
+                                            <field name="item"/>
+                                        </tree>
+                                    </field>
+                            </group>
+                        </page>
+                        <page string="Remarks" >
+                            <group>
+                                    <field name="remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+                    </notebook>
+                    </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_inwardshop_tree" model="ir.ui.view">
+            <field name="name">inwardshop</field>
+            <field name="model">inwardshop</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+
+                <tree string="inwardshop">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="time_in"/>
+                    <field name="srin"/>
+                    <field name="branch"/>
+                    <field name="gin" readonly="1"/>
+                    <field name="fleet_vehicle_id"/>
+                    <field name="driver"/>
+                    <field name="out_show_reference" />
+                    <field name="out_reference_field" />
+                    <field name="out_date" />
+                    <field name="out_time_out" />
+                    <field name="out_gon" readonly="1"/>
+                    <field name="out_driver" />
+                    <field name="out_fleet_vehicle_id" />
+                        
+
+                </tree>
+               
+            </field>
+
+        </record>
+
+        <record model="ir.actions.act_window" id="action_inwardshop">
+            <field name="name">GOI Shop</field>
+            <field name="res_model">inwardshop</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+            <record id="view_inwardgen_form" model="ir.ui.view">
+            <field name="name">inwardgen_form</field>
+            <field name="model">inwardgen</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Inwardgen">
+                    <header>
+        <button string="Start Engine" type="object" name="vehicle_process" attrs="{'invisible': [('state', '!=', 'vehicle_enter')]}"/>
+        <!--The oe_highlight class gives the button a red color when it is saved.
+        It is usually used to indicate the expected behaviour. -->
+        <button string="Stop Engine" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
+        <button string="Set to Start Engine" type="object" name="vehicle_enter" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+        <!--This will create the statusbar, thanks to the widget. -->
+        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="date" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_date" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+
+                        
+                            </group>
+                    
+                            <group name="group_right">
+
+                                <field name="gin" readonly="1" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="document_ref" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_document_ref" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>                                
+        
+                            </group>
+                        </group>
+
+                    <notebook colspan="3">
+                        <page string="Details" >
+                            <group>
+                                    <field name="ingen_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            <field name="uom"/>
+                                            <field name="qty"/>
+                                            <field name="item"/>
+                                        </tree>
+                                    </field>
+
+                             </group>
+                        </page>
+                        <page string="Remarks" >
+                            <group>
+                                    <field name="remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_inwardgen_tree" model="ir.ui.view">
+            <field name="name">inwardgen</field>
+            <field name="model">inwardgen</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+
+                <tree string="inwardgen">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="time_in"/>
+                    <field name="gin" readonly="1"/>
+                    <field name="document_ref"/>
+                    <field name="vehicle"/>
+                    <field name="out_date"/>
+                    <field name="out_time_out"/>
+                    <field name="out_gon" readonly="1"/>
+                    <field name="out_document_ref" />
+                    <field name="out_vehicle"/>
+
+                </tree>
+               
+            </field>
+
+        </record>
+
+        <record model="ir.actions.act_window" id="action_inwardgen">
+            <field name="name">GOI General</field>
+            <field name="res_model">inwardgen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="view_inwardret_form" model="ir.ui.view">
+            <field name="name">inwardret_form</field>
+            <field name="model">inwardret</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Inwardret">
+                    <header>
+        <button string="Start Engine" type="object" name="vehicle_process" attrs="{'invisible': [('state', '!=', 'vehicle_enter')]}"/>
+        <!--The oe_highlight class gives the button a red color when it is saved.
+        It is usually used to indicate the expected behaviour. -->
+        <button string="Stop Engine" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
+        <button string="Set to Start Engine" type="object" name="vehicle_enter" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+        <!--This will create the statusbar, thanks to the widget. -->
+        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="dept" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="date_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="document_ref" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_date_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+
+                        
+                            </group>
+                    
+                            <group name="group_right">
+
+                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="date_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="stock_location_id" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_dept" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_document_ref" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_date_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_stock_location_id" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+
+        
+                            </group>
+                        </group>
+                    <notebook colspan="3">
+                        <page string="Details" >
+                             <group>
+                                    <field name="inret_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            
+                                            <field name="item_des"/>
+                                            <field name="brought_out_qty" on_change="onchange_result(brought_in_qty, brought_out_qty)"/>
+                                            <field name="brought_in_qty" on_change="onchange_result(brought_in_qty, brought_out_qty)"/>
+                                            <field name="diff"/>
+                                            <field name="qty_used"/>
+                                        </tree>
+                                    </field>
+
+                                </group>
+                        </page>
+                        <page string="Remarks" >
+                            <group>
+                                    <field name="remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_inwardret_tree" model="ir.ui.view">
+            <field name="name">inwardret</field>
+            <field name="model">inwardret</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+
+                <tree string="inwardret">
+                    <field name="name"/>
+                    <field name="dept"/>
+                    <field name="gin" readonly="1"/>
+                    <field name="date_in"/>
+                    <field name="date_out"/>
+                    <field name="time_in" />
+                    <field name="time_out" />
+                    <field name="document_ref"/>
+                    <field name="workers"/>
+                    <field name="vehicle"/>
+                    <field name="stock_location_id"/>
+
+                    <field name="out_gon" readonly="1" />
+                    <field name="out_date_out" />
+                    <field name="out_time_out" />
+                    <field name="out_dept" />
+                    <field name="out_document_ref" />
+                    <field name="out_date_in" />
+                    <field name="out_time_in" />
+                    <field name="out_vehicle" />
+                    <field name="out_stock_location_id" />
+
+                </tree>
+               
+            </field>
+
+        </record>
+
+        <record model="ir.actions.act_window" id="action_inwardret">
+            <field name="name">GOI Returnable</field>
+            <field name="res_model">inwardret</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <menuitem name="Gate Pass" id="menu_gatepass_root" sequence="70"/>
+        <menuitem name="GatePass" id="menu_gatepass_inward" parent="menu_gatepass_root" action="action_inwardpass" sequence="0"/>
+            <menuitem name="Gate Out/In (Supplier)" id="menu_inwarpass_inwardpass_item" parent="menu_gatepass_inward" action="action_inwardpass" sequence="1"/>
+            <menuitem name="Gate Out/In (Shop)" id="menu_inwarshop_inwardshop_item" parent="menu_gatepass_inward" action="action_inwardshop" sequence="2"/>
+            <menuitem name="Gate Out/In (General)" id="menu_inwardgen_inwardgen_item" parent="menu_gatepass_inward" action="action_inwardgen" sequence="3"/>
+            <menuitem name="Gate Out/In (Returnable)" id="menu_inwardret_inwardret_item"  parent="menu_gatepass_inward" action="action_inwardret" sequence="4"/>
+        <menuitem name="Configuration" id="menu_gatepass_config" parent="menu_gatepass_root" sequence="2"/>
+           
+
+
+        </data>
+    </openerp>
