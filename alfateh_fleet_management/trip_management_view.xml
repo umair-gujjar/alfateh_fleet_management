@@ -21,6 +21,8 @@
                                 <field name="vehicle"/>
                                 <field name="projected_trip_time" widget="float_time" sum="Total Hours"/>
                                 <field name="projected_trip_fuel"/>
+                                <field name="projected_trip_fuel_cost"/>
+                                <field name="projected_trip_other_cost"/>
                                 <field name="projected_trip_cost"/>
                                 <field name="route_distance"/>
                         
@@ -30,9 +32,9 @@
                                 <field name="route"/>
                                 <field name="actual_trip_time" widget="float_time" sum="Total Time"/>
                                 <field name="actual_trip_fuel"/>
-                                <field name="actual_trip_cost"/>
-                                <field name="road_trip_taxes"/> 
-                                <field name="trip_cost"/>  
+                                <field name="actual_trip_fuel_cost"/>
+                                <field name="actual_trip_other_cost"/> 
+                                <field name="actual_trip_cost"/>  
         
                             </group>
                         </group>
@@ -62,17 +64,20 @@
 
                 <tree string="Trip Management">
 
+
                     <field name="vehicle"/>
                     <field name="projected_trip_time" widget="float_time" sum="Total Hours"/>
                     <field name="projected_trip_fuel"/>
+                    <field name="projected_trip_fuel_cost"/>
+                    <field name="projected_trip_other_cost"/>
                     <field name="projected_trip_cost"/>
                     <field name="route_distance"/>
                     <field name="route"/>
                     <field name="actual_trip_time" widget="float_time" sum="Total Time"/>
                     <field name="actual_trip_fuel"/>
+                    <field name="actual_trip_fuel_cost"/>
+                    <field name="actual_trip_other_cost"/> 
                     <field name="actual_trip_cost"/>
-                    <field name="road_trip_taxes"/> 
-                    <field name="trip_cost"/> 
 
                 </tree>
                

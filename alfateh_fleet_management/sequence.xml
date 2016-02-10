@@ -1,24 +1,24 @@
 <?xml version="1.0"?>
 <openerp>
     <data>
-        <record model="ir.sequence.type" id="seq_type_emp_id1">
+        <record model="ir.sequence.type" id="seq_type_emp_idtrip">
             <field name="name">TripManagement</field>
             <field name="code">trip.management</field>
         </record>
 
-        <record model="ir.sequence" id="seq_emp_id1">
+        <record model="ir.sequence" id="seq_emp_idtrip">
             <field name="name">Name</field>
             <field name="code">trip.management</field>
             <field name="prefix"></field>
             <field name="padding">3</field>
         </record>
 
-        <record model="ir.sequence.type" id="seq_type_emp_id1">
+        <record model="ir.sequence.type" id="seq_type_emp_idroute">
             <field name="name">RouteManagement</field>
             <field name="code">route.management</field>
         </record>
 
-        <record model="ir.sequence" id="seq_emp_id1">
+        <record model="ir.sequence" id="seq_emp_idroute">
             <field name="name">Name</field>
             <field name="code">route.management</field>
             <field name="prefix"></field>

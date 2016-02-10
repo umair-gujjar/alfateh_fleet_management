@@ -18,6 +18,7 @@ class inwardpass(osv.Model):
 	'supplier_details': fields.many2one('res.partner','Supplier Details'),
 	'inward_id' : fields.one2many('inward','inwardpass_id',string='Details'),
 	'remarks' : fields.text('Remarks'),
+	'gi_seal': fields.char('Seal'),
 
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
@@ -28,6 +29,8 @@ class inwardpass(osv.Model):
 	'out_vehicle_type' : fields.char('Vehicle Type',size=32),
 	'out_supplier_details': fields.many2one('res.partner','Supplier Details'),
 	'out_remarks' : fields.text('Remarks'),
+	'go_seal' : fields.char('Seal'),
+	'trip_management_field': fields.many2one('trip.management','Trip'),
     'state' : fields.selection([
             ('vehicle_enter', 'Start Vehicle'),
             ('vehicle_process', 'Vehicle Running'),
@@ -97,6 +100,9 @@ class inwardshop(osv.Model):
 	'out_show_reference': fields.boolean('Want to put reference ?'),
 	'out_reference_field': fields.char('Reference', size=64),
 	'out_remarks' : fields.text('Remarks'),
+	'gi_seal' : fields.char('Seal'),
+	'go_seal' : fields.char('Seal'),
+	'trip_management_field': fields.many2one('trip.management','Trip'),
     'state' : fields.selection([
             ('vehicle_enter', 'Start Vehicle'),
             ('vehicle_process', 'Vehicle Running'),
@@ -171,6 +177,9 @@ class inwardgen(osv.Model):
 	'out_vehicle' : fields.char('Vehicle',size=32),
 	'out_vehicle_type' : fields.char('Vehicle Type',size=32),
 	'out_remarks' : fields.text('Remarks'),
+	'gi_seal' : fields.char('Seal'),
+	'go_seal' : fields.char('Seal'),
+	'trip_management_field': fields.many2one('trip.management','Trip'),
 
     'state' : fields.selection([
             ('vehicle_enter', 'Start Vehicle'),
@@ -239,6 +248,9 @@ class inwardret(osv.Model):
 	'out_vehicle_type' : fields.char('Vehicle Type',size=32),
 	'out_stock_location_id' : fields.many2one('stock.location','Dept'),
 	'out_remarks' : fields.text('Remarks'),
+	'gi_seal' : fields.char('Seal'),
+	'go_seal' : fields.char('Seal'),
+	'trip_management_field': fields.many2one('trip.management','Trip'),
 
     'state' : fields.selection([
             ('vehicle_enter', 'Start Vehicle'),
