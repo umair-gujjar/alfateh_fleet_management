@@ -1,0 +1,45 @@
+<openerp>
+    <data>
+        <!-- Route Management Form View -->
+        <record id="alfateh_fuel_rate_view_form" model="ir.ui.view">
+            <field name="name">alfateh_fuel_rate_view_form</field>
+            <field name="model">fuel.rate</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Fuel Rates">
+                    <sheet>
+                        <group name="group_top">
+                            <field name="fuel_gasoline_rate" />
+                            <field name="fuel_hioctane_rate" />
+                            <field name="fuel_cng_rate" />
+                            <field name="fuel_disel_rate" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="alfateh_fuel_rate_view_tree" model="ir.ui.view">
+            <field name="name">alfateh_fuel_rate_view_tree</field>
+            <field name="model">fuel.rate</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Fuel Rates">
+                    <field name="fuel_gasoline_rate" />
+                            <field name="fuel_hioctane_rate" />
+                            <field name="fuel_cng_rate" />
+                            <field name="fuel_disel_rate" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_fuel_rate">
+            <field name="name">Fuel Rates</field>
+            <field name="res_model">fuel.rate</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Fuel Rates" id="menu_fuel_rate_child_one" parent="fleet.fleet_configuration" action="action_fuel_rate" sequence="0"/>
+    </data>
+</openerp>

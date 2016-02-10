@@ -6,3 +6,4 @@ import fuel_cards
 import locations
 import inwardpass
 import driver
+import fuel_rates
