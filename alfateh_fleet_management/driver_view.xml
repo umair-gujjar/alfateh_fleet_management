@@ -7,12 +7,17 @@
             <field name="inherit_id" ref="base.view_partner_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='function']" position="before">
+                    <field name="driver_employee_id" />
+                </xpath>
                 <xpath expr="//field[@name='website']" position="after">
                     <field name="driver_lic_num" />
                     <field name="driver_cnic_num" />
-                    <field name="driver_employee_id" />
                     <field name="driver_dob" />
                     <field name="driver_age" />
+                </xpath>
+                <xpath expr="//field[@name='title']" position="after">
+                    <field name="driver_lic_type" />
                 </xpath>
             </field>
         </record>
