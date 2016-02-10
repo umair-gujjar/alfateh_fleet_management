@@ -1,0 +1,43 @@
+<openerp>
+    <data>
+        <!-- Route Management Form View -->
+        <record id="alfateh_driver_view_form" model="ir.ui.view">
+            <field name="name">alfateh_driver_view_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='website']" position="after">
+                    <field name="driver_lic_num" />
+                    <field name="driver_cnic_num" />
+                    <field name="driver_employee_id" />
+                    <field name="driver_dob" />
+                    <field name="driver_age" />
+                </xpath>
+            </field>
+        </record>
+
+        <record id="alfateh_driverr_view_form" model="ir.ui.view">
+            <field name="name">alfateh_driverr_view_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml"> 
+                <page string="Internal Notes" position="attributes">
+                    <attribute name='invisible'>1</attribute> 
+                </page>
+                <page string="Sales &amp; Purchases" position="attributes">
+                    <attribute name='invisible'>1</attribute> 
+                </page>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_drivers">
+            <field name="name">Drivers</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Drivers" id="menu_driver_child_one" parent="fleet.fleet_configuration" action="action_drivers" sequence="0"/>
+    </data>
+</openerp>

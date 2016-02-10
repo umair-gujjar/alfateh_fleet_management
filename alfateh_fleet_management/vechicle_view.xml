@@ -9,7 +9,7 @@
                 <xpath expr="//field[@name='vin_sn']" position="after">
                     <field name="engine_num"/>
                     <field name="average_consumption"/>
-		    <field name="expiry_token"/>
+		            <field name="expiry_token"/>
                 </xpath>
             </field>
         </record>

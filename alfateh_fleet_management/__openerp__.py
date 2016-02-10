@@ -26,6 +26,7 @@
         'fuel_card_management_view.xml',
         'location_view.xml',
         'inwardpass.xml',
+        'driver_view.xml',
         'security/inwardpass_security.xml',
         'security/ir.model.access.csv',
     ],
