@@ -9,7 +9,7 @@
                 
                 <form string="Route Management">
                     <sheet>
-                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <field name="name" />
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="route_defination" widget="many2many_tags"/>

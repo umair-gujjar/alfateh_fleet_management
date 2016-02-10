@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
 
 from openerp import models, fields, api
-
 # Route Management
 class route_management(models.Model):
 	_name = 'route.management'
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
-	name = fields.Char('Name',readonly=True)
+	name = fields.Char('Name')
 	route_defination = fields.Many2many('route.locations',string='Route Defination')
 	route_time = fields.Float('Time(hours)')
 	route_distance = fields.Float('Distance(km)')
 	route_fuel = fields.Float('Fuel(liters)')
 	route_cost = fields.Float('Cost')
 	route_description = fields.Text('Description')
-
-	def create(self, cr, uid, vals, context=None):
-		sequence=self.pool.get('ir.sequence').get(cr, uid, 'route.management')
-		vals['name']=sequence
-		return super(route_management, self).create(cr, uid, vals, context=context)
+	@api.onchange('route_defination')
+	def route_defination_name_get(self):
+		let_say_name = self.name
+		recs_save_list = []   
+		for i in self.route_defination:
+			recs_save_list.append(i.name)
+		print recs_save_list
+		self.name = ', '.join(recs_save_list)
