@@ -14,12 +14,14 @@
                             <group name="group_left">
                                 <field name="route_defination" widget="many2many_tags"/>
                                 <field name="route_time" widget="float_time" sum="Total Hours"/>
-                                <field name="route_cost"/>
+                                <field name="route_fuel_cost"/>
+                                <field name="route_total_cost"/>
                             </group>
                     
                             <group name="group_right">
                                 <field name="route_distance" />
                                 <field name="route_fuel" />
+                                <field name="route_other_cost"/>
                             </group>
                         </group>
                         <notebook colspan="3">

@@ -27,9 +27,9 @@
             <field name="arch" type="xml">
                 <tree string="Fuel Rates">
                     <field name="fuel_gasoline_rate" />
-                            <field name="fuel_hioctane_rate" />
-                            <field name="fuel_cng_rate" />
-                            <field name="fuel_disel_rate" />
+                    <field name="fuel_hioctane_rate" />
+                    <field name="fuel_cng_rate" />
+                    <field name="fuel_disel_rate" />
                 </tree>
             </field>
         </record>

@@ -10,7 +10,9 @@ class route_management(models.Model):
 	route_time = fields.Float('Time(hours)')
 	route_distance = fields.Float('Distance(km)')
 	route_fuel = fields.Float('Fuel(liters)')
-	route_cost = fields.Float('Cost')
+	route_fuel_cost = fields.Float('Fuel Cost')
+	route_other_cost = fields.Float('Other Cost')
+	route_total_cost = fields.Float('Total Cost')
 	route_description = fields.Text('Description')
 	@api.onchange('route_defination')
 	def route_defination_name_get(self):
@@ -18,5 +20,5 @@ class route_management(models.Model):
 		recs_save_list = []   
 		for i in self.route_defination:
 			recs_save_list.append(i.name)
-		print recs_save_list
-		self.name = ', '.join(recs_save_list)
+		#print recs_save_list
+		self.name = ' --> '.join(recs_save_list)

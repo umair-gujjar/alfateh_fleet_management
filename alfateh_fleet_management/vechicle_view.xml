@@ -11,6 +11,12 @@
                     <field name="average_consumption"/>
 		            <field name="expiry_token"/>
                 </xpath>
+                <xpath expr="//field[@name='color']" position="after">
+                    <field name="capacity"/>
+                </xpath>
+                <xpath expr="//field[@name='car_value']" position="after">
+                    <field name="vehicle_status"/>
+                </xpath>
             </field>
         </record>
     </data>
