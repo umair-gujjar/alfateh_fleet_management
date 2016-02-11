@@ -2,7 +2,6 @@
 import route
 import vechicle
 import trip_management
-import fuel_cards
 import locations
 import inwardpass
 import driver
