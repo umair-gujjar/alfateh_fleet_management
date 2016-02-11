@@ -31,10 +31,11 @@ class inwardpass(osv.Model):
 	'out_remarks' : fields.text('Remarks'),
 	'go_seal' : fields.char('Seal'),
 	'trip_management_field': fields.many2one('trip.management','Trip'),
+	'gp_odoo_meter': fields.float("Odoo Meter"),
     'state' : fields.selection([
-            ('vehicle_enter', 'Start Vehicle'),
-            ('vehicle_process', 'Vehicle Running'),
-            ('vehicle_exit', 'Stop Vehicle'),
+            ('vehicle_enter', 'Gate Out'),
+            ('vehicle_process', 'Gate In'),
+            ('vehicle_exit', 'Validate'),
             ],default='vehicle_enter')
 	}
 
@@ -56,8 +57,7 @@ class inwardpass(osv.Model):
 	_defaults = {
 				'gin': lambda obj, cr, uid, context: '/',
 				'out_gon': lambda obj, cr, uid, context: '/',
-	 }
-					
+	 }		
 
 class inward(osv.Model):
     _name = 'inward'
@@ -103,10 +103,11 @@ class inwardshop(osv.Model):
 	'gi_seal' : fields.char('Seal'),
 	'go_seal' : fields.char('Seal'),
 	'trip_management_field': fields.many2one('trip.management','Trip'),
+	'gp_odoo_meter': fields.float("Odoo Meter"),
     'state' : fields.selection([
-            ('vehicle_enter', 'Start Vehicle'),
-            ('vehicle_process', 'Vehicle Running'),
-            ('vehicle_exit', 'Stop Vehicle'),
+            ('vehicle_enter', 'Gate Out'),
+            ('vehicle_process', 'Gate In'),
+            ('vehicle_exit', 'Validate'),
             ],default='vehicle_enter')
 	}
 	def on_change_vehicle(self, cr, uid, ids, fleet_vehicle_id, context=None):
@@ -180,11 +181,12 @@ class inwardgen(osv.Model):
 	'gi_seal' : fields.char('Seal'),
 	'go_seal' : fields.char('Seal'),
 	'trip_management_field': fields.many2one('trip.management','Trip'),
+	'gp_odoo_meter': fields.float("Odoo Meter"),
 
     'state' : fields.selection([
-            ('vehicle_enter', 'Start Vehicle'),
-            ('vehicle_process', 'Vehicle Running'),
-            ('vehicle_exit', 'Stop Vehicle'),
+            ('vehicle_enter', 'Gate Out'),
+            ('vehicle_process', 'Gate In'),
+            ('vehicle_exit', 'Validate'),
             ],default='vehicle_enter')
 	}
 
@@ -251,11 +253,12 @@ class inwardret(osv.Model):
 	'gi_seal' : fields.char('Seal'),
 	'go_seal' : fields.char('Seal'),
 	'trip_management_field': fields.many2one('trip.management','Trip'),
+	'gp_odoo_meter': fields.float("Odoo Meter"),
 
     'state' : fields.selection([
-            ('vehicle_enter', 'Start Vehicle'),
-            ('vehicle_process', 'Vehicle Running'),
-            ('vehicle_exit', 'Stop Vehicle'),
+            ('vehicle_enter', 'Gate Out'),
+            ('vehicle_process', 'Gate In'),
+            ('vehicle_exit', 'Validate'),
             ],default='vehicle_enter')
 	}
 
@@ -307,3 +310,31 @@ class fleet_vehicle(osv.Model):
 
 class stock_warehouse(osv.Model):
 	_inherit="stock.location"
+
+
+#new api code for gate pass
+from openerp import models, fields, api
+class gate_pass_inwardpass_inherit(models.Model):
+	_inherit = 'inwardpass'
+	@api.onchange('trip_management_field')
+	def onchange_trip_field(self):
+		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
+
+class gate_pass_inwardshop_inherit(models.Model):
+	_inherit = 'inwardshop'
+	@api.onchange('trip_management_field')
+	def onchange_trip_field(self):
+		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
+
+class gate_pass_inwardgen_inherit(models.Model):
+	_inherit = 'inwardgen'
+	@api.onchange('trip_management_field')
+	def onchange_trip_field(self):
+		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
+
+
+class gate_pass_inwardret_inherit(models.Model):
+	_inherit = 'inwardret'
+	@api.onchange('trip_management_field')
+	def onchange_trip_field(self):
+		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer

@@ -12,12 +12,12 @@
                     <sheet>
                          <div class="oe_title">
                             <h1>
-                                <field name="name" attrs="{'invisible': [('name','=','/')]}"/>
+                                <field name="name"/>
                             </h1>
                         </div>
                         <group name="group_top">
                             <group name="group_left">
-
+                                <field name="date"/>
                                 <field name="vehicle"/>
                                 <field name="projected_trip_time" widget="float_time" sum="Total Hours"/>
                                 <field name="projected_trip_fuel"/>
