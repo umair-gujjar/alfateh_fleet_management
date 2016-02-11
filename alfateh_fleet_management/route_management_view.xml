@@ -9,7 +9,7 @@
                 
                 <form string="Route Management">
                     <sheet>
-                        <field name="name" />
+                        <field name="name"/>
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="route_defination" widget="many2many_tags"/>
@@ -46,7 +46,7 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Route Management">
-                    <field name="route_defination"/>
+                    <field name="name"/>
                     <field name="route_time" widget="float_time" sum="Total Hours"/>
                     <field name="route_distance" />
                     <field name="route_fuel" />
