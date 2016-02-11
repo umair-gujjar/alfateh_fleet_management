@@ -1,4 +1,7 @@
 from openerp import models, fields, api
+import datetime
+from datetime import date, datetime
+import time
 
 class alfateh_fleet_management(models.Model):
 	_inherit = 'fleet.vehicle'
@@ -12,7 +15,7 @@ class alfateh_fleet_management(models.Model):
 
 class alfateh_vehicle_cost(models.Model):
 	_inherit = 'fleet.vehicle.cost'
-	trip = fields.Many2one('res.partner', string="Trip", domain="[('is_company','=',True)]")
+	vehicle_trip = fields.Many2one('trip.management', string="Trip")
 	
 
 
