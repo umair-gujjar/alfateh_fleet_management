@@ -11,6 +11,25 @@
                     <field name="average_consumption"/>
 		            <field name="expiry_token"/>
                 </xpath>
+                <xpath expr="//field[@name='color']" position="after">
+                    <field name="capacity"/>
+                </xpath>
+                <xpath expr="//field[@name='car_value']" position="after">
+                    <field name="vehicle_status"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="fleet_mang_custom_cost_view_form" model="ir.ui.view">
+            <field name="name">fleet_mang_custom_cost_view_form</field>
+            <field name="model">fleet.vehicle.cost</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_costs_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='parent_id']" position="after">
+                    <field name="vehicle_trip"/>
+                </xpath>
+                
             </field>
         </record>
     </data>

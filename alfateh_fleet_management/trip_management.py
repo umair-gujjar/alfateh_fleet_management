@@ -38,8 +38,8 @@ class trip_management(models.Model):
 		self.route_distance = self.route.route_distance
 		self.projected_trip_time = self.route.route_time
 		self.projected_trip_fuel = self.route.route_fuel
-		self.projected_trip_cost = self.route.route_cost
+		self.projected_trip_cost = self.route.route_total_cost
+
 		if self.route.name:
 			self.name = self.date+" "+ self.route.name
-
 
