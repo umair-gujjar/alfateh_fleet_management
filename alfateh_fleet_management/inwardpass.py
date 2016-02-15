@@ -330,7 +330,8 @@ class gate_pass_inwardpass_inherit(models.Model):
 		check_odometer = self.gpi_odoo_meter
 		check_vehicle_id = self.trip_management_field.vehicle.id
 		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
-		self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
+		if self.trip_management_field:
+			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
 		return result
 
 class gate_pass_inwardshop_inherit(models.Model):
