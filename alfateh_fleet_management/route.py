@@ -5,8 +5,8 @@ from openerp import models, fields, api
 class route_management(models.Model):
 	_name = 'route.management'
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
-	name = fields.Char('Name' ,readonly= True)
-	route_defination = fields.Many2many('route.locations',string='Route Defination')
+	name = fields.Char('Name')
+	route_defination = fields.Many2one('route.locations',string='Route Defination')
 	route_time = fields.Float('Time(hours)')
 	route_distance = fields.Float('Distance(km)')
 	route_fuel = fields.Float('Fuel(liters)')
@@ -23,9 +23,7 @@ class route_management(models.Model):
 
 	@api.onchange('route_defination')
 	def route_defination_name_get(self):
-		let_say_name = self.name
-		recs_save_list = []   
-		for i in self.route_defination:
-			recs_save_list.append(i.name)
-		#print recs_save_list
-		self.name = ' --> '.join(recs_save_list)
+		if self.name and self.route_defination:
+			self.name = self.name+' --> '+ self.route_defination.name
+		else:
+			self.name = self.route_defination.name
