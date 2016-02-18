@@ -6,10 +6,10 @@ class inwardpass(osv.Model):
 	_columns= {
 	'name': fields.char('Name',readonly=True),
 	'date' : fields.date('Date', ),
-	'document_type' : fields.boolean('LC or PO'),
+	#'document_type' : fields.boolean('LC or PO'),
 	'invoice_ref' : fields.char('Invoice Ref #', size=32),
 	'gin' : fields.char('GIN #',size=32 ),
-	'lc' : fields.char('LC Ref.#/PO #',size=32),
+	#'lc' : fields.char('LC Ref.#/PO #',size=32),
 	'bilty' : fields.char('Bilty ',size=32),
 	'time_out' : fields.datetime('Time Out', ),
 	'vehicle' : fields.char('Vehicle',size=32),
@@ -18,7 +18,9 @@ class inwardpass(osv.Model):
 	'supplier_details': fields.many2one('res.partner','Supplier Details'),
 	'inward_id' : fields.one2many('inward','inwardpass_id',string='Details'),
 	'remarks' : fields.text('Remarks'),
-	'gi_seal': fields.char('Seal'),
+	'gi_seal': fields.char('Seal In'),
+	'go_seal': fields.char('Seal Out'),
+	'vehicle_num' : fields.char('Vehicle Number',size=32),
 
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
@@ -26,28 +28,23 @@ class inwardpass(osv.Model):
 	'out_sron' : fields.char('SRON Ref.',size=32),
 	'out_time_out' : fields.datetime('Time Out', ),
 	'out_vehicle' : fields.char('Vehicle',size=32),
-	'out_vehicle_type' : fields.char('Vehicle Type',size=32),
 	'out_supplier_details': fields.many2one('res.partner','Supplier Details'),
 	'out_remarks' : fields.text('Remarks'),
-	'go_seal' : fields.char('Seal'),
 	'trip_management_field': fields.many2one('trip.management','Trip'),
-	'gp_odoo_meter': fields.float("Odoo Meter"),
+	'gp_odoo_meter': fields.float("Odoo Meter Exit"),
+	'gpi_odoo_meter': fields.float("Odoo Meter Enterance"),
+	'lc_pc' : fields.selection([
+            ('lc', 'LC'),
+            ('pc', 'PC'),
+            ],default='', string="LC or PO"),
     'state' : fields.selection([
-            ('vehicle_enter', 'Gate Out'),
-            ('vehicle_process', 'Gate In'),
+            ('vehicle_enter', 'Gate In'),
+            ('vehicle_process', 'Gate Out'),
             ('vehicle_exit', 'Validate'),
             ],default='vehicle_enter')
 	}
 
-	def vehicle_enter(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_enter'}, context=context)
-		return res
-	def vehicle_process(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_process'}, context=context)
-		return res
-	def vehicle_exit(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_exit'}, context=context)
-		return res
+
 	def create(self, cr, uid, vals, context=None):
 		sequence=self.pool.get('ir.sequence').get(cr, uid, 'inwardpass')
 		vals['name']=sequence
@@ -100,37 +97,30 @@ class inwardshop(osv.Model):
 	'out_show_reference': fields.boolean('Want to put reference ?'),
 	'out_reference_field': fields.char('Reference', size=64),
 	'out_remarks' : fields.text('Remarks'),
-	'gi_seal' : fields.char('Seal'),
-	'go_seal' : fields.char('Seal'),
+	'gi_seal' : fields.char('Seal In'),
+	'go_seal' : fields.char('Seal Out'),
 	'trip_management_field': fields.many2one('trip.management','Trip'),
-	'gp_odoo_meter': fields.float("Odoo Meter"),
+	'gp_odoo_meter': fields.float("Odoo Meter Exit"),
+	'gpi_odoo_meter': fields.float("Odoo Meter Enterance"),
     'state' : fields.selection([
             ('vehicle_enter', 'Gate Out'),
             ('vehicle_process', 'Gate In'),
             ('vehicle_exit', 'Validate'),
             ],default='vehicle_enter')
 	}
-	def on_change_vehicle(self, cr, uid, ids, fleet_vehicle_id, context=None):
-		if not fleet_vehicle_id:
-			return {}
-		vehicle = self.pool.get('fleet.vehicle').browse(cr, uid, fleet_vehicle_id, context=context)
-		drive = vehicle.driver_id.id
-		print drive
-		return {
-					'value': {
-					'driver': drive,
-				}
-				}
+#	def on_change_vehicle(self, cr, uid, ids, out_fleet_vehicle_id, context=None):
+#		if not out_fleet_vehicle_id:
+#			return {}
+#		vehicle = self.pool.get('fleet.vehicle').browse(cr, uid, out_fleet_vehicle_id, context=context)
+#		drive = vehicle.driver_id.id
+#		print drive
+#		return {
+#					'value': {
+#					'driver': drive,
+#				}
+#				}
 
-	def vehicle_enter(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_enter'}, context=context)
-		return res
-	def vehicle_process(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_process'}, context=context)
-		return res
-	def vehicle_exit(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_exit'}, context=context)
-		return res
+
 	def create(self, cr, uid, vals, context=None):
 		sequence=self.pool.get('ir.sequence').get(cr, uid, 'inwardshop')
 		vals['name']=sequence
@@ -178,10 +168,11 @@ class inwardgen(osv.Model):
 	'out_vehicle' : fields.char('Vehicle',size=32),
 	'out_vehicle_type' : fields.char('Vehicle Type',size=32),
 	'out_remarks' : fields.text('Remarks'),
-	'gi_seal' : fields.char('Seal'),
-	'go_seal' : fields.char('Seal'),
+	'gi_seal' : fields.char('Seal In'),
+	'go_seal' : fields.char('Seal Out'),
 	'trip_management_field': fields.many2one('trip.management','Trip'),
-	'gp_odoo_meter': fields.float("Odoo Meter"),
+	'gp_odoo_meter': fields.float("Odoo Meter Exit"),
+	'gpi_odoo_meter': fields.float("Odoo Meter Enterance"),
 
     'state' : fields.selection([
             ('vehicle_enter', 'Gate Out'),
@@ -190,15 +181,6 @@ class inwardgen(osv.Model):
             ],default='vehicle_enter')
 	}
 
-	def vehicle_enter(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_enter'}, context=context)
-		return res
-	def vehicle_process(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_process'}, context=context)
-		return res
-	def vehicle_exit(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_exit'}, context=context)
-		return res
 	def create(self, cr, uid, vals, context=None):
 		sequence=self.pool.get('ir.sequence').get(cr, uid, 'inwardgen')
 		vals['name']=sequence
@@ -250,10 +232,11 @@ class inwardret(osv.Model):
 	'out_vehicle_type' : fields.char('Vehicle Type',size=32),
 	'out_stock_location_id' : fields.many2one('stock.location','Dept'),
 	'out_remarks' : fields.text('Remarks'),
-	'gi_seal' : fields.char('Seal'),
-	'go_seal' : fields.char('Seal'),
+	'gi_seal' : fields.char('Seal In'),
+	'go_seal' : fields.char('Seal Out'),
 	'trip_management_field': fields.many2one('trip.management','Trip'),
-	'gp_odoo_meter': fields.float("Odoo Meter"),
+	'gp_odoo_meter': fields.float("Odoo Meter Exit"),
+	'gpi_odoo_meter': fields.float("Odoo Meter Enterance"),
 
     'state' : fields.selection([
             ('vehicle_enter', 'Gate Out'),
@@ -262,16 +245,6 @@ class inwardret(osv.Model):
             ],default='vehicle_enter')
 	}
 
-
-	def vehicle_enter(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_enter'}, context=context)
-		return res
-	def vehicle_process(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_process'}, context=context)
-		return res
-	def vehicle_exit(self, cr, uid, ids, context=None):
-		res = self.write(cr, uid, ids, {'state': 'vehicle_exit'}, context=context)
-		return res
 	def create(self, cr, uid, vals, context=None):
 		sequence=self.pool.get('ir.sequence').get(cr, uid, 'inwardret')
 		vals['name']=sequence
@@ -316,25 +289,145 @@ class stock_warehouse(osv.Model):
 from openerp import models, fields, api
 class gate_pass_inwardpass_inherit(models.Model):
 	_inherit = 'inwardpass'
+	@api.one
+	def vehicle_enter(self):
+		self.write({'state': 'vehicle_enter'})
+	@api.one
+	def vehicle_process(self):
+		self.write({'state': 'vehicle_process'})
+	@api.one
+	def vehicle_exit(self):
+		self.write({'state': 'vehicle_exit'})
+		if self.time_in and self.time_out and self.trip_management_field:
+			datetime_in = self.time_in
+			datetime_out = self.time_out
+ 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 			timedelta = dt_e_obj - dt_s_obj
+ 			sec = timedelta.seconds
+ 			float_hours = sec/3600.0
+			self.trip_management_field.actual_trip_time = float_hours
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
+		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
+	@api.multi
+	def write(self, values):
+		result = super(gate_pass_inwardpass_inherit, self).write(values)
+		check_odometer = self.gpi_odoo_meter
+		check_vehicle_id = self.trip_management_field.vehicle.id
+		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
+		if self.trip_management_field:
+			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
+		return result
+
 
 class gate_pass_inwardshop_inherit(models.Model):
 	_inherit = 'inwardshop'
+	@api.one
+	def vehicle_enter(self):
+		self.write({'state': 'vehicle_enter'})
+	@api.one
+	def vehicle_process(self):
+		self.write({'state': 'vehicle_process'})
+	@api.one
+	def vehicle_exit(self):
+		self.write({'state': 'vehicle_exit'})
+		if self.time_in and self.time_out and self.trip_management_field:
+			datetime_in = self.time_in
+			datetime_out = self.time_out
+ 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 			timedelta = dt_e_obj - dt_s_obj
+ 			sec = timedelta.seconds
+ 			float_hours = sec/3600.0
+			self.trip_management_field.actual_trip_time = float_hours
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
+		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
+	@api.multi
+	def write(self, values):
+		result = super(gate_pass_inwardshop_inherit, self).write(values)
+		check_odometer = self.gpi_odoo_meter
+		check_vehicle_id = self.trip_management_field.vehicle.id
+		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
+		if self.trip_management_field:
+			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
+		return result
+	@api.onchange('out_fleet_vehicle_id')
+	def on_change_vehicle(self):
+		if self.out_fleet_vehicle_id:
+			self.out_driver = self.out_fleet_vehicle_id.driver_id
+
+
+
+
 
 class gate_pass_inwardgen_inherit(models.Model):
 	_inherit = 'inwardgen'
+	@api.one
+	def vehicle_enter(self):
+		self.write({'state': 'vehicle_enter'})
+	@api.one
+	def vehicle_process(self):
+		self.write({'state': 'vehicle_process'})
+	@api.one
+	def vehicle_exit(self):
+		self.write({'state': 'vehicle_exit'})
+		if self.time_in and self.time_out and self.trip_management_field:
+			datetime_in = self.time_in
+			datetime_out = self.time_out
+ 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 			timedelta = dt_e_obj - dt_s_obj
+ 			sec = timedelta.seconds
+ 			float_hours = sec/3600.0
+			self.trip_management_field.actual_trip_time = float_hours
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
-
+		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
+	@api.multi
+	def write(self, values):
+		result = super(gate_pass_inwardgen_inherit, self).write(values)
+		check_odometer = self.gpi_odoo_meter
+		check_vehicle_id = self.trip_management_field.vehicle.id
+		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
+		if self.trip_management_field:
+			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
+		return result
 
 class gate_pass_inwardret_inherit(models.Model):
 	_inherit = 'inwardret'
+	@api.one
+	def vehicle_enter(self):
+		self.write({'state': 'vehicle_enter'})
+	@api.one
+	def vehicle_process(self):
+		self.write({'state': 'vehicle_process'})
+	@api.one
+	def vehicle_exit(self):
+		self.write({'state': 'vehicle_exit'})
+		if self.time_in and self.time_out and self.trip_management_field:
+			datetime_in = self.time_in
+			datetime_out = self.time_out
+ 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 			timedelta = dt_e_obj - dt_s_obj
+ 			sec = timedelta.seconds
+ 			float_hours = sec/3600.0
+			self.trip_management_field.actual_trip_time = float_hours
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
+		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
+	@api.multi
+	def write(self, values):
+		result = super(gate_pass_inwardret_inherit, self).write(values)
+		check_odometer = self.gpi_odoo_meter
+		check_vehicle_id = self.trip_management_field.vehicle.id
+		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
+		if self.trip_management_field:
+			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
+		return result

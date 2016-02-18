@@ -12,7 +12,7 @@
                         <field name="name"/>
                         <group name="group_top">
                             <group name="group_left">
-                                <field name="route_defination" widget="many2many_tags"/>
+                                <field name="route_defination" widget="selection"/>
                                 <field name="route_time" widget="float_time" sum="Total Hours"/>
                                 <field name="route_fuel_cost"/>
                                 <field name="route_total_cost"/>

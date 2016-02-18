@@ -25,6 +25,11 @@ class trip_management(models.Model):
 	actual_trip_fuel_cost = fields.Float('Actual Fuel Cost')
 	actual_trip_other_cost = fields.Float('Actual Other Cost ')
 	actual_trip_cost = fields.Float('Actual Total Cost ')
+	variance_trip_time = fields.Float('variance Time')
+	variance_trip_fuel = fields.Float('variance Fuel')
+	variance_trip_fuel_cost = fields.Float('variance Fuel Cost')
+	variance_trip_other_cost = fields.Float('variance Other Cost ')
+	variance_trip_cost = fields.Float('variance Total Cost ')
 	trip_description = fields.Text('Description')
 	_defaults = {
     'date': datetime.now(),
@@ -48,20 +53,24 @@ class trip_management(models.Model):
 			if self.route.name:
 				self.name = self.date+" "+ self.route.name
 
-	#def act_show_log_cost(self):
-		#res = self.env['ir.actions.act_window'].for_xml_id('fleet','fleet_vehicle_costs_act')
-		#res['domain'] = [('vehicle_id','=', ids[0])]
-		#return res		
 
-	@api.multi
-	def act_show_log_cost(self):
-		vehicle_id = self.vehicle
-		return {
-		'type': 'ir.actions.act_window',
-		'name': 'fleet.fleet_vehicle_costs_form',
-		'res_model': 'fleet.vehicle.cost',
-		'view_type': 'form',
-		'view_mode': 'form',
-		'target' : 'new',
-		'context': context,
-		}		
+	@api.onchange('actual_trip_fuel_cost','actual_trip_other_cost')
+	def onchange_atfc_atoc_field(self):
+		if self.actual_trip_fuel_cost or self.actual_trip_other_cost:
+			self.actual_trip_cost = self.actual_trip_fuel_cost + self.actual_trip_other_cost
+
+	@api.onchange('projected_trip_time','actual_trip_time','projected_trip_fuel','actual_trip_fuel','projected_trip_fuel_cost','actual_trip_fuel_cost'
+		,'projected_trip_other_cost','actual_trip_other_cost','projected_trip_cost','actual_trip_cost')
+	def onchange_variance_field(self):
+		if self.projected_trip_time or self.actual_trip_time or self.projected_trip_fuel or self.actual_trip_fuel or self.projected_trip_fuel_cost or self.actual_trip_fuel_cost or self.projected_trip_other_cost or self.actual_trip_other_cost or self.projected_trip_cost or self.actual_trip_cost:
+
+			self.variance_trip_time =  self.actual_trip_time - self.projected_trip_time
+
+			self.variance_trip_fuel =  self.actual_trip_fuel - self.projected_trip_fuel
+
+			self.variance_trip_fuel_cost =  self.actual_trip_fuel_cost - self.projected_trip_fuel_cost
+
+			self.variance_trip_other_cost =  self.actual_trip_other_cost - self.projected_trip_other_cost
+
+			self.variance_trip_cost =  self.actual_trip_cost - self.projected_trip_cost
+>>>>>>> 2928bee8f9b6065c0e293b05017e5c2ca4950cc0
