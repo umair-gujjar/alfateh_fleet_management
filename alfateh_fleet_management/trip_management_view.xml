@@ -16,12 +16,12 @@
                             </h1>
                         </div>
                         <div class="oe_right oe_button_box">
-                            <button name="act_show_log_cost"
+                            <button name="act_show_log_cost_trip" 
                                 type="object" 
                                 class="oe_stat_button" 
                                 icon="fa-usd" 
-                                help="show all the costs for this vehicle" 
-                                groups="fleet.group_fleet_manager" >
+                                help="show all the costs for this vehicle">
+                               <field name="cost_count" widget="statinfo" string="Costs"/>
                             </button>
                         </div>    
                         <group name="group_top">

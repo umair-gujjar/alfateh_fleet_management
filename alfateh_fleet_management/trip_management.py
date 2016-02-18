@@ -31,6 +31,8 @@ class trip_management(models.Model):
 	variance_trip_other_cost = fields.Float('variance Other Cost ')
 	variance_trip_cost = fields.Float('variance Total Cost ')
 	trip_description = fields.Text('Description')
+	cost_count = fields.Integer(string="Costs",compute='compute_user_todo_count')
+
 	_defaults = {
     'date': datetime.now(),
     }
@@ -38,8 +40,25 @@ class trip_management(models.Model):
 	#	sequence=self.pool.get('ir.sequence').get(cr, uid, 'trip.management')
 	#	vals['seq']=sequence
 	#	return super(trip_management, self).create(cr, uid, vals, context=context)
-	
-	
+	@api.one
+	def compute_user_todo_count(self):
+		Cost = self.env['fleet.vehicle.cost']
+		self.cost_count = Cost.search_count([('vehicle_id', '=', self.vehicle.id), ('parent_id', '=', False)])
+	def act_show_log_cost_trip(self, cr, uid, ids, context=None):
+		if context is None:
+			context = {}
+		current_trip = self.pool.get('trip.management').browse(cr, uid, ids[0], context)
+		res = self.pool.get('ir.actions.act_window').for_xml_id(cr, uid ,'fleet','fleet_vehicle_costs_act', context=context)
+		res['context'] = context
+		res['context'].update({
+			'default_vehicle_id': current_trip.vehicle.id,
+			'search_default_parent_false': True,
+			'default_date': current_trip.date,
+			'default_vehicle_trip': current_trip.id
+		})
+		res['domain'] = [('vehicle_id','=', current_trip.vehicle.id)]
+		return res
+
 	@api.onchange('route','vehicle')
 	def onchange_route_field(self):
 		#check_vehcile = self.env['trip.management'].search([])
@@ -73,3 +92,4 @@ class trip_management(models.Model):
 			self.variance_trip_other_cost =  self.actual_trip_other_cost - self.projected_trip_other_cost
 
 			self.variance_trip_cost =  self.actual_trip_cost - self.projected_trip_cost
+
