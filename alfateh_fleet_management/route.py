@@ -5,11 +5,11 @@ from openerp import models, fields, api
 class route_management(models.Model):
 	_name = 'route.management'
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
-	name = fields.Char('Name' ,readonly= True)
+	name = fields.Char('Name')
 	route_defination = fields.Many2many('route.locations',string='Route Defination')
 	route_time = fields.Float('Time(hours)')
 	route_distance = fields.Float('Distance(km)')
-	route_fuel = fields.Float('Fuel(liters)')
+	#route_fuel = fields.Float('Fuel(liters)')
 	route_fuel_cost = fields.Float('Fuel Cost')
 	route_other_cost = fields.Float('Other Cost')
 	route_total_cost = fields.Float('Total Cost')

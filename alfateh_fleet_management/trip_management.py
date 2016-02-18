@@ -4,6 +4,7 @@ from openerp import models, fields, api
 import datetime
 from datetime import date, datetime
 import time
+from openerp.exceptions import ValidationError
 # Trip Mangement
 class trip_management(models.Model):
 	_name = 'trip.management'
@@ -11,8 +12,8 @@ class trip_management(models.Model):
 	name = fields.Char('Name')
 	#seq = fields.Char('Seq')
 	date = fields.Date('Date', required=True)
-	vehicle = fields.Many2one('fleet.vehicle','Vehicle')
-	route = fields.Many2one('route.management','Route')
+	vehicle = fields.Many2one('fleet.vehicle','Vehicle',required=True)
+	route = fields.Many2one('route.management','Route',required=True)
 	route_distance = fields.Float('Route Distance')
 	projected_trip_time = fields.Float('Projected Time')
 	projected_trip_fuel = fields.Float('Projected Fuel')
@@ -32,14 +33,35 @@ class trip_management(models.Model):
 	#	sequence=self.pool.get('ir.sequence').get(cr, uid, 'trip.management')
 	#	vals['seq']=sequence
 	#	return super(trip_management, self).create(cr, uid, vals, context=context)
-
-	@api.onchange('route')
+	
+	
+	@api.onchange('route','vehicle')
 	def onchange_route_field(self):
-		self.route_distance = self.route.route_distance
-		self.projected_trip_time = self.route.route_time
-		self.projected_trip_fuel = self.route.route_fuel
-		self.projected_trip_cost = self.route.route_total_cost
+		#check_vehcile = self.env['trip.management'].search([])
+		if self.vehicle:
+			self.route_distance = self.route.route_distance
+			self.projected_trip_time = self.route.route_time
+			if self.vehicle.average_consumption:
+				self.projected_trip_fuel = self.route_distance / self.vehicle.average_consumption 
+			self.projected_trip_cost = self.route.route_total_cost
 
-		if self.route.name:
-			self.name = self.date+" "+ self.route.name
+			if self.route.name:
+				self.name = self.date+" "+ self.route.name
 
+	#def act_show_log_cost(self):
+		#res = self.env['ir.actions.act_window'].for_xml_id('fleet','fleet_vehicle_costs_act')
+		#res['domain'] = [('vehicle_id','=', ids[0])]
+		#return res		
+
+	@api.multi
+	def act_show_log_cost(self):
+		vehicle_id = self.vehicle
+		return {
+		'type': 'ir.actions.act_window',
+		'name': 'fleet.fleet_vehicle_costs_form',
+		'res_model': 'fleet.vehicle.cost',
+		'view_type': 'form',
+		'view_mode': 'form',
+		'target' : 'new',
+		'context': context,
+		}		

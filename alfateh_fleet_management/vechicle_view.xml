@@ -27,7 +27,7 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='parent_id']" position="after">
-                    <field name="vehicle_trip"/>
+                    <field name="vehicle_trip" />
                 </xpath>
                 
             </field>

@@ -20,7 +20,7 @@
                     
                             <group name="group_right">
                                 <field name="route_distance" />
-                                <field name="route_fuel" />
+                                <!--<field name="route_fuel" />-->
                                 <field name="route_other_cost"/>
                             </group>
                         </group>
@@ -49,7 +49,7 @@
                     <field name="name"/>
                     <field name="route_time" widget="float_time" sum="Total Hours"/>
                     <field name="route_distance" />
-                    <field name="route_fuel" />
+                    <!--<field name="route_fuel" />-->
                 </tree>
             </field>
         </record>

@@ -15,6 +15,17 @@
                                 <field name="name"/>
                             </h1>
                         </div>
+                        <div class="oe_right oe_button_box">
+                            <button name="act_show_log_cost" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-usd" 
+                                help="show all the costs for this vehicle" 
+                                groups="fleet.group_fleet_manager">
+                                Cost
+                               <!--<field name="cost_count" widget="statinfo" string="Costs"/>-->
+                            </button>
+                        </div>    
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="date"/>
@@ -25,7 +36,6 @@
                                 <field name="projected_trip_other_cost"/>
                                 <field name="projected_trip_cost"/>
                                 <field name="route_distance"/>
-                        
                             </group>
                     
                             <group name="group_right">
@@ -35,7 +45,6 @@
                                 <field name="actual_trip_fuel_cost"/>
                                 <field name="actual_trip_other_cost"/> 
                                 <field name="actual_trip_cost"/>  
-        
                             </group>
                         </group>
                         <notebook colspan="3">
