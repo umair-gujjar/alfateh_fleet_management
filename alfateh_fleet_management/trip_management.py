@@ -73,30 +73,3 @@ class trip_management(models.Model):
 			self.variance_trip_other_cost =  self.actual_trip_other_cost - self.projected_trip_other_cost
 
 			self.variance_trip_cost =  self.actual_trip_cost - self.projected_trip_cost
-
-	#def act_show_log_cost(self, cr, uid, ids, context=None):
-	#	if context is None:
-	#		context = {}
-	#	res = self.pool.get('ir.actions.act_window').for_xml_id(cr, uid ,'fleet','fleet_vehicle_costs_act', context=context)
-	#	res['context'] = context
-	#	res['context'].update({
-	#		'default_vehicle_id': ids[0],
-	#		'search_default_parent_false': True
-	#		})
-	#	res['domain'] = [('vehicle_id','=', ids[0])]
-	#	return res	
-
-	def act_show_log_cost(self):
-		self.ensure_one()
-		self.name = "New name"
-		return {
-			'context': self.env.context,
-			'view_type': 'form',
-			'view_mode': 'form',
-			'res_model': 'fleet_vehicle_costs_act',
-			'res_id': self.id,
-			'view_id': False,
-			'type': 'ir.actions.act_window',
-			'target': 'new',
-		}
-
