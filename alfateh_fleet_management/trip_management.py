@@ -73,4 +73,4 @@ class trip_management(models.Model):
 			self.variance_trip_other_cost =  self.actual_trip_other_cost - self.projected_trip_other_cost
 
 			self.variance_trip_cost =  self.actual_trip_cost - self.projected_trip_cost
->>>>>>> 2928bee8f9b6065c0e293b05017e5c2ca4950cc0
+
