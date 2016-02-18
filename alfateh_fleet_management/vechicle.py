@@ -16,6 +16,12 @@ class alfateh_fleet_management(models.Model):
 class alfateh_vehicle_cost(models.Model):
 	_inherit = 'fleet.vehicle.cost'
 	vehicle_trip = fields.Many2one('trip.management', string="Trip" ,domain="[('date','=',date)]")
+
+
+class fuel_log(models.Model):
+	_inherit = 'fleet.vehicle.log.fuel'
+	card_name = fields.Many2one('fuelcard.management',string='Card Name')
+	
 	
 
 

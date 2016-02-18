@@ -29,7 +29,18 @@
                 <xpath expr="//field[@name='parent_id']" position="after">
                     <field name="vehicle_trip" />
                 </xpath>
-                
+            </field>
+        </record>
+
+        <record id="fleet_mang_fuel_card_log_view_form" model="ir.ui.view">
+            <field name="name">fleet_mang_fuel_card_log_view_form</field>
+            <field name="model">fleet.vehicle.log.fuel</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_log_fuel_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vehicle_id']" position="after">
+                    <field name="card_name" />
+                </xpath>
             </field>
         </record>
     </data>
