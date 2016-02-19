@@ -7,3 +7,4 @@ import inwardpass
 import driver
 import fuel_rates
 import fuel_cards
+import wizard

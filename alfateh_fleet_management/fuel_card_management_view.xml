@@ -8,6 +8,9 @@
             <field name="arch" type="xml">
                 
                 <form string="Fuel Card Management">
+                    <header>
+                        <button name="recharge" type="object" string="Recharge Liters"/>
+                    </header>
                     <sheet>
                         <!--<h1><field name="card_name" attrs="{'invisible': [('card_name','=','/')]}"/></h1>-->
                          <div class="oe_title">
@@ -16,10 +19,20 @@
                                 <field name="name"/>
                             </h1>
                         </div>
+                        <div class="oe_right oe_button_box">
+                            <button name="act_show_log_recharge_trip" 
+                                type="object" 
+                                class="oe_stat_button" 
+                                icon="fa-usd" 
+                                help="show all the costs for this vehicle">
+                               <field name="recharge_count" widget="statinfo" string="Recharge"/>
+                            </button>
+                        </div>
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="card_company"/>
                                 <field name="card_limit"/>
+                                <field name="card_limit_remaining"/>
                             </group>
                     
                             <group name="group_right">
@@ -33,7 +46,7 @@
                                     <tree>
                                         <field name="consume_id" nolabel="1" >
                                             <tree editable="bottom"  >
-                                                <field name="card_consume_amount" />
+                                                <field name="card_consume_date" />
                                                 <field name="card_consume_liter" />
                                             </tree>    
                                         </field>
@@ -43,8 +56,12 @@
                             <page string="Recharge History">
                                 <group>
                                     <tree>
-                                        <field name="card_recharge_amount" />
-                                        <field name="card_recharge_liter" />
+                                        <field name="recharge_id" nolabel="1" >
+                                            <tree editable="bottom"  >
+                                                <field name="card_recharge_date" />
+                                                <field name="card_recharge_liter" />
+                                            </tree>
+                                        </field>
                                     </tree>    
                                 </group>
                             </page>
@@ -69,8 +86,10 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Fuel Card Management">
+                    <field name="name"/>
                     <field name="card_company"/>
                     <field name="card_limit"/>
+                    <field name="card_limit_remaining"/>
                     <field name="card_issue_data" />
                     <field name="card_expiry_data" />
                 </tree>
@@ -95,7 +114,141 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form,graph</field>
         </record>
+        <!-- view for fuelcard.management end  -->
+
+
+
+
+
+        <!-- Fuel Consume Form View -->
+        <record id="alfateh_fuel_card_consume_view_form" model="ir.ui.view">
+            <field name="name">alfateh_fuel_card_consume_view_form</field>
+            <field name="model">consume</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Fuel Card Consume">
+                    <header>
+                        <button name="push_values" type="object" string="Push Values" />
+                    </header>
+                    <sheet>
+                        <!--<h1><field name="card_name" attrs="{'invisible': [('card_name','=','/')]}"/></h1>-->
+                         <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+ 
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="card_consume_date"/>
+                            </group>
+                    
+                            <group name="group_right">
+                                <field name="card_consume_liter" />
+                                <field name="card_available_liter"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Add Description">
+                            <field name="card_consume_description" nolabel='1' placeholder="Add Description here ...." />
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="alfateh_fuel_card_consume_view_tree" model="ir.ui.view">
+            <field name="name">alfateh_fuel_card_consume_view_tree</field>
+            <field name="model">consume</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Fuel Card Consume">
+                    <field name="name"/>
+                    <field name="card_consume_date"/>
+                    <field name="card_consume_liter"/>
+                    <field name="card_available_liter"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_fuelcard_consume">
+            <field name="name">Fuel Card Consume</field>
+            <field name="res_model">consume</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Fuel Card Consume View End-->
+
+        <!-- Fuel Recharge Form View -->
+        <record id="alfateh_fuel_card_recharge_view_form" model="ir.ui.view">
+            <field name="name">alfateh_fuel_card_recharge_view_form</field>
+            <field name="model">recharge</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Fuel Card Recharge">
+                    <sheet>
+                        <!--<h1><field name="card_name" attrs="{'invisible': [('card_name','=','/')]}"/></h1>-->
+                         <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="card_recharge_date"/>
+                            </group>
+                    
+                            <group name="group_right">
+                                <field name="card_recharge_liter" />
+                            </group>
+                        </group>
+                        
+                        <group string="Add Description">
+                            <field name="card_recharge_description" nolabel='1' placeholder="Add Description here ...." />
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="alfateh_fuel_card_recharge_view_tree" model="ir.ui.view">
+            <field name="name">alfateh_fuel_card_recharge_view_tree</field>
+            <field name="model">recharge</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Fuel Card Recharge">
+                    <field name="name"/>
+                    <field name="card_recharge_date"/>
+                    <field name="card_recharge_liter"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_fuelcard_recharge">
+            <field name="name">Fuel Card Recharge</field>
+            <field name="res_model">recharge</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Fuel Recharge View  End -->
+
         <menuitem name="Fuel Cards" id="menu_fuelcard_mang_root" parent="fleet.menu_root" sequence="2"/>
         <menuitem name="Fuel Card Management" id="menu_fuelcard_mang_child_one" parent="menu_fuelcard_mang_root" action="action_fuelcard_mang" sequence="0"/>
+        <menuitem name="Fuel Card Consume" id="menu_fuelcard_mang_child_two" parent="menu_fuelcard_mang_root" action="action_fuelcard_consume" sequence="1"/>
+        <menuitem name="Fuel Card Recharge" id="menu_fuelcard_mang_child_three" parent="menu_fuelcard_mang_root" action="action_fuelcard_recharge" sequence="2"/>
     </data>
 </openerp>
