@@ -12,11 +12,11 @@
                 
                 <form string="Inwardpass">
                     <header>
-        <button string="Gate In" type="object" name="vehicle_process" attrs="{'invisible': [('state', '!=', 'vehicle_enter')]}"/>
+        <button string="Gate Out" type="object" name="vehicle_process" attrs="{'invisible': [('state', '!=', 'vehicle_enter')]}"/>
         <!--The oe_highlight class gives the button a red color when it is saved.
         It is usually used to indicate the expected behaviour. -->
         <button string="Validate" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
-        <button string="Gate Out" type="object" name="vehicle_enter" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+        <button string="Gate In" type="object" name="vehicle_enter" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
         <!--This will create the statusbar, thanks to the widget. -->
         <field name="state" widget="statusbar"/>
                     </header>
@@ -57,6 +57,7 @@
                                 <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <!--<field name="out_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
+                                <field name="fleet_vehicle_id" />
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 
                                 
@@ -123,6 +124,7 @@
                     <field name="go_seal" />
                     <field name="gi_seal" />
                     <field name="trip_management_field"/> 
+                    <field name="fleet_vehicle_id" />
                     <field name="gp_odoo_meter" />
                     <field name="gpi_odoo_meter"/>
 
@@ -164,8 +166,8 @@
                                 <field name="srin" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="branch" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
 
-                                <field name="out_show_reference" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <field name="out_reference_field" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('out_show_reference', '!=', True)]}"  />
+                                
+                                <field name="out_reference_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"  />
 
                                 <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
@@ -180,7 +182,7 @@
 
                                 <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="out_driver" />
-                                <field name="out_fleet_vehicle_id" />
+                                <field name="fleet_vehicle_id" />
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
@@ -233,13 +235,12 @@
                     <field name="branch"/>
                     <field name="gin" readonly="1"/>
 
-                    <field name="out_show_reference" />
                     <field name="out_reference_field" />
 
                     <field name="out_time_out" />
                     <field name="out_gon" readonly="1"/>
                     <field name="out_driver" />
-                    <field name="out_fleet_vehicle_id" />
+                    <field name="fleet_vehicle_id" />
 
                     <field name="go_seal" />
                     <field name="gi_seal" />
@@ -300,6 +301,7 @@
                                 <field name="out_document_ref" />
                                 <!--<field name="out_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
+                                <field name="fleet_vehicle_id" />
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>                                
         
@@ -354,6 +356,7 @@
                     <field name="go_seal" />
                     <field name="gi_seal" />
                     <field name="trip_management_field" />
+                    <field name="fleet_vehicle_id" />
                     <field name="gp_odoo_meter" />
                     <field name="gpi_odoo_meter"/>
 
@@ -420,6 +423,7 @@
                                 <!--<field name="out_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
                                 <field name="out_stock_location_id" />
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
+                                <field name="fleet_vehicle_id" />
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
 
@@ -487,6 +491,7 @@
                     <field name="go_seal" />
                     <field name="gi_seal" />
                     <field name="trip_management_field" />
+                    <field name="fleet_vehicle_id" />
                     <field name="gp_odoo_meter" />
                     <field name="gpi_odoo_meter"/>
 

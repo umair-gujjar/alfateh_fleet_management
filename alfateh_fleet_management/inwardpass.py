@@ -13,7 +13,7 @@ class inwardpass(osv.Model):
 	'bilty' : fields.char('Bilty ',size=32),
 	'time_out' : fields.datetime('Time Out', ),
 	'vehicle' : fields.char('Vehicle',size=32),
-	'time_in' : fields.datetime('Time In', ),
+	'time_in' : fields.datetime('Time In',  ),
 	'vehicle_type' : fields.char('Vehicle Type',size=32),
 	'supplier_details': fields.many2one('res.partner','Supplier Details'),
 	'inward_id' : fields.one2many('inward','inwardpass_id',string='Details'),
@@ -21,12 +21,13 @@ class inwardpass(osv.Model):
 	'gi_seal': fields.char('Seal In'),
 	'go_seal': fields.char('Seal Out'),
 	'vehicle_num' : fields.char('Vehicle Number',size=32),
+	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle Registration'),
 
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
-	'out_gon' : fields.char('GON #',size=32 ),
+	'out_gon' : fields.char('GON #',),
 	'out_sron' : fields.char('SRON Ref.',size=32),
-	'out_time_out' : fields.datetime('Time Out', ),
+	'out_time_out' : fields.datetime('Time Out',),
 	'out_vehicle' : fields.char('Vehicle',size=32),
 	'out_supplier_details': fields.many2one('res.partner','Supplier Details'),
 	'out_remarks' : fields.text('Remarks'),
@@ -54,6 +55,12 @@ class inwardpass(osv.Model):
 	_defaults = {
 				'gin': lambda obj, cr, uid, context: '/',
 				'out_gon': lambda obj, cr, uid, context: '/',
+
+				'time_out': lambda obj, cr, uid, context: datetime.now(),
+				'time_in': lambda obj, cr, uid, context: datetime.now(),
+				'out_date': lambda obj, cr, uid, context: datetime.now(),
+				'out_time_out': lambda obj, cr, uid, context: datetime.now(),
+				'date': lambda obj, cr, uid, context: datetime.now(),
 	 }		
 
 class inward(osv.Model):
@@ -94,7 +101,7 @@ class inwardshop(osv.Model):
 	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','=',True),('employee','=',True)]"),
 	'out_vehicle_type' : fields.char('Vehicle Type',size=32),
 	'out_fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle Registration'),
-	'out_show_reference': fields.boolean('Want to put reference ?'),
+	#'out_show_reference': fields.boolean('Want to put reference ?'),
 	'out_reference_field': fields.char('Reference', size=64),
 	'out_remarks' : fields.text('Remarks'),
 	'gi_seal' : fields.char('Seal In'),
@@ -130,6 +137,12 @@ class inwardshop(osv.Model):
 	_defaults = {
 				'gin': lambda obj, cr, uid, context: '/',
 				'out_gon': lambda obj, cr, uid, context: '/',
+
+				#'time_out': lambda obj, cr, uid, context: datetime.now(),
+				'time_in': lambda obj, cr, uid, context: datetime.now(),
+				'out_date': lambda obj, cr, uid, context: datetime.now(),
+				'out_time_out': lambda obj, cr, uid, context: datetime.now(),
+				'date': lambda obj, cr, uid, context: datetime.now(),
 				 }
 
 
@@ -160,6 +173,7 @@ class inwardgen(osv.Model):
 	'vehicle_type' : fields.char('Vehicle Type',size=32),
 	'ingen_id' : fields.one2many('ingen','inwardgen_id',string='Details'),
 	'remarks' : fields.text('Remarks'),
+	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle Registration'),
 
 	'out_date' : fields.date('Date',),
 	'out_gon' : fields.char('GON #',size=32 ),
@@ -190,6 +204,12 @@ class inwardgen(osv.Model):
 	_defaults = {
 				'gin': lambda obj, cr, uid, context: '/',
 				'out_gon': lambda obj, cr, uid, context: '/',
+
+				#'time_out': lambda obj, cr, uid, context: datetime.now(),
+				'time_in': lambda obj, cr, uid, context: datetime.now(),
+				'out_date': lambda obj, cr, uid, context: datetime.now(),
+				'out_time_out': lambda obj, cr, uid, context: datetime.now(),
+				'date': lambda obj, cr, uid, context: datetime.now(),
 				 }
 
 class ingen(osv.Model):
@@ -220,6 +240,7 @@ class inwardret(osv.Model):
 	'inret_id' : fields.one2many('inret','inwardret_id',string='Details'),
 	'stock_location_id' : fields.many2one('stock.location','Dept'),
 	'remarks' : fields.text('Remarks'),
+	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle Registration'),
 
 	'out_dept': fields.char('Department/Section', size=32),
 	'out_date_out' : fields.date('Date Out', ),
@@ -228,7 +249,7 @@ class inwardret(osv.Model):
 	'out_document_ref' : fields.char('Document Ref #',size=32),
 	'out_time_out' : fields.datetime('Time Out',),
 	'out_vehicle' : fields.char('Vehicle',size=32),
-	'out_time_in' : fields.datetime('Time In', ),
+	'out_time_in' : fields.datetime('Time In',),
 	'out_vehicle_type' : fields.char('Vehicle Type',size=32),
 	'out_stock_location_id' : fields.many2one('stock.location','Dept'),
 	'out_remarks' : fields.text('Remarks'),
@@ -254,6 +275,14 @@ class inwardret(osv.Model):
 	_defaults = {
 	'gin': lambda obj, cr, uid, context: '/',
 	'out_gon': lambda obj, cr, uid, context: '/',
+	'time_out': lambda obj, cr, uid, context: datetime.now(),
+	'time_in': lambda obj, cr, uid, context: datetime.now(),
+	'date_out': lambda obj, cr, uid, context: datetime.now(),
+	'date_in': lambda obj, cr, uid, context: datetime.now(),
+	'out_date_in': lambda obj, cr, uid, context: datetime.now(),
+	'out_date_out': lambda obj, cr, uid, context: datetime.now(),
+	'out_time_out': lambda obj, cr, uid, context: datetime.now(),
+	'out_time_in': lambda obj, cr, uid, context: datetime.now(),
 	 }
 
 class inret(osv.Model):
@@ -298,7 +327,7 @@ class gate_pass_inwardpass_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.time_in and self.time_out and self.trip_management_field:
+		if self.trip_management_field:
 			datetime_in = self.time_in
 			datetime_out = self.time_out
  			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
@@ -307,8 +336,13 @@ class gate_pass_inwardpass_inherit(models.Model):
  			sec = timedelta.seconds
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = float_hours
+	@api.onchange('fleet_vehicle_id')
+	def on_change_vehicle(self):
+		self.gp_odoo_meter = self.fleet_vehicle_id.odometer
+		self.gpi_odoo_meter = self.fleet_vehicle_id.odometer			
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
+		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
 	@api.multi
@@ -333,7 +367,7 @@ class gate_pass_inwardshop_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.time_in and self.time_out and self.trip_management_field:
+		if self.trip_management_field:
 			datetime_in = self.time_in
 			datetime_out = self.time_out
  			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
@@ -342,8 +376,16 @@ class gate_pass_inwardshop_inherit(models.Model):
  			sec = timedelta.seconds
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = float_hours
+	@api.onchange('fleet_vehicle_id')
+	def on_change_vehicle(self):
+		self.gp_odoo_meter = self.fleet_vehicle_id.odometer
+		self.gpi_odoo_meter = self.fleet_vehicle_id.odometer
+		if self.fleet_vehicle_id:
+			self.out_driver = self.fleet_vehicle_id.driver_id
+
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
+		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
 	@api.multi
@@ -355,10 +397,6 @@ class gate_pass_inwardshop_inherit(models.Model):
 		if self.trip_management_field:
 			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
 		return result
-	@api.onchange('out_fleet_vehicle_id')
-	def on_change_vehicle(self):
-		if self.out_fleet_vehicle_id:
-			self.out_driver = self.out_fleet_vehicle_id.driver_id
 
 
 
@@ -375,7 +413,7 @@ class gate_pass_inwardgen_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.time_in and self.time_out and self.trip_management_field:
+		if self.trip_management_field:
 			datetime_in = self.time_in
 			datetime_out = self.time_out
  			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
@@ -384,8 +422,13 @@ class gate_pass_inwardgen_inherit(models.Model):
  			sec = timedelta.seconds
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = float_hours
+	@api.onchange('fleet_vehicle_id')
+	def on_change_vehicle(self):
+		self.gp_odoo_meter = self.fleet_vehicle_id.odometer
+		self.gpi_odoo_meter = self.fleet_vehicle_id.odometer			
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
+		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
 	@api.multi
@@ -409,7 +452,7 @@ class gate_pass_inwardret_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.time_in and self.time_out and self.trip_management_field:
+		if self.trip_management_field:
 			datetime_in = self.time_in
 			datetime_out = self.time_out
  			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
@@ -418,8 +461,13 @@ class gate_pass_inwardret_inherit(models.Model):
  			sec = timedelta.seconds
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = float_hours
+	@api.onchange('fleet_vehicle_id')
+	def on_change_vehicle(self):
+		self.gp_odoo_meter = self.fleet_vehicle_id.odometer
+		self.gpi_odoo_meter = self.fleet_vehicle_id.odometer			
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
+		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
 	@api.multi
