@@ -345,34 +345,27 @@ class gate_pass_inwardpass_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
-#	@api.multi
-#	def create(self, values):
+#For create method code
+#	@api.model
+#	def create(self, vals):
+#		if self.env.context is None:
+#			self.env.context = {}
 #		check_odometer = self.gpi_odoo_meter
 #		check_vehicle_id = self.trip_management_field.vehicle.id
 #		check_vehicle_frm = self.fleet_vehicle_id.id
-#		self.fleet_vehicle_id.odometer = check_odometer
-#		result = super(gate_pass_inwardpass_inherit, self).create(values)
-		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
-		#if self.trip_management_field:
-		#ONLY SELF RESULT
-		#SELF ENV RESULT
-		#if self.fleet_vehicle_id:
-		#	self.env['fleet.vehicle'].search([('id', '=', check_vehicle_frm)]).odometer = check_odometer
+#		if self.fleet_vehicle_id:
+#			self.fleet_vehicle_id.odometer = check_odometer = check_odometer
+#		return super(gate_pass_inwardpass_inherit, self).create(vals)
+# For Write method code
+#	@api.multi
+#	def write(self, values):
+#		check_odometer = self.gpi_odoo_meter
+#		check_vehicle_id = self.trip_management_field.vehicle.id
+#		check_vehicle_frm = self.fleet_vehicle_id.id
+#		result = super(gate_pass_inwardpass_inherit, self).write(values)
+#		if self.fleet_vehicle_id:
+#			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_frm)]).odometer = check_odometer
 #		return result
-	@api.multi
-	def write(self, values):
-		check_odometer = self.gpi_odoo_meter
-		check_vehicle_id = self.trip_management_field.vehicle.id
-		check_vehicle_frm = self.fleet_vehicle_id.id
-		#self.fleet_vehicle_id.odometer = check_odometer
-		result = super(gate_pass_inwardpass_inherit, self).write(values)
-		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
-		#if self.trip_management_field:
-		#ONLY SELF RESULT
-		#SELF ENV RESULT
-		if self.fleet_vehicle_id:
-			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_frm)]).odometer = check_odometer
-		return result
 	@api.multi
 	def odoometer_value_pass(self):
 		check_odometer = self.gpi_odoo_meter
@@ -381,7 +374,13 @@ class gate_pass_inwardpass_inherit(models.Model):
 		if self.fleet_vehicle_id:
 			self.fleet_vehicle_id.odometer = check_odometer
 
-
+	@api.multi
+	def odoometer_value_pass_gp(self):
+		check_odometer = self.gp_odoo_meter
+		check_vehicle_id = self.trip_management_field.vehicle.id
+		check_vehicle_frm = self.fleet_vehicle_id.id
+		if self.fleet_vehicle_id:
+			self.fleet_vehicle_id.odometer = check_odometer
 class gate_pass_inwardshop_inherit(models.Model):
 	_inherit = 'inwardshop'
 	@api.one
@@ -414,15 +413,14 @@ class gate_pass_inwardshop_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
-	@api.multi
-	def write(self, values):
-		result = super(gate_pass_inwardshop_inherit, self).write(values)
-		check_odometer = self.gpi_odoo_meter
-		check_vehicle_id = self.trip_management_field.vehicle.id
-		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
-		if self.fleet_vehicle_id:
-			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
-		return result
+#	@api.multi
+#	def write(self, values):
+#		result = super(gate_pass_inwardshop_inherit, self).write(values)
+#		check_odometer = self.gpi_odoo_meter
+#		check_vehicle_id = self.trip_management_field.vehicle.id
+#		if self.fleet_vehicle_id:
+#			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
+#		return result
 
 	@api.multi
 	def odoometer_value_pass(self):
@@ -431,7 +429,13 @@ class gate_pass_inwardshop_inherit(models.Model):
 		check_vehicle_frm = self.fleet_vehicle_id.id
 		if self.fleet_vehicle_id:
 			self.fleet_vehicle_id.odometer = check_odometer
-
+	@api.multi
+	def odoometer_value_pass_gp(self):
+		check_odometer = self.gp_odoo_meter
+		check_vehicle_id = self.trip_management_field.vehicle.id
+		check_vehicle_frm = self.fleet_vehicle_id.id
+		if self.fleet_vehicle_id:
+			self.fleet_vehicle_id.odometer = check_odometer
 
 
 class gate_pass_inwardgen_inherit(models.Model):
@@ -463,18 +467,24 @@ class gate_pass_inwardgen_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
-	@api.multi
-	def write(self, values):
-		result = super(gate_pass_inwardgen_inherit, self).write(values)
-		check_odometer = self.gpi_odoo_meter
-		check_vehicle_id = self.trip_management_field.vehicle.id
-		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
-		if self.fleet_vehicle_id:
-			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
-		return result
+#	@api.multi
+#	def write(self, values):
+#		result = super(gate_pass_inwardgen_inherit, self).write(values)
+#		check_odometer = self.gpi_odoo_meter
+#		check_vehicle_id = self.trip_management_field.vehicle.id
+#		if self.fleet_vehicle_id:
+#			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
+#		return result
 	@api.multi
 	def odoometer_value_pass(self):
 		check_odometer = self.gpi_odoo_meter
+		check_vehicle_id = self.trip_management_field.vehicle.id
+		check_vehicle_frm = self.fleet_vehicle_id.id
+		if self.fleet_vehicle_id:
+			self.fleet_vehicle_id.odometer = check_odometer
+	@api.multi
+	def odoometer_value_pass_gp(self):
+		check_odometer = self.gp_odoo_meter
 		check_vehicle_id = self.trip_management_field.vehicle.id
 		check_vehicle_frm = self.fleet_vehicle_id.id
 		if self.fleet_vehicle_id:
@@ -509,18 +519,24 @@ class gate_pass_inwardret_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
-	@api.multi
-	def write(self, values):
-		result = super(gate_pass_inwardret_inherit, self).write(values)
-		check_odometer = self.gpi_odoo_meter
-		check_vehicle_id = self.trip_management_field.vehicle.id
-		#res = self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer
-		if self.fleet_vehicle_id:
-			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
-		return result
+#	@api.multi
+#	def write(self, values):
+#		result = super(gate_pass_inwardret_inherit, self).write(values)
+#		check_odometer = self.gpi_odoo_meter
+#		check_vehicle_id = self.trip_management_field.vehicle.id
+#		if self.fleet_vehicle_id:
+#			self.env['fleet.vehicle'].search([('id', '=', check_vehicle_id)]).odometer = check_odometer
+#		return result
 	@api.multi
 	def odoometer_value_pass(self):
 		check_odometer = self.gpi_odoo_meter
+		check_vehicle_id = self.trip_management_field.vehicle.id
+		check_vehicle_frm = self.fleet_vehicle_id.id
+		if self.fleet_vehicle_id:
+			self.fleet_vehicle_id.odometer = check_odometer
+	@api.multi
+	def odoometer_value_pass_gp(self):
+		check_odometer = self.gp_odoo_meter
 		check_vehicle_id = self.trip_management_field.vehicle.id
 		check_vehicle_frm = self.fleet_vehicle_id.id
 		if self.fleet_vehicle_id:
