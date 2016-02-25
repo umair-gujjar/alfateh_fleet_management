@@ -48,8 +48,6 @@ class fuelcards_management(models.Model):
 			'default_card_recharge_liter' : recharageable_ltrs,
 		})
 		res['domain'] = [('name','=', current_recharge.id)]
-		print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXx"
-		print recharageable_ltrs
 		return res
 
 	@api.one
@@ -109,3 +107,26 @@ class recharge(models.Model):
 	_defaults = {
 	'card_recharge_date': datetime.now(),
 	}
+
+
+class consumtion_fuel_log_model(models.Model):
+	_inherit = 'fleet.vehicle.log.fuel'
+#For create method code
+	@api.model
+	def create(self, vals):
+		result = super(consumtion_fuel_log_model, self).create(vals)
+		consumed_liter_fuel = vals['liter']
+		#print vals['liter']
+		#print vals.get('card_name')
+		fuel_management_card = self.env['fuelcard.management'].search([('id','=', vals.get('card_name'))])
+		remaining_fuel = fuel_management_card.card_limit_remaining - consumed_liter_fuel
+		fuel_management_card.card_limit_remaining = remaining_fuel
+		return result
+	@api.multi
+	def write(self, values):
+		result = super(consumtion_fuel_log_model, self).write(values)
+		if self.card_name and self.liter:
+			consumed_liter_fuel = self.liter
+			remaining_fuel = self.card_name.card_limit_remaining - consumed_liter_fuel
+			self.card_name.card_limit_remaining = remaining_fuel
+		return result

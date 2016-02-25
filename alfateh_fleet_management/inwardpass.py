@@ -345,17 +345,6 @@ class gate_pass_inwardpass_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
-#For create method code
-#	@api.model
-#	def create(self, vals):
-#		if self.env.context is None:
-#			self.env.context = {}
-#		check_odometer = self.gpi_odoo_meter
-#		check_vehicle_id = self.trip_management_field.vehicle.id
-#		check_vehicle_frm = self.fleet_vehicle_id.id
-#		if self.fleet_vehicle_id:
-#			self.fleet_vehicle_id.odometer = check_odometer = check_odometer
-#		return super(gate_pass_inwardpass_inherit, self).create(vals)
 # For Write method code
 #	@api.multi
 #	def write(self, values):
