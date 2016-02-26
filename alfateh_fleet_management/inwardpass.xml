@@ -40,7 +40,7 @@
                                 <field name="out_sron" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
 
 
                         
@@ -195,7 +195,7 @@
                                 <field name="fleet_vehicle_id" />
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
 
 
                                 
@@ -316,7 +316,7 @@
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="fleet_vehicle_id" />
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>  
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>  
                                   
         
                             </group>
@@ -441,7 +441,7 @@
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="fleet_vehicle_id" />
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>    
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>    
 
         
                             </group>

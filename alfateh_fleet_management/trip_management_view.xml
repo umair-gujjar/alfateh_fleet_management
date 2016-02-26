@@ -127,5 +127,7 @@
         </record>
         <menuitem name="Trip" id="menu_trip_mang_root" parent="fleet.menu_root" sequence="2"/>
         <menuitem name="Trip Management" id="menu_trip_mang_child_one" parent="menu_trip_mang_root" action="action_trip_mang" sequence="0"/>
+
+
     </data>
 </openerp>
