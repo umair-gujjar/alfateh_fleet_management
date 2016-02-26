@@ -31,5 +31,6 @@
         'security/ir.model.access.csv',
         'fuel_card_management_view.xml',
         'wizard/fuelcardwizard_view.xml',
+        'checklist_view.xml',
     ],
 }

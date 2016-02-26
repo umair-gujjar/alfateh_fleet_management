@@ -1,0 +1,389 @@
+<openerp>
+    <data>
+
+        <!-- Trip Management Form View -->
+        <record id="checklist_view_form" model="ir.ui.view">
+            <field name="name">checklist_view_form</field>
+            <field name="model">vehical_maintaince_checklist</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Daliy Vehicle Maintaince Checklist">
+                    <sheet>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="checklist_date"/>
+                                <field name="checklist_vehicle"/>
+                            </group>
+                            <group name="group_right">
+                                <field name="checklost_meter"/>
+                                <field name="checklist_vehicle_type"/>
+                            </group>
+                        </group>
+                        <group string="Daily Checklist">
+                            <div>
+                                <label string= "Engine Oil Level" />
+                            </div>     
+                            <div>
+                                <label for="checklist_engine_oil_yes"/>
+                                <field name="checklist_engine_oil_yes" attrs="{'readonly': [('checklist_engine_oil_no','=', True)]}" />
+                                <label for="checklist_engine_oil_no"/>
+                                <field name="checklist_engine_oil_no" attrs="{'readonly': [('checklist_engine_oil_yes','=', True)]}" />
+                                
+                            </div>  
+                            <div>
+                                <label string= "Fluid Level" />
+                            </div>     
+                            <div>
+                                <label for="checklist_fluid_level_yes"/>
+                                <field name="checklist_fluid_level_yes" attrs="{'readonly': [('checklist_fluid_level_no','=', True)]}"/>
+                                <label for="checklist_fluid_level_no"/>
+                                <field name="checklist_fluid_level_no" attrs="{'readonly': [('checklist_fluid_level_yes','=', True)]}" />
+                                
+                            </div>
+                             <div>
+                                <label string= "Check Seat Belts" />
+                            </div>     
+                            <div>
+                                <label for="checklist_seat_belt_yes" />
+                                <field name="checklist_seat_belt_yes" attrs="{'readonly': [('checklist_seat_belt_no','=', True)]}"/>
+                                <label for="checklist_seat_belt_no"/>
+                                <field name="checklist_seat_belt_no" attrs="{'readonly': [('checklist_seat_belt_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "Fog lights" />
+                            </div>     
+                            <div>
+                                <label for="checklist_fog_light_yes" />
+                                <field name="checklist_fog_light_yes" attrs="{'readonly': [('checklist_fog_light_no','=', True)]}"/>
+                                <label for="checklist_fog_light_no"/>
+                                <field name="checklist_fog_light_no" attrs="{'readonly': [('checklist_fog_light_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "Door Locks" />
+                            </div>     
+                            <div>
+                                <label for="checklist_door_lock_yes" />
+                                <field name="checklist_door_lock_yes" attrs="{'readonly': [('checklist_door_lock_no','=', True)]}"/>
+                                <label for="checklist_door_lock_no"/>
+                                <field name="checklist_door_lock_no" attrs="{'readonly': [('checklist_door_lock_yes','=', True)]}"/>
+                                
+                            </div>    
+                             <div>
+                                <label string= "Gear Oil" />
+                            </div>     
+                            <div>
+                                <label for="checklist_gear_oil_yes" />
+                                <field name="checklist_gear_oil_yes" attrs="{'readonly': [('checklist_gear_oil_no','=', True)]}"/>
+                                <label for="checklist_gear_oil_no"/>
+                                <field name="checklist_gear_oil_no" attrs="{'readonly': [('checklist_gear_oil_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "Power Steering Oil" />
+                            </div>     
+                            <div>
+                                <label for="checklist_steering_oil_yes" />
+                                <field name="checklist_steering_oil_yes" attrs="{'readonly': [('checklist_steering_oil_no','=', True)]}"/>
+                                <label for="checklist_steering_oil_no"/>
+                                <field name="checklist_steering_oil_no" attrs="{'readonly': [('checklist_steering_oil_yes','=', True)]}"/>
+                                
+                            </div>    
+                             <div>
+                                <label string= "Brake Lines" />
+                            </div>     
+                            <div>
+                                <label for="checklist_brake_lines_yes" />
+                                <field name="checklist_brake_lines_yes" attrs="{'readonly': [('checklist_brake_lines_no','=', True)]}"/>
+                                <label for="checklist_brake_lines_no"/>
+                                <field name="checklist_brake_lines_no" attrs="{'readonly': [('checklist_brake_lines_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "Break Operations" />
+                            </div>     
+                            <div>
+                                <label for="checklist_brake_operation_yes" />
+                                <field name="checklist_brake_operation_yes" attrs="{'readonly': [('checklist_brake_operation_no','=', True)]}"/>
+                                <label for="checklist_brake_operation_no"/>
+                                <field name="checklist_brake_operation_no" attrs="{'readonly': [('checklist_brake_operation_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "WindShield and Wiper Blades" />
+                            </div>     
+                            <div>
+                                <label for="checklist_wiper_blade_yes" />
+                                <field name="checklist_wiper_blade_yes" attrs="{'readonly': [('checklist_wiper_blade_no','=', True)]}"/>
+                                <label for="checklist_wiper_blade_no"/>
+                                <field name="checklist_wiper_blade_no" attrs="{'readonly': [('checklist_wiper_blade_yes','=', True)]}"/>
+                                
+                            </div>    
+                             <div>
+                                <label string= "Head Lights/ Driver Lights" />
+                            </div>     
+                            <div>
+                                <label for="checklist_head_light_yes" />
+                                <field name="checklist_head_light_yes" attrs="{'readonly': [('checklist_head_light_no','=', True)]}"/>
+                                <label for="checklist_head_light_no"/>
+                                <field name="checklist_head_light_no" attrs="{'readonly': [('checklist_head_light_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "Power Steering Hoses" />
+                            </div>     
+                            <div>
+                                <label for="checklist_power_steer_yes" />
+                                <field name="checklist_power_steer_yes" attrs="{'readonly': [('checklist_power_steer_no','=', True)]}" />
+                                <label for="checklist_power_steer_no"/>
+                                <field name="checklist_power_steer_no" attrs="{'readonly': [('checklist_power_steer_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "Exhaust System" />
+                            </div>     
+                            <div>
+                                <label for="checklist_exhaust_system_yes" />
+                                <field name="checklist_exhaust_system_yes" attrs="{'readonly': [('checklist_exhaust_system_no','=', True)]}"/>
+                                <label for="checklist_exhaust_system_no"/>
+                                <field name="checklist_exhaust_system_no" attrs="{'readonly': [('checklist_exhaust_system_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "Parking Break OPerartion" />
+                            </div>     
+                            <div>
+                                <label for="checklist_parking_brake_yes" />
+                                <field name="checklist_parking_brake_yes" attrs="{'readonly': [('checklist_parking_brake_no','=', True)]}"/>
+                                <label for="checklist_parking_brake_no"/>
+                                <field name="checklist_parking_brake_no" attrs="{'readonly': [('checklist_parking_brake_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "Fan Belts" />
+                            </div>     
+                            <div>
+                                <label for="checklist_fan_belt_yes" />
+                                <field name="checklist_fan_belt_yes" attrs="{'readonly': [('checklist_fan_belt_no','=', True)]}"/>
+                                <label for="checklist_fan_belt_no"/>
+                                <field name="checklist_fan_belt_no" attrs="{'readonly': [('checklist_fan_belt_yes','=', True)]}" />
+                                
+                            </div>    
+                             <div>
+                                <label string= "Mirrors : Side, Rear-view" />
+                            </div>     
+                            <div>
+                                <label for="checklist_mirror_yes" />
+                                <field name="checklist_mirror_yes" attrs="{'readonly': [('checklist_mirror_no','=', True)]}"/>
+                                <label for="checklist_mirror_no"/>
+                                <field name="checklist_mirror_no" attrs="{'readonly': [('checklist_mirror_yes','=', True)]}"/>
+                                
+                            </div>    
+                             <div>
+                                <label string= "Brake Lights" />
+                            </div>     
+                            <div>
+                                <label for="checklist_break_light_yes" />
+                                <field name="checklist_break_light_yes" attrs="{'readonly': [('checklist_break_light_no','=', True)]}"/>
+                                <label for="checklist_break_light_no"/>
+                                <field name="checklist_break_light_no" attrs="{'readonly': [('checklist_break_light_yes','=', True)]}"/>
+                                
+                            </div>    
+                             <div>
+                                <label string= "Brake Fluid Level" />
+                            </div>     
+                            <div>
+                                <label for="checklist_break_flight_yes" />
+                                <field name="checklist_break_flight_yes" attrs="{'readonly': [('checklist_break_flight_no','=', True)]}"/>
+                                <label for="checklist_break_flight_no"/>
+                                <field name="checklist_break_flight_no" attrs="{'readonly': [('checklist_break_flight_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Tail Lights/ Reverse Lights" />
+                            </div>     
+                            <div>
+                                <label for="checklist_tail_light_yes" />
+                                <field name="checklist_tail_light_yes" attrs="{'readonly': [('checklist_tail_light_no','=', True)]}"/>
+                                <label for="checklist_tail_light_no"/>
+                                <field name="checklist_tail_light_no" attrs="{'readonly': [('checklist_tail_light_yes','=', True)]}"/>
+                            </div>    
+                             <div>
+                                <label string= "Power Steering Fluid Level" />
+                            </div>     
+                            <div>
+                                <label for="checklist_power_steering_fluid_yes" />
+                                <field name="checklist_power_steering_fluid_yes" attrs="{'readonly': [('checklist_power_steering_fluid_no','=', True)]}"/>
+                                <label for="checklist_power_steering_fluid_no"/>
+                                <field name="checklist_power_steering_fluid_no" attrs="{'readonly': [('checklist_power_steering_fluid_yes','=', True)]}"/>
+                            </div>    
+                             <div>
+                                <label string= "Tire Inflation" />
+                            </div>     
+                            <div>
+                                <label for="checklist_tire_inflation_yes" />
+                                <field name="checklist_tire_inflation_yes" attrs="{'readonly': [('checklist_tire_inflation_no','=', True)]}"/>
+                                <label for="checklist_tire_inflation_no"/>
+                                <field name="checklist_tire_inflation_no" attrs="{'readonly': [('checklist_tire_inflation_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Water/Screenwash" />
+                            </div>     
+                            <div>
+                                <label for="checklist_water_screenwash_yes" />
+                                <field name="checklist_water_screenwash_yes" attrs="{'readonly': [('checklist_water_screenwash_no','=', True)]}"/>
+                                <label for="checklist_water_screenwash_no"/>
+                                <field name="checklist_water_screenwash_no" attrs="{'readonly': [('checklist_water_screenwash_yes','=', True)]}"/>
+                            </div>    
+                             <div>
+                                <label string= "Tire Balance / Alignment " />
+                            </div>     
+                            <div>
+                                <label for="checklist_tire_balance_yes" />
+                                <field name="checklist_tire_balance_yes" attrs="{'readonly': [('checklist_tire_balance_no','=', True)]}" />
+                                <label for="checklist_tire_balance_no"/>
+                                <field name="checklist_tire_balance_no" attrs="{'readonly': [('checklist_tire_balance_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Spare Tire" />
+                            </div>     
+                            <div>
+                                <label for="checklist_spare_tire_yes"/>
+                                <field name="checklist_spare_tire_yes" attrs="{'readonly': [('checklist_spare_tire_no','=', True)]}" />
+                                <label for="checklist_spare_tire_no"/>
+                                <field name="checklist_spare_tire_no" attrs="{'readonly': [('checklist_spare_tire_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Horn" />
+                            </div>     
+                            <div>
+                                <label for="checklist_horn_yes"/>
+                                <field name="checklist_horn_yes" attrs="{'readonly': [('checklist_horn_no','=', True)]}" />
+                                <label for="checklist_horn_no"/>
+                                <field name="checklist_horn_no"  attrs="{'readonly': [('checklist_horn_yes','=', True)]}"/>
+                            </div>                           
+                             <div>
+                                <label string= "Chocks,Bricks or Boards" />
+                            </div>     
+                            <div>
+                                <label for="checklist_chocks_yes"/>
+                                <field name="checklist_chocks_yes" attrs="{'readonly': [('checklist_chocks_no','=', True)]}" />
+                                <label for="checklist_chocks_no"/>
+                                <field name="checklist_chocks_no" attrs="{'readonly': [('checklist_chocks_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Indicators" />
+                            </div>     
+                            <div>
+                                <label for="checklist_indicator_yes"/>
+                                <field name="checklist_indicator_yes" attrs="{'readonly': [('checklist_indicator_no','=', True)]}" />
+                                <label for="checklist_indicator_no"/>
+                                <field name="checklist_indicator_no" attrs="{'readonly': [('checklist_indicator_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Battery" />
+                            </div>     
+                            <div>
+                                <label for="checklist_battery_yes"/>
+                                <field name="checklist_battery_yes" attrs="{'readonly': [('checklist_battery_no','=', True)]}" />
+                                <label for="checklist_battery_no"/>
+                                <field name="checklist_battery_no" attrs="{'readonly': [('checklist_battery_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Number Plate" />
+                            </div>     
+                            <div>
+                                <label for="checklist_number_plate_yes"/>
+                                <field name="checklist_number_plate_yes" attrs="{'readonly': [('checklist_number_plate_no','=', True)]}" />
+                                <label for="checklist_number_plate_no"/>
+                                <field name="checklist_number_plate_no" attrs="{'readonly': [('checklist_number_plate_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Reflectors" />
+                            </div>     
+                            <div>
+                                <label for="checklist_reflector_yes"/>
+                                <field name="checklist_reflector_yes" attrs="{'readonly': [('checklist_reflector_no','=', True)]}" />
+                                <label for="checklist_reflector_no"/>
+                                <field name="checklist_reflector_no" attrs="{'readonly': [('checklist_reflector_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Inner Wall" />
+                            </div>     
+                            <div>
+                                <label for="checklist_inner_wall_yes"/>
+                                <field name="checklist_inner_wall_yes" attrs="{'readonly': [('checklist_inner_wall_no','=', True)]}" />
+                                <label for="checklist_inner_wall_no"/>
+                                <field name="checklist_inner_wall_no" attrs="{'readonly': [('checklist_inner_wall_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Outer Wall" />
+                            </div>     
+                            <div>
+                                <label for="checklist_outer_wall_yes"/>
+                                <field name="checklist_outer_wall_yes" attrs="{'readonly': [('checklist_outer_wall_no','=', True)]}"/>
+                                <label for="checklist_outer_wall_no"/>
+                                <field name="checklist_outer_wall_no" attrs="{'readonly': [('checklist_outer_wall_yes','=', True)]}"/>
+                            </div>    
+                             <div>
+                                <label string= "Floor" />
+                            </div>     
+                            <div>
+                                <label for="checklist_floor_yes"/>
+                                <field name="checklist_floor_yes" attrs="{'readonly': [('checklist_floor_no','=', True)]}" />
+                                <label for="checklist_floor_no"/>
+                                <field name="checklist_floor_no" attrs="{'readonly': [('checklist_floor_yes','=', True)]}"/>
+                            </div>    
+                             <div>
+                                <label string= "Load(secure)" />
+                            </div>     
+                            <div>
+                                <label for="checklist_load_yes"/>
+                                <field name="checklist_load_yes" attrs="{'readonly': [('checklist_load_no','=', True)]}"/>
+                                <label for="checklist_load_no"/>
+                                <field name="checklist_load_no" attrs="{'readonly': [('checklist_load_yes','=', True)]}" /> 
+                            </div>    
+                             <div>
+                                <label string= "Breakout Kit" />
+                            </div>     
+                            <div>
+                                <label for="checklist_breakout_kit_yes"/>
+                                <field name="checklist_breakout_kit_yes" attrs="{'readonly': [('checklist_breakout_kit_no','=', True)]}" />
+                                <label for="checklist_breakout_kit_no"/>
+                                <field name="checklist_breakout_kit_no" attrs="{'readonly': [('checklist_breakout_kit_yes','=', True)]}"/>
+                            </div>    
+                             <div>
+                                <label string= "Wipers" />
+                            </div>     
+                            <div>
+                                <label for="checklist_wiper_yes"/>
+                                <field name="checklist_wiper_yes" attrs="{'readonly': [('checklist_wiper_no','=', True)]}"/>
+                                <label for="checklist_wiper_no"/>
+                                <field name="checklist_wiper_no" attrs="{'readonly': [('checklist_wiper_yes','=', True)]}" />
+                            </div>    
+                             <div>
+                                <label string= "Driver License" />
+                            </div>     
+                            <div>
+                                <label for="checklist_driver_lic_yes"/>
+                                <field name="checklist_driver_lic_yes" attrs="{'readonly': [('checklist_driver_lic_no','=', True)]}" />
+                                <label for="checklist_driver_lic_no"/>
+                                <field name="checklist_driver_lic_no" attrs="{'readonly': [('checklist_driver_lic_yes','=', True)]}"/>
+                            </div>    
+                        </group>  
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_maintaince_checklist">
+            <field name="name">Vehicle Maintainace Checklist</field>
+            <field name="res_model">vehical_maintaince_checklist</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+        </record>
+        <menuitem name="Checklist" id="menu_maintaince_checklist_root" parent="fleet.menu_root" sequence="2"/>
+        <menuitem name="Vehicle Maintainace Checklist" id="menu_maintaince_checklist_child_one" parent="menu_maintaince_checklist_root" action="action_maintaince_checklist" sequence="0"/>
+    </data>
+</openerp>
