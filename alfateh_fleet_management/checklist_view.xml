@@ -26,11 +26,12 @@
                             </div>     
                             <div>
                                 <label for="checklist_engine_oil_yes"/>
-                                <field name="checklist_engine_oil_yes" attrs="{'readonly': [('checklist_engine_oil_no','=', True)]}" />
+                                <field name="checklist_engine_oil_yes" attrs="{'readonly': [('checklist_engine_oil_no','=', True)]}"  class="oe_inline"/>
                                 <label for="checklist_engine_oil_no"/>
-                                <field name="checklist_engine_oil_no" attrs="{'readonly': [('checklist_engine_oil_yes','=', True)]}" />
-                                
+                                <field name="checklist_engine_oil_no" attrs="{'readonly': [('checklist_engine_oil_yes','=', True)]}"  class="oe_inline"/>
+                                <field name="checklist_engine_oil_description" attrs="{'invisible': [('checklist_engine_oil_no','!=', True)]}" class="oe_inline" />
                             </div>  
+
                             <div>
                                 <label string= "Fluid Level" />
                             </div>     

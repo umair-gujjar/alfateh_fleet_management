@@ -90,6 +90,10 @@ class maintaince_checklist(models.Model):
 
 
 
+	checklist_engine_oil_description = fields.Char("Defect Description")
+
+
+
 
 
 
