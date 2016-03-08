@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record id="view_check_list_form" model="ir.ui.view">
+            <field name="name">view_check_list_form</field>
+            <field name="model">check_list</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Check List">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Check List">
+                            <field name="check_list_id" nolabel="1" delete="0">
+                                <tree editable="bottom">
+                                    <field name="daily_vehicle_check"/>
+                                    <field name="status_yes"/>
+                                    <field name="status_no"/>
+                                    <field name="descp_of_defect"/>
+                                    <field name="defect_corrected"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_check_list_tree" model="ir.ui.view">
+            <field name="name">view_check_list_tree</field>
+            <field name="model">check_list</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Check List">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_maintaince_checklist">
+            <field name="name">Vehicle Maintainace Checklist</field>
+            <field name="res_model">check_list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <record id="view_select_check_list_form" model="ir.ui.view">
+            <field name="name">view_select_check_list_form</field>
+            <field name="model">select_check_list</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Check List">
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <button string="Update" type="object" name="action_create_test"/>
+                    </group>
+                    <notebook>
+                        <page string="Check List">
+                            <field name="select_check_list_id" nolabel="1">
+                                <tree editable="bottom">
+                                    <field name="daily_vehicle_check"/>
+                                    <field name="status_yes"/>
+                                    <field name="status_no"/>
+                                    <field name="descp_of_defect"/>
+                                    <field name="defect_corrected"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_select_check_list_tree" model="ir.ui.view">
+            <field name="name">view_select_check_list_tree</field>
+            <field name="model">select_check_list</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Check List">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="action_maintaince_checklist_one">
+            <field name="name">Select Check List</field>
+            <field name="res_model">select_check_list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Checklist" id="menu_maintaince_checklist_root" parent="fleet.menu_root" sequence="2"/>
+        <menuitem name="Vehicle Maintainace Checklist" id="menu_maintaince_checklist_child_one" parent="menu_maintaince_checklist_root" action="action_maintaince_checklist" sequence="0"/>
+        <menuitem name="Select Check List" id="menu_maintaince_checklist_child_two" parent="menu_maintaince_checklist_root" action="action_maintaince_checklist_one" sequence="1"/>
+    </data>
+</openerp>
