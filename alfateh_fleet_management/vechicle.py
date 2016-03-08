@@ -21,6 +21,10 @@ class alfateh_vehicle_cost(models.Model):
 class fuel_log(models.Model):
 	_inherit = 'fleet.vehicle.log.fuel'
 	card_name = fields.Many2one('fuelcard.management',string='Card Name')
+
+	@api.onchange('card_name')
+	def testing_lter_change(self):
+		print self.card_name
 	
 	
 
