@@ -23,18 +23,18 @@ class select_check_list(models.Model):
 	name = fields.Many2one('check_list','Name')
 	select_check_list_id = fields.One2many('select_check_list_fields','select_check_list_fields_id')
 	@api.multi
-	def action_create_test(self):
-		self.select_check_list_id = self._prepare_inspection_lines(self.name)
+	def action_create_check_list(self):
+		self.select_check_list_id = self._prepare_check_list_lines(self.name)
 		return True
 	@api.multi
-	def _prepare_inspection_lines(self, test, force_fill=False):
+	def _prepare_check_list_lines(self, check, force_fill=False):
 		new_data = []
-		for line in test.check_list_id:
-			data = self._prepare_inspection_line(test, line, fill=force_fill)
+		for line in check.check_list_id:
+			data = self._prepare_check_list_line(check, line, fill=force_fill)
 			new_data.append((0, 0, data))
 		return new_data
 	@api.multi
-	def _prepare_inspection_line(self, test, line, fill=None):
+	def _prepare_check_list_line(self, check, line, fill=None):
 		data = {
 			'daily_vehicle_check': line.daily_vehicle_check,
 			'status_yes': line.status_yes,

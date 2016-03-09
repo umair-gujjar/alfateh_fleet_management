@@ -57,7 +57,7 @@
                         <field name="name"/>
                     </group>
                     <group>
-                        <button string="Update" type="object" name="action_create_test"/>
+                        <button string="Update" type="object" name="action_create_check_list"/>
                     </group>
                     <notebook>
                         <page string="Check List">
