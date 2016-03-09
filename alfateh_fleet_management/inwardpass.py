@@ -36,8 +36,9 @@ class inwardpass(osv.Model):
 	'gpi_odoo_meter': fields.float("Odoo Meter Enterance"),
 	'lc_pc' : fields.selection([
             ('lc', 'LC'),
-            ('pc', 'PC'),
+            ('pc', 'PO'),
             ],default='', string="LC or PO"),
+	'lc_pc_ref' : fields.char('LC or PO Ref #',size=32),
     'state' : fields.selection([
             ('vehicle_enter', 'Gate In'),
             ('vehicle_process', 'Gate Out'),

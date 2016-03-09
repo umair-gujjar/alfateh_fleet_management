@@ -32,6 +32,7 @@ class trip_management(models.Model):
 	variance_trip_cost = fields.Float('Variance Total Cost ')
 	trip_description = fields.Text('Description')
 	cost_count = fields.Integer(string="Costs",compute='compute_user_todo_count')
+	driver_id = fields.Many2one('res.partner','Driver')
 
 	_defaults = {
     'date': datetime.now(),
@@ -58,6 +59,26 @@ class trip_management(models.Model):
 		})
 		res['domain'] = [('vehicle_id','=', current_trip.vehicle.id)]
 		return res
+
+#for getting fuel cost
+	@api.onchange('projected_trip_fuel')
+	def onchange_projected_trip_fuel_field(self):
+		fuel_rate_rec = self.env['fuel.rate']
+		if self.projected_trip_fuel:
+			if self.vehicle.fuel_type == 'fuel_gasoline_rate':
+				self.projected_trip_fuel_cost = fuel_rate_rec.search([]).fuel_gasoline_rate * self.projected_trip_fuel
+			elif self.vehicle.fuel_type == 'fuel_hioctane_rate':
+				self.projected_trip_fuel_cost = fuel_rate_rec.search([]).fuel_hioctane_rate * self.projected_trip_fuel
+			elif self.vehicle.fuel_type == 'fuel_cng_rate':
+				self.projected_trip_fuel_cost = fuel_rate_rec.search([]).fuel_cng_rate * self.projected_trip_fuel
+			else:
+				self.projected_trip_fuel_cost = fuel_rate_rec.search([]).fuel_disel_rate * self.projected_trip_fuel
+
+#for getting driver of selected vehicle
+	@api.onchange('vehicle')
+	def onchange_get_driver(self):
+		if self.vehicle:
+			self.driver_id = self.vehicle.driver_id
 
 	@api.onchange('route','vehicle')
 	def onchange_route_field(self):

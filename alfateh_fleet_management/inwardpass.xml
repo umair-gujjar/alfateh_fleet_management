@@ -49,7 +49,7 @@
                             <group name="group_right">
 
                                 <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
-                                <!--><field name="lc" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
+                                <field name="lc_pc_ref"/>
                                 <field name="bilty" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <!--<field name="vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
@@ -118,7 +118,7 @@
                     <field name="time_in"/>
                     <field name="supplier_details"/>
                     <field name="gin" readonly="1"/>
-                    <!--<field name="lc"/> -->
+                    <field name="lc_pc_ref"/>
                     <field name="lc_pc"/>
                     <field name="bilty"/>
                     <field name="time_out" />
@@ -409,11 +409,11 @@
                         <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
                         <group name="group_top">
                             <group name="group_left">
-                                <field name="date_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <!--<field name="date_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
                                 <field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
 
                                 <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
-                                <field name="out_date_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <!--<field name="out_date_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
                                 <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
 
                                 <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
@@ -427,14 +427,14 @@
                             <group name="group_right">
 
                                 <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="date_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <!--<field name="date_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>-->
                                 <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <!--<field name="vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
 
                                 <field name="out_dept" />
                                 <field name="out_document_ref" />
-                                <field name="out_date_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <!--<field name="out_date_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
                                 <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <!--<field name="out_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
                                 <field name="out_stock_location_id" />
@@ -488,19 +488,19 @@
                 <tree string="inwardret">
                     <field name="name"/>
                     <field name="gin" readonly="1"/>
-                    <field name="date_in"/>
-                    <field name="date_out"/>
+                    <!--<field name="date_in"/>
+                    <field name="date_out"/>-->
                     <field name="time_in" />
                     <field name="time_out" />
                     <field name="workers"/>
                     <!--<field name="vehicle"/> -->
 
                     <field name="out_gon" readonly="1" />
-                    <field name="out_date_out" />
+                    <!--<field name="out_date_out" />
+                    <field name="out_date_in" />-->
                     <field name="out_time_out" />
                     <field name="out_dept" />
                     <field name="out_document_ref" />
-                    <field name="out_date_in" />
                     <field name="out_time_in" />
                     <!--<field name="out_vehicle" /> -->
                     <field name="out_stock_location_id" />

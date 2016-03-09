@@ -38,6 +38,7 @@
                     
                             <group name="group_right">
                                 <field name="route"/>
+                                <field name="driver_id"/>
                                 <field name="actual_trip_time" widget="float_time" sum="Total Time"/>
                                 <field name="actual_trip_fuel"/>
                                 <field name="actual_trip_fuel_cost"/>
@@ -89,6 +90,7 @@
 
 
                     <field name="vehicle"/>
+                    <field name="driver_id"/>
                     <field name="projected_trip_time" widget="float_time" sum="Total Hours"/>
                     <field name="projected_trip_fuel"/>
                     <field name="projected_trip_fuel_cost"/>
