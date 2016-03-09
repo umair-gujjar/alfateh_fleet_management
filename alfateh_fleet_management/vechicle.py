@@ -9,7 +9,7 @@ class alfateh_fleet_management(models.Model):
 	average_consumption = fields.Float('Average Consumption')
 	expiry_token = fields.Date('Expiry Token')
 	capacity = fields.Char('Capacity')
-	vehicle_status = fields.Char('vehicle status')
+	vehicle_status = fields.Char('Vehicle Status')
 
 
 

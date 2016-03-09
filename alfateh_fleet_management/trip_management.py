@@ -25,11 +25,11 @@ class trip_management(models.Model):
 	actual_trip_fuel_cost = fields.Float('Actual Fuel Cost')
 	actual_trip_other_cost = fields.Float('Actual Other Cost ')
 	actual_trip_cost = fields.Float('Actual Total Cost ')
-	variance_trip_time = fields.Float('variance Time')
-	variance_trip_fuel = fields.Float('variance Fuel')
-	variance_trip_fuel_cost = fields.Float('variance Fuel Cost')
-	variance_trip_other_cost = fields.Float('variance Other Cost ')
-	variance_trip_cost = fields.Float('variance Total Cost ')
+	variance_trip_time = fields.Float('Variance Time')
+	variance_trip_fuel = fields.Float('Variance Fuel')
+	variance_trip_fuel_cost = fields.Float('Variance Fuel Cost')
+	variance_trip_other_cost = fields.Float('Variance Other Cost ')
+	variance_trip_cost = fields.Float('Variance Total Cost ')
 	trip_description = fields.Text('Description')
 	cost_count = fields.Integer(string="Costs",compute='compute_user_todo_count')
 
@@ -72,11 +72,17 @@ class trip_management(models.Model):
 			if self.route.name:
 				self.name = self.date+" "+ self.route.name
 
-
+#calculate actual total trip cost on changing values of actual fuel and actual other cost
 	@api.onchange('actual_trip_fuel_cost','actual_trip_other_cost')
 	def onchange_atfc_atoc_field(self):
 		if self.actual_trip_fuel_cost or self.actual_trip_other_cost:
 			self.actual_trip_cost = self.actual_trip_fuel_cost + self.actual_trip_other_cost
+
+#calculate projected total trip cost on changing values of projected fuel and projected other cost
+	@api.onchange('projected_trip_fuel_cost','projected_trip_other_cost')
+	def onchange_atfc_atoc_field1(self):
+		if self.projected_trip_fuel_cost or self.projected_trip_other_cost:
+			self.projected_trip_cost = self.projected_trip_fuel_cost + self.projected_trip_other_cost
 
 	@api.onchange('projected_trip_time','actual_trip_time','projected_trip_fuel','actual_trip_fuel','projected_trip_fuel_cost','actual_trip_fuel_cost'
 		,'projected_trip_other_cost','actual_trip_other_cost','projected_trip_cost','actual_trip_cost')

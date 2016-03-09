@@ -6,7 +6,7 @@ class route_management(models.Model):
 	_name = 'route.management'
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
 	name = fields.Char('Name')
-	route_defination = fields.Many2one('route.locations',string='Route Defination')
+	route_defination = fields.Many2one('route.locations',string='Route Definition')
 
 	route_time = fields.Float('Time(hours)')
 	route_distance = fields.Float('Distance(km)')
