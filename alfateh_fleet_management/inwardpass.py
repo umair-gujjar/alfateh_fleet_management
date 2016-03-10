@@ -390,7 +390,7 @@ class gate_pass_inwardshop_inherit(models.Model):
 		self.write({'state': 'vehicle_exit'})
 		if self.trip_management_field:
 			datetime_in = self.time_in
-			datetime_out = self.time_out
+			datetime_out = self.out_time_out
  			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
  			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
  			timedelta = dt_e_obj - dt_s_obj
@@ -448,7 +448,7 @@ class gate_pass_inwardgen_inherit(models.Model):
 		self.write({'state': 'vehicle_exit'})
 		if self.trip_management_field:
 			datetime_in = self.time_in
-			datetime_out = self.time_out
+			datetime_out = self.out_time_out
  			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
  			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
  			timedelta = dt_e_obj - dt_s_obj

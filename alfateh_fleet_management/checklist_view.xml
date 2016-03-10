@@ -53,12 +53,20 @@
             <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Check List">
-                    <group>
-                        <field name="name"/>
-                    </group>
-                    <group>
-                        <button string="Update" type="object" name="action_create_check_list"/>
-                    </group>
+                    <group name="top">
+                        <group name="left">
+                            <field name="list_date"/>
+                            <field name="Vehicle_id"/>
+                            <field name="name"/>
+                            
+                            
+                        </group>
+                        <group name="right">
+                            <field name="vehicle_meter_reading"/>
+                            <field name="vehicle_type"/>
+                            <button string="Update" type="object" name="action_create_check_list"/>
+                        </group>
+                        </group>
                     <notebook>
                         <page string="Check List">
                             <field name="select_check_list_id" nolabel="1">
@@ -83,6 +91,10 @@
             <field name="arch" type="xml">
                 <tree string="Check List">
                     <field name="name"/>
+                    <field name="list_date"/>
+                    <field name="Vehicle_id"/>
+                    <field name="vehicle_meter_reading"/>
+                    <field name="vehicle_type"/>
                 </tree>
             </field>
         </record>
