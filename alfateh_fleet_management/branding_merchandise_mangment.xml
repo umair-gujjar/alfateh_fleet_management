@@ -1,0 +1,138 @@
+<openerp>
+    <data>
+
+
+         <record id="fleet_mang_custom_company_view_form" model="ir.ui.view">
+            <field name="name">fleet_mang_custom_company_view_form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='title']" position="after">
+                    <field name="x_ntn_num"/>
+                    <field name="x_stn_num"/>
+                    <field name="x_company_type"/>
+                </xpath> 
+            </field>
+        </record>
+
+        <record id="alfateh_branding_mang_view_form" model="ir.ui.view">
+            <field name="name">alfateh_branding_mang_view_form</field>
+            <field name="model">branding.management</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Branding and Merchandising">
+                    <header>
+                        <button string="Set to Assesment" type="object" name="concept_progressbar" attrs="{'invisible': [('state', '=', 'concept')]}"/>
+                        <button string="Done" type="object" name="done_progressbar" attrs="{'invisible': [('state','=','finished')]}"/>
+
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                         <div class="oe_title">
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+
+                        <group name="group_top" string="Company Details">
+                            <group name="group_left">
+                                <field name="company_name" />
+                                <field name="registered_address"/>
+                                <field name="website"/>
+                            </group>
+                            
+                            <group name="group_right">
+                                <field name="company_type" />
+                                <field name="ntn_num"/>
+                                <field name="stn_num"/>
+                            </group>
+                        </group>
+
+                        <group name="group_top" string="Company Representative Details">
+                            <group name="group_left">
+                                <field name="representative_name"/>
+                                <field name="designation"/>
+                                <field name="email_address"/> 
+                            </group>
+                    
+                            <group name="group_right">
+                                <field name="cnic_num"/>
+                                <field name="cell_num"/>
+                            </group>
+                        </group>
+
+                        <group name="group_top" string="Outlet and Space Details">
+                            <group name="group_left">
+                                <field name="List_outlet" />
+                                <field name="outlet_details" />
+                            </group>
+                            
+                            <group name="group_right">
+                                <field name="num_of_outlets"/>
+                                <field name="department_details"/>
+                            </group>
+                        </group>
+
+                        <group name="group_top" string="Details Regarding Period and other Matters">
+                            <group name="group_left">
+                                <field name="contract_duration" />
+                                <field name="contract_start_date"/>
+                                <field name="contract_end_date"/>
+                            </group>
+                            
+                            <group name="group_right">
+                                <field name="previous_contract" />
+                                <field name="contract_num"/>
+                            </group>
+                        </group>
+                    </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="alfateh_branding_mang_view_tree" model="ir.ui.view">
+            <field name="name">alfateh_branding_mang_view_tree</field>
+            <field name="model">branding.management</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Branding Management">
+                    <field name="representative_name"/>
+                    <field name="designation"/>
+                    <field name="email_address"/>
+                    <field name="cnic_num"/>
+                    <field name="cell_num"/>
+                </tree>
+            </field>
+
+        </record>
+
+        <record id="alfateh_branding_mang_view_graph" model="ir.ui.view">
+            <field name="name">alfateh_branding_mang_view_graph</field>
+            <field name="model">branding.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="arch" type="xml">
+                <graph type="pivot">
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_brand_mang">
+            <field name="name">Branding Mangement</field>
+            <field name="res_model">branding.management</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+        </record>
+        <menuitem name="Branding" id="menu_brand_mang_root" parent="fleet.menu_root" sequence="2"/>
+        <menuitem name="Branding Management" id="menu_brand_mang_child_one" parent="menu_brand_mang_root" action="action_brand_mang" sequence="0"/>
+
+
+    </data>
+</openerp>
