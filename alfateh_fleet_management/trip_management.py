@@ -75,10 +75,10 @@ class trip_management(models.Model):
 				self.projected_trip_fuel_cost = fuel_rate_rec.search([]).fuel_disel_rate * self.projected_trip_fuel
 
 #for getting driver of selected vehicle
-	@api.onchange('vehicle')
-	def onchange_get_driver(self):
-		if self.vehicle:
-			self.driver_id = self.vehicle.driver_id
+	#@api.onchange('vehicle')
+	#def onchange_get_driver(self):
+	#	if self.vehicle:
+	#		self.driver_id = self.vehicle.driver_id
 
 	@api.onchange('route','vehicle')
 	def onchange_route_field(self):

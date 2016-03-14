@@ -24,7 +24,7 @@ class select_check_list(models.Model):
 	list_date = fields.Date('Date')
 	Vehicle_id = fields.Many2one('fleet.vehicle','Vehicle')
 	vehicle_type = fields.Char('Vehicle Type')
-	vehicle_meter_reading = fields.Char('Vehicle Type')
+	vehicle_meter_reading = fields.Char('Meter Reading')
 	select_check_list_id = fields.One2many('select_check_list_fields','select_check_list_fields_id')
 	@api.multi
 	def action_create_check_list(self):

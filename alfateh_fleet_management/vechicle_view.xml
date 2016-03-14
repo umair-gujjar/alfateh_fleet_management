@@ -17,6 +17,9 @@
                 <xpath expr="//field[@name='car_value']" position="after">
                     <field name="vehicle_status"/>
                 </xpath>
+                <xpath expr="//field[@name='driver_id']" position="attributes">
+                    <attribute name="attrs">{'invisible': True}</attribute>
+                </xpath>
             </field>
         </record>
 
