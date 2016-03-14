@@ -23,6 +23,7 @@ class inwardpass(osv.Model):
 	'vehicle_num' : fields.char('Vehicle Number',size=32),
 	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle'),
 
+	'out_driver' : fields.char('Driver'),
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
 	'out_gon' : fields.char('GON #',),
@@ -99,6 +100,7 @@ class inwardshop(osv.Model):
 	'out_gon' : fields.char('GON #',size=32 ),
 	'out_sin' : fields.char('SIN #',size=32 ),
 	'out_time_out' : fields.datetime('Time Out', ),
+	#'out_driver' : fields.char('Driver'),
 	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','=',True),('employee','=',True)]"),
 	'out_vehicle_type' : fields.char('Vehicle Type',size=32),
 	'out_fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle'),
@@ -175,7 +177,8 @@ class inwardgen(osv.Model):
 	'ingen_id' : fields.one2many('ingen','inwardgen_id',string='Details'),
 	'remarks' : fields.text('Remarks'),
 	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle'),
-
+	#'out_driver' : fields.char('Driver'),
+	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','=',True),('employee','=',True)]"),
 	'out_date' : fields.date('Date',),
 	'out_gon' : fields.char('GON #',size=32 ),
 	'out_document_ref' : fields.char('Document Ref #',size=32),
@@ -243,6 +246,8 @@ class inwardret(osv.Model):
 	'remarks' : fields.text('Remarks'),
 	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle'),
 
+	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','=',True),('employee','=',True)]"),
+	#'out_driver' : fields.char('Driver'),
 	'out_dept': fields.char('Department/Section', size=32),
 	'out_date_out' : fields.date('Date Out', ),
 	'out_date_in' : fields.date('Date In', ),
@@ -346,6 +351,7 @@ class gate_pass_inwardpass_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
+		#self.out_driver = self.trip_management_field.driver_id
 
 
 # For Write method code
@@ -353,9 +359,10 @@ class gate_pass_inwardpass_inherit(models.Model):
 	def write(self, values):
 		result = super(gate_pass_inwardpass_inherit, self).write(values)
 		fuel_logs_rec = self.env['fleet.vehicle.odometer'].search([('vehicle_id','=',self.fleet_vehicle_id.id)])
-		print fuel_logs_rec[-1]
-		print fuel_logs_rec[-1].value
-		fuel_logs_rec[-1].value = self.gpi_odoo_meter
+		#print fuel_logs_rec[-1]
+		#print fuel_logs_rec[-1].value
+		if self.gpi_odoo_meter:
+			fuel_logs_rec[-1].value = self.gpi_odoo_meter
 		return result
 
 	@api.multi
@@ -401,22 +408,24 @@ class gate_pass_inwardshop_inherit(models.Model):
 	def on_change_vehicle(self):
 		self.gp_odoo_meter = self.fleet_vehicle_id.odometer
 		self.gpi_odoo_meter = self.fleet_vehicle_id.odometer
-		if self.fleet_vehicle_id:
-			self.out_driver = self.fleet_vehicle_id.driver_id
+		#if self.fleet_vehicle_id:
+		#	self.out_driver = self.fleet_vehicle_id.driver_id
 
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
+		self.out_driver = self.trip_management_field.driver_id
 # Write Method
 	@api.multi
 	def write(self, values):
 		result = super(gate_pass_inwardshop_inherit, self).write(values)
 		fuel_logs_rec = self.env['fleet.vehicle.odometer'].search([('vehicle_id','=',self.fleet_vehicle_id.id)])
-		print fuel_logs_rec[-1]
-		print fuel_logs_rec[-1].value
-		fuel_logs_rec[-1].value = self.gpi_odoo_meter
+		#print fuel_logs_rec[-1]
+		#print fuel_logs_rec[-1].value
+		if self.gpi_odoo_meter:
+			fuel_logs_rec[-1].value = self.gpi_odoo_meter
 		return result
 
 	@api.multi
@@ -464,14 +473,16 @@ class gate_pass_inwardgen_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
+		self.out_driver = self.trip_management_field.driver_id
 #Write Method
 	@api.multi
 	def write(self, values):
 		result = super(gate_pass_inwardgen_inherit, self).write(values)
 		fuel_logs_rec = self.env['fleet.vehicle.odometer'].search([('vehicle_id','=',self.fleet_vehicle_id.id)])
-		print fuel_logs_rec[-1]
-		print fuel_logs_rec[-1].value
-		fuel_logs_rec[-1].value = self.gpi_odoo_meter
+		#print fuel_logs_rec[-1]
+		#print fuel_logs_rec[-1].value
+		if self.gpi_odoo_meter:
+			fuel_logs_rec[-1].value = self.gpi_odoo_meter
 		return result
 	@api.multi
 	def odoometer_value_pass(self):
@@ -517,14 +528,16 @@ class gate_pass_inwardret_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
+		self.out_driver = self.trip_management_field.driver_id
 #Write Method
 	@api.multi
 	def write(self, values):
 		result = super(gate_pass_inwardret_inherit, self).write(values)
 		fuel_logs_rec = self.env['fleet.vehicle.odometer'].search([('vehicle_id','=',self.fleet_vehicle_id.id)])
-		print fuel_logs_rec[-1]
-		print fuel_logs_rec[-1].value
-		fuel_logs_rec[-1].value = self.gpi_odoo_meter
+		#print fuel_logs_rec[-1]
+		#print fuel_logs_rec[-1].value
+		if self.gpi_odoo_meter:
+			fuel_logs_rec[-1].value = self.gpi_odoo_meter
 		return result
 	@api.multi
 	def odoometer_value_pass(self):
