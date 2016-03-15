@@ -35,11 +35,14 @@
                             <field name="sa_num"/>
                             <field name="assesmnet_date"/>
                             <field name="assesment_list_name"/>
+                            <field name="total_marks"/>
+
                         </group>
                         <group name="right">
                             <field name="company_name"/>
                             <field name="department"/>
-                            <button string="Update" type="object" name="action_create_assesment_list"/>
+                            <button string="⇒ Update" type="object" name="action_create_assesment_list" class="oe_link" />
+                            <button string="⇒ Calculate Marks" type="object" name="action_calculate_mark" class="oe_link" />
                         </group>
                         </group>
                     <notebook>

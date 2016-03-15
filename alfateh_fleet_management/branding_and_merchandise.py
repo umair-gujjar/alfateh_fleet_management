@@ -44,13 +44,28 @@ class branding_merchandise(models.Model):
 	department_details = fields.Char('Department Detail')
 	company_type =  fields.Char()
 	previous_contract =  fields.Selection([('yes', 'Yes'),
-		('no', 'No')], string="previous Contract with our Company(if Any)")
+		('no', 'No')], string="Previous Contract with our Company(if Any)")
 	assesment_list_name = fields.Many2one('assesment_list','Select Assesment List')
 	assesmnet_date = fields.Date('Date')
 	company_name = fields.Char('Company Name')
 	department = fields.Char('Department')
 	sa_num = fields.Char('SA #')
+	total_marks = fields.Char('Total Marks')
 	select_assesment_list_id = fields.One2many('select_assesment_list_fields','select_assesment_list_fields_id')
+
+	@api.multi
+	def action_calculate_mark(self):
+		#self.total_marks = self._prepare_assesment_list_lines(self.assesment_list_name)
+		#return True\
+		total_calculated_marks = 0 
+		for grade in self.select_assesment_list_id:
+			total_calculated_marks = total_calculated_marks +  (float(grade.grade) * grade.factor)
+			print total_calculated_marks
+
+		self.total_marks = total_calculated_marks	
+
+
+
 	@api.multi
 	def action_create_assesment_list(self):
 		self.select_assesment_list_id = self._prepare_assesment_list_lines(self.assesment_list_name)
