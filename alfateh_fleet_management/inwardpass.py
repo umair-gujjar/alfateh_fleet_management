@@ -580,6 +580,9 @@ class gate_pass_inwardpass_inherit(models.Model):
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.time_duration = days_hours + float_hours
+			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
+
+		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
 	@api.onchange('fleet_vehicle_id')
 	def on_change_vehicle(self):
 		self.gp_odoo_meter = self.fleet_vehicle_id.odometer
@@ -644,6 +647,7 @@ class gate_pass_inwardshop_inherit(models.Model):
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.time_duration = days_hours + float_hours
+			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
 	@api.onchange('fleet_vehicle_id')
@@ -708,6 +712,7 @@ class gate_pass_inwardgen_inherit(models.Model):
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.time_duration = days_hours + float_hours
+			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
 	@api.onchange('fleet_vehicle_id')
@@ -768,6 +773,7 @@ class gate_pass_out_inwardgen_inherit(models.Model):
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.time_duration = days_hours + float_hours
+			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
 	@api.onchange('fleet_vehicle_id')
@@ -829,6 +835,7 @@ class gate_pass_outwardgen_inherit(models.Model):
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.time_duration = days_hours + float_hours
+			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
 	@api.onchange('fleet_vehicle_id')
@@ -888,6 +895,7 @@ class gate_pass_inwardret_inherit(models.Model):
  			float_hours = sec/3600.0
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.time_duration = days_hours + float_hours
+			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
 	@api.onchange('fleet_vehicle_id')
