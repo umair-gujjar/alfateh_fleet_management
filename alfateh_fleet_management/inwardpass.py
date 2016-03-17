@@ -295,7 +295,7 @@ class outwardgen(osv.Model):
 	'trip_management_field': fields.many2one('trip.management','Trip'),
 	'gp_odoo_meter': fields.float("Odoo Meter Exit"),
 	'gpi_odoo_meter': fields.float("Odoo Meter Enterance"),
-	'odoometer_difference' : fields.float('Odoo Meter Differenc'),
+	'odoometer_difference' : fields.float('Odoo Meter Difference'),
 
     'state' : fields.selection([
             ('vehicle_process', 'Gate In'),
@@ -380,7 +380,7 @@ class inwardret(osv.Model):
 	'trip_management_field': fields.many2one('trip.management','Trip'),
 	'gp_odoo_meter': fields.float("Odoo Meter Exit"),
 	'gpi_odoo_meter': fields.float("Odoo Meter Enterance"),
-	'odoometer_difference' : fields.float('Odoo Meter Differenc'),
+	'odoometer_difference' : fields.float('Odoo Meter Difference'),
 
     'state' : fields.selection([
             ('vehicle_enter', 'Gate Out'),
@@ -414,7 +414,7 @@ class in_inret(osv.Model):
     'item_des': fields.char('Item Description'),
     'brought_in_qty': fields.integer('Brought In QTY'),
     'qty_used': fields.char('QTY Used'),
-    'diff': fields.integer('Differenc (If any)', readonly=True),
+    'diff': fields.integer('Difference (If any)', readonly=True),
     'brought_out_qty': fields.integer('Brought Out QTY'),
     'in_inwardret_id' : fields.many2one('inwardret','Item Category'),
     }
@@ -431,7 +431,7 @@ class out_inret(osv.Model):
     'item_des': fields.char('Item Description'),
     'brought_in_qty': fields.integer('Brought In QTY'),
     'qty_used': fields.char('QTY Used'),
-    'diff': fields.integer('Differenc (If any)', readonly=True),
+    'diff': fields.integer('Difference (If any)', readonly=True),
     'brought_out_qty': fields.integer('Brought Out QTY'),
     'out_inwardret_id' : fields.many2one('inwardret','Item Category'),
     }
@@ -481,7 +481,7 @@ class out_inwardret(osv.Model):
 	'trip_management_field': fields.many2one('trip.management','Trip'),
 	'gp_odoo_meter': fields.float("Odoo Meter Exit"),
 	'gpi_odoo_meter': fields.float("Odoo Meter Enterance"),
-	'odoometer_difference' : fields.float('Odoo Meter Differenc'),
+	'odoometer_difference' : fields.float('Odoo Meter Difference'),
 
     'state' : fields.selection([
     		('vehicle_process', 'Gate In'),
@@ -515,7 +515,7 @@ class in_outret(osv.Model):
     'item_des': fields.char('Item Description'),
     'brought_in_qty': fields.integer('Brought In QTY'),
     'qty_used': fields.char('QTY Used'),
-    'diff': fields.integer('Differenc (If any)', readonly=True),
+    'diff': fields.integer('Difference (If any)', readonly=True),
     'brought_out_qty': fields.integer('Brought Out QTY'),
     'in_outwardret_id' : fields.many2one('out_inwardret','Item Category'),
     }
@@ -532,7 +532,7 @@ class out_outret(osv.Model):
     'item_des': fields.char('Item Description'),
     'brought_in_qty': fields.integer('Brought In QTY'),
     'qty_used': fields.char('QTY Used'),
-    'diff': fields.integer('Differenc (If any)', readonly=True),
+    'diff': fields.integer('Difference (If any)', readonly=True),
     'brought_out_qty': fields.integer('Brought Out QTY'),
     'out_outwardret_id' : fields.many2one('out_inwardret','Item Category'),
     }

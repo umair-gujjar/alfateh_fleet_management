@@ -780,11 +780,10 @@
                         </page>
                         <page string="Gate Out Remarks" >
                             <group>
-                                    <field name="out_remarks" nolabel='1'>
-                                    </field>
+                                <field name="out_remarks" nolabel='1'>
+                                </field>
                             </group>
                         </page>
-
                     </notebook>
                 </sheet>
                         <div class="oe_chatter">
@@ -803,8 +802,8 @@
             <field name="arch" type="xml">
                 <tree string="inwardret">
                     <field name="name" string="No."/>
-                    <field name="time_out" />
                     <field name="time_in" />
+                    <field name="time_out" />
                     <field name="time_duration" />
                     <field name="workers"/>
                     <field name="out_dept" />
@@ -821,7 +820,7 @@
         </record>
 
         <record model="ir.actions.act_window" id="action_out_inwardret">
-            <field name="name">Intward Returnable</field>
+            <field name="name">Inward Returnable</field>
             <field name="res_model">out_inwardret</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
