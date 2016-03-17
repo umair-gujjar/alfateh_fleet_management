@@ -61,7 +61,9 @@
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="fleet_vehicle_id" />
                                 <field name="out_driver" />
+                                <field name="time_duration"  widget="float_time"/>
                                 <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="odoometer_difference" />
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
 
 
@@ -76,9 +78,9 @@
                         </group>
                     
                     <notebook colspan="3">
-                        <page string="Details" >
+                        <page string="Gate In" >
                             <group>
-                                    <field name="inward_id" nolabel='1'>
+                                    <field name="in_inward_id" nolabel='1'>
                                         <tree editable="bottom">
                                             <field name="uom"/>
                                             <field name="qty"/>
@@ -87,9 +89,27 @@
                                     </field>
                             </group>
                         </page>
-                        <page string="Remarks" >
+                        <page string="Gate In Remarks" >
                             <group>
-                                    <field name="remarks" nolabel='1'>
+                                    <field name="in_remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+
+                        <page string="Gate Out " >
+                            <group>
+                                    <field name="out_inward_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            <field name="uom"/>
+                                            <field name="qty"/>
+                                            <field name="item"/>
+                                        </tree>
+                                    </field>
+                            </group>
+                        </page>
+                        <page string="Gate Out Remarks" >
+                            <group>
+                                    <field name="out_remarks" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -110,43 +130,23 @@
             <field name="model">inwardpass</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-
                 <tree string="inwardpass">
-
-                    <field name="name"/>
-                    <!--><field name="document_type" /> -->
-                    <field name="invoice_ref" />
+                    <field name="name" string="No."/>
                     <field name="time_in"/>
-                    <field name="supplier_details"/>
-                    <field name="gin" readonly="1"/>
-                    <field name="lc_pc_ref"/>
-                    <field name="lc_pc"/>
-                    <field name="bilty"/>
                     <field name="time_out" />
-                    <!--<field name="vehicle"/> -->
+                    <field name="time_duration" />
+                    <field name="supplier_details"/>
                     <field name="out_driver" />
-                    <field name="vehicle_type"/>
-                    <field name="vehicle_num"/>
-                    <field name="out_nature" />
-                    <field name="out_sron" />
-                    <field name="out_gon" readonly="1" />
-                    <field name="out_time_out" />
-                    <!--<field name="out_vehicle" /> -->
-                    <field name="go_seal" />
-                    <field name="gi_seal" />
                     <field name="trip_management_field"/> 
                     <field name="fleet_vehicle_id" />
-                    <field name="gp_odoo_meter" />
                     <field name="gpi_odoo_meter"/>
-
-
+                    <field name="gp_odoo_meter" />
+                    <field name="odoometer_difference" />
                 </tree>
-               
             </field>
-
         </record>
         <record model="ir.actions.act_window" id="action_inwardpass">
-            <field name="name">GOI Supplier</field>
+            <field name="name">Supplier</field>
             <field name="res_model">inwardpass</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -191,24 +191,22 @@
                             <group name="group_right">
 
                                 <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
-
+                            
                                 <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="fleet_vehicle_id" />
                                 <field name="out_driver" />
-                                <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
+                                <field name="time_duration" widget="float_time" />
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="odoometer_difference"/>
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-
-
-                                
-        
                             </group>
                         </group>
                     
                     <notebook colspan="3">
-                        <page string="Details" >
+                        <page string="Gate Out" >
                             <group>
-                                    <field name="inshop_id" nolabel='1'>
+                                    <field name="out_inshop_id" nolabel='1'>
                                         <tree editable="bottom">
                                             <field name="uom"/>
                                             <field name="qty"/>
@@ -217,9 +215,26 @@
                                     </field>
                             </group>
                         </page>
-                        <page string="Remarks" >
+                        <page string="Gate Out Remarks" >
                             <group>
-                                    <field name="remarks" nolabel='1'>
+                                    <field name="out_remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+                         <page string="Gate In" >
+                            <group >
+                                    <field name="in_inshop_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            <field name="uom"/>
+                                            <field name="qty"/>
+                                            <field name="item"/>
+                                        </tree>
+                                    </field>
+                            </group>
+                        </page>
+                        <page string="Gate In Remarks" >
+                            <group>
+                                    <field name="in_remarks" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -239,45 +254,30 @@
             <field name="model">inwardshop</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-
                 <tree string="inwardshop">
-                    <field name="name"/>
-
-                    <field name="time_in"/>
-                    <field name="srin"/>
-                    <field name="branch"/>
-                    <field name="gin" readonly="1"/>
-
-                    <field name="out_reference_field" />
-
+                    <field name="name" string="No."/>
                     <field name="out_time_out" />
-                    <field name="out_gon" readonly="1"/>
+                    <field name="time_in"/>
+                    <field name="time_duration" />
                     <field name="out_driver" />
                     <field name="fleet_vehicle_id" />
-
-                    <field name="go_seal" />
-                    <field name="gi_seal" />
                     <field name="trip_management_field" />
                     <field name="gp_odoo_meter" />
                     <field name="gpi_odoo_meter"/>
-
-                        
-
+                    <field name="odoometer_difference" />
                 </tree>
-               
             </field>
-
         </record>
 
         <record model="ir.actions.act_window" id="action_inwardshop">
-            <field name="name">GOI Shop</field>
+            <field name="name">Shop</field>
             <field name="res_model">inwardshop</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
 
-            <record id="view_inwardgen_form" model="ir.ui.view">
+        <record id="view_inwardgen_form" model="ir.ui.view">
             <field name="name">inwardgen_form</field>
             <field name="model">inwardgen</field>
             <field name="type">form</field>
@@ -318,7 +318,9 @@
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="fleet_vehicle_id" />
                                 <field name="out_driver" />
+                                <field name="time_duration" widget="float_time" />
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="odoometer_difference"/>
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>  
                                   
         
@@ -326,9 +328,9 @@
                         </group>
 
                     <notebook colspan="3">
-                        <page string="Details" >
+                        <page string="Gate Out" >
                             <group>
-                                    <field name="ingen_id" nolabel='1'>
+                                    <field name="out_ingen_id" nolabel='1'>
                                         <tree editable="bottom">
                                             <field name="uom"/>
                                             <field name="qty"/>
@@ -338,9 +340,27 @@
 
                              </group>
                         </page>
-                        <page string="Remarks" >
+                        <page string="Gate Out Remarks" >
                             <group>
-                                    <field name="remarks" nolabel='1'>
+                                    <field name="out_remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+                        <page string="Gate In" >
+                            <group>
+                                    <field name="in_ingen_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            <field name="uom"/>
+                                            <field name="qty"/>
+                                            <field name="item"/>
+                                        </tree>
+                                    </field>
+
+                             </group>
+                        </page>
+                        <page string="Gate In Remarks" >
+                            <group>
+                                    <field name="in_remarks" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -362,21 +382,144 @@
             <field name="arch" type="xml">
 
                 <tree string="inwardgen">
-                    <field name="name"/>
-                    <field name="time_in"/>
-                    <field name="gin" readonly="1"/>
-                    <!--<field name="vehicle"/> -->
+                    <field name="name" string="No."/>
                     <field name="out_time_out"/>
-                    <field name="out_gon" readonly="1"/>
+                    <field name="time_in"/>
+                    <field name="time_duration"/>
                     <field name="out_document_ref" />
                     <!--<field name="out_vehicle"/> -->
                     <field name="out_driver" />
-                    <field name="go_seal" />
-                    <field name="gi_seal" />
                     <field name="trip_management_field" />
                     <field name="fleet_vehicle_id" />
                     <field name="gp_odoo_meter" />
                     <field name="gpi_odoo_meter"/>
+                    <field name="odoometer_difference" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_inwardgen">
+            <field name="name">Outward General</field>
+            <field name="res_model">inwardgen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+        <record id="view_outwardgen_form" model="ir.ui.view">
+            <field name="name">outwardgen_form</field>
+            <field name="model">outwardgen</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Inwardgen">
+                    <header>
+        <button string="Gate Out" type="object" name="vehicle_enter" attrs="{'invisible': [('state', '!=', 'vehicle_process')]}"/>
+        <button string="Validate" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_enter')]}"/>
+        <button string="Gate In" type="object" name="vehicle_process" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                        
+                            </group>
+                    
+                            <group name="group_right">
+
+                                <field name="gin" readonly="1" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <!--<field name="vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
+
+                                <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="out_document_ref" />
+                                <!--<field name="out_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
+                                <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
+                                <field name="fleet_vehicle_id" />
+                                <field name="out_driver" />
+                                <field name="time_duration" />
+                                <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="odoometer_difference" />
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>  
+                                  
+        
+                            </group>
+                        </group>
+
+                    <notebook colspan="3">
+                        <page string="Gate In" >
+                            <group>
+                                    <field name="in_outgen_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            <field name="uom"/>
+                                            <field name="qty"/>
+                                            <field name="item"/>
+                                        </tree>
+                                    </field>
+
+                             </group>
+                        </page>
+                        <page string="Gate In Remarks" >
+                            <group>
+                                    <field name="in_remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+                        <page string="Gate Out" >
+                            <group>
+                                    <field name="out_outgen_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            <field name="uom"/>
+                                            <field name="qty"/>
+                                            <field name="item"/>
+                                        </tree>
+                                    </field>
+
+                             </group>
+                        </page>
+                        <page string="Gate Out Remarks" >
+                            <group>
+                                    <field name="out_remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_outwardgen_tree" model="ir.ui.view">
+            <field name="name">outwardgen</field>
+            <field name="model">outwardgen</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+
+                <tree string="inwardgen">
+                    <field name="name" string="No."/>
+                    <field name="time_in"/>
+                    <field name="out_time_out"/>
+                    <field name="time_duration" />
+                    <field name="out_document_ref" />
+                    <field name="out_driver" />
+                    <field name="trip_management_field" />
+                    <field name="fleet_vehicle_id" />
+                    <field name="gp_odoo_meter" />
+                    <field name="gpi_odoo_meter"/>
+                    <field name="odoometer_difference" />
 
 
                 </tree>
@@ -385,9 +528,9 @@
 
         </record>
 
-        <record model="ir.actions.act_window" id="action_inwardgen">
-            <field name="name">GOI General</field>
-            <field name="res_model">inwardgen</field>
+        <record model="ir.actions.act_window" id="action_outwardgen">
+            <field name="name">Inward General</field>
+            <field name="res_model">outwardgen</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
@@ -445,16 +588,18 @@
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="fleet_vehicle_id" />
                                 <field name="out_driver" />
+                                <field name="time_duration" widget="float_time" />
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="odoometer_difference" />
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>    
 
         
                             </group>
                         </group>
                     <notebook colspan="3">
-                        <page string="Details" >
+                        <page string="Gate Out" >
                              <group>
-                                    <field name="inret_id" nolabel='1'>
+                                    <field name="out_inret_id" nolabel='1'>
                                         <tree editable="bottom">
                                             
                                             <field name="item_des"/>
@@ -467,9 +612,31 @@
 
                                 </group>
                         </page>
-                        <page string="Remarks" >
+                        <page string="Gate Out Remarks" >
                             <group>
-                                    <field name="remarks" nolabel='1'>
+                                    <field name="out_remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+
+                        <page string="Gate In" >
+                             <group>
+                                    <field name="in_inret_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            
+                                            <field name="item_des"/>
+                                            <field name="brought_out_qty" on_change="onchange_result(brought_in_qty, brought_out_qty)"/>
+                                            <field name="brought_in_qty" on_change="onchange_result(brought_in_qty, brought_out_qty)"/>
+                                            <field name="diff"/>
+                                            <field name="qty_used"/>
+                                        </tree>
+                                    </field>
+
+                                </group>
+                        </page>
+                        <page string="Gate In Remarks" >
+                            <group>
+                                    <field name="in_remarks" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -489,55 +656,188 @@
             <field name="model">inwardret</field>
             <field name="type">tree</field>
             <field name="arch" type="xml">
-
                 <tree string="inwardret">
-                    <field name="name"/>
-                    <field name="gin" readonly="1"/>
-                    <!--<field name="date_in"/>
-                    <field name="date_out"/>-->
-                    <field name="time_in" />
+                    <field name="name" string="No."/>
                     <field name="time_out" />
+                    <field name="time_in" />
+                    <field name="time_duration" />
                     <field name="workers"/>
-                    <!--<field name="vehicle"/> -->
-
-                    <field name="out_gon" readonly="1" />
-                    <!--<field name="out_date_out" />
-                    <field name="out_date_in" />-->
-                    <field name="out_time_out" />
                     <field name="out_dept" />
                     <field name="out_document_ref" />
-                    <field name="out_time_in" />
-                    <!--<field name="out_vehicle" /> -->
                     <field name="out_stock_location_id" />
-                    <field name="go_seal" />
-                    <field name="gi_seal" />
                     <field name="trip_management_field" />
                     <field name="fleet_vehicle_id" />
                     <field name="out_driver" />
                     <field name="gp_odoo_meter" />
                     <field name="gpi_odoo_meter"/>
-
+                    <field name="odoometer_difference" />
                 </tree>
-               
             </field>
-
         </record>
 
         <record model="ir.actions.act_window" id="action_inwardret">
-            <field name="name">GOI Returnable</field>
+            <field name="name">Outward Returnable</field>
             <field name="res_model">inwardret</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
 
 
+         <record id="view_out_inwardret_form" model="ir.ui.view">
+            <field name="name">out_inwardret_form</field>
+            <field name="model">out_inwardret</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                
+                <form string="Inwardret">
+                    <header>
+        <button string="Gate Out" type="object" name="vehicle_enter" attrs="{'invisible': [('state', '!=', 'vehicle_process')]}"/>
+        <button string="Validate" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_enter')]}"/>
+        <button string="Gate In" type="object" name="vehicle_process" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <group name="group_top">
+                            <group name="group_left">
+                                <!--<field name="date_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
+                                <field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+
+                                <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+                                <!--<field name="out_date_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
+                                <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+
+                                <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>  
+
+                        
+                            </group>
+                    
+                            <group name="group_right">
+
+                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+                                <!--<field name="date_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>-->
+                                <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <!--<field name="vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
+
+                                <field name="out_dept" />
+                                <field name="out_document_ref" />
+                                <!--<field name="out_date_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
+                                <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <!--<field name="out_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
+                                <field name="out_stock_location_id" />
+                                <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
+                                <field name="fleet_vehicle_id" />
+                                <field name="out_driver" />
+                                <field name="time_duration" widget="float_time" />
+                                <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="odoometer_difference" />
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>    
+
+        
+                            </group>
+                        </group>
+                    <notebook colspan="3">
+                        <page string="Gate In" >
+                             <group>
+                                    <field name="in_outret_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            
+                                            <field name="item_des"/>
+                                            <field name="brought_out_qty" on_change="onchange_result(brought_in_qty, brought_out_qty)"/>
+                                            <field name="brought_in_qty" on_change="onchange_result(brought_in_qty, brought_out_qty)"/>
+                                            <field name="diff"/>
+                                            <field name="qty_used"/>
+                                        </tree>
+                                    </field>
+
+                                </group>
+                        </page>
+                        <page string="Gate In Remarks" >
+                            <group>
+                                    <field name="in_remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+
+                        <page string="Gate Out" >
+                             <group>
+                                    <field name="out_outret_id" nolabel='1'>
+                                        <tree editable="bottom">
+                                            
+                                            <field name="item_des"/>
+                                            <field name="brought_out_qty" on_change="onchange_result(brought_in_qty, brought_out_qty)"/>
+                                            <field name="brought_in_qty" on_change="onchange_result(brought_in_qty, brought_out_qty)"/>
+                                            <field name="diff"/>
+                                            <field name="qty_used"/>
+                                        </tree>
+                                    </field>
+
+                                </group>
+                        </page>
+                        <page string="Gate Out Remarks" >
+                            <group>
+                                    <field name="out_remarks" nolabel='1'>
+                                    </field>
+                            </group>
+                        </page>
+
+                    </notebook>
+                </sheet>
+                        <div class="oe_chatter">
+                            <field name="message_follower_ids" widget="mail_followers"/>
+                            <field name="message_ids" widget="mail_thread"/>
+                        </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="view_out_inwardret_tree" model="ir.ui.view">
+            <field name="name">out_inwardret</field>
+            <field name="model">out_inwardret</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="inwardret">
+                    <field name="name" string="No."/>
+                    <field name="time_out" />
+                    <field name="time_in" />
+                    <field name="time_duration" />
+                    <field name="workers"/>
+                    <field name="out_dept" />
+                    <field name="out_document_ref" />
+                    <field name="out_stock_location_id" />
+                    <field name="trip_management_field" />
+                    <field name="fleet_vehicle_id" />
+                    <field name="out_driver" />
+                    <field name="gp_odoo_meter" />
+                    <field name="gpi_odoo_meter"/>
+                    <field name="odoometer_difference" />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_out_inwardret">
+            <field name="name">Intward Returnable</field>
+            <field name="res_model">out_inwardret</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
 
         <menuitem name="Gate Pass" id="menu_gatepass_root" sequence="70"/>
-        <menuitem name="GatePass" id="menu_gatepass_inward" parent="menu_gatepass_root" action="action_inwardpass" sequence="0"/>
-            <menuitem name="Gate Out/In (Supplier)" id="menu_inwarpass_inwardpass_item" parent="menu_gatepass_inward" action="action_inwardpass" sequence="1"/>
-            <menuitem name="Gate Out/In (Shop)" id="menu_inwarshop_inwardshop_item" parent="menu_gatepass_inward" action="action_inwardshop" sequence="2"/>
-            <menuitem name="Gate Out/In (General)" id="menu_inwardgen_inwardgen_item" parent="menu_gatepass_inward" action="action_inwardgen" sequence="3"/>
-            <menuitem name="Gate Out/In (Returnable)" id="menu_inwardret_inwardret_item"  parent="menu_gatepass_inward" action="action_inwardret" sequence="4"/>
+        <menuitem name="Out => In" id="menu_gatepass_out_in" parent="menu_gatepass_root" action="action_inwardpass" sequence="0"/>
+            <menuitem name="Shop" id="menu_inwarshop_inwardshop_item" parent="menu_gatepass_out_in" action="action_inwardshop" sequence="1"/>
+            <menuitem name="Outward General" id="menu_inwardgen_inwardgen_item" parent="menu_gatepass_out_in" action="action_inwardgen" sequence="2"/>
+            <menuitem name="Outward Returnable" id="menu_outward_returnable_item"  parent="menu_gatepass_out_in" action="action_inwardret" sequence="3"/>
+        <menuitem name="In => Out" id="menu_gatepass_in_out" parent="menu_gatepass_root" action="action_inwardpass" sequence="1"/>   
+            <menuitem name="Supplier" id="menu_inwarpass_inwardpass_item" parent="menu_gatepass_in_out" action="action_inwardpass" sequence="1"/> 
+            <menuitem name="Inward General" id="menu_in_out_general_item" parent="menu_gatepass_in_out" action="action_outwardgen" sequence="2"/>
+            <menuitem name="Inward Returnable" id="menu_inward_returnable_item"  parent="menu_gatepass_in_out" action="action_out_inwardret" sequence="3"/>
+
         <menuitem name="Configuration" id="menu_gatepass_config" parent="menu_gatepass_root" sequence="2"/>
            
 

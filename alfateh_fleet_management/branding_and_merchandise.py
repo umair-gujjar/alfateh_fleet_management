@@ -50,7 +50,7 @@ class branding_merchandise(models.Model):
 	company_name = fields.Char('Company Name')
 	department = fields.Char('Department')
 	sa_num = fields.Char('SA #')
-	total_marks = fields.Char('Total Marks')
+	total_marks = fields.Char('Total Points')
 	select_assesment_list_id = fields.One2many('select_assesment_list_fields','select_assesment_list_fields_id')
 
 	@api.multi

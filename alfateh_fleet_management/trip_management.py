@@ -14,7 +14,7 @@ class trip_management(models.Model):
 	date = fields.Date('Date', required=True)
 	vehicle = fields.Many2one('fleet.vehicle','Vehicle',required=True)
 	route = fields.Many2one('route.management','Route',required=True)
-	route_distance = fields.Float('Route Distance')
+	route_distance = fields.Float('Projected Route Distance')
 	projected_trip_time = fields.Float('Projected Time')
 	projected_trip_fuel = fields.Float('Projected Fuel')
 	projected_trip_fuel_cost = fields.Float('Projected Fuel Cost')
@@ -23,6 +23,7 @@ class trip_management(models.Model):
 	actual_trip_time = fields.Float('Actual Time')
 	actual_trip_fuel = fields.Float('Actual Fuel')
 	actual_trip_fuel_cost = fields.Float('Actual Fuel Cost')
+	actual_trip_route_distance = fields.Float('Actual Route Distance')
 	actual_trip_other_cost = fields.Float('Actual Other Cost ')
 	actual_trip_cost = fields.Float('Actual Total Cost ')
 	variance_trip_time = fields.Float('Variance Time')
@@ -30,6 +31,7 @@ class trip_management(models.Model):
 	variance_trip_fuel_cost = fields.Float('Variance Fuel Cost')
 	variance_trip_other_cost = fields.Float('Variance Other Cost ')
 	variance_trip_cost = fields.Float('Variance Total Cost ')
+	variance_route_distance = fields.Float('Variance Route Distance')
 	trip_description = fields.Text('Description')
 	cost_count = fields.Integer(string="Costs",compute='compute_user_todo_count')
 	driver_id = fields.Many2one('res.partner','Driver')
@@ -119,4 +121,5 @@ class trip_management(models.Model):
 			self.variance_trip_other_cost =  self.actual_trip_other_cost - self.projected_trip_other_cost
 
 			self.variance_trip_cost =  self.actual_trip_cost - self.projected_trip_cost
+			self.variance_route_distance =  self.actual_trip_route_distance - self.route_distance
 
