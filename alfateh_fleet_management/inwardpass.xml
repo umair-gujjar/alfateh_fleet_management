@@ -134,7 +134,7 @@
                     <field name="name" string="No."/>
                     <field name="time_in"/>
                     <field name="time_out" />
-                    <field name="time_duration" />
+                    <field name="time_duration" widget="float_time" />
                     <field name="supplier_details"/>
                     <field name="out_driver" />
                     <field name="trip_management_field"/> 
@@ -258,7 +258,7 @@
                     <field name="name" string="No."/>
                     <field name="out_time_out" />
                     <field name="time_in"/>
-                    <field name="time_duration" />
+                    <field name="time_duration" widget="float_time" />
                     <field name="out_driver" />
                     <field name="fleet_vehicle_id" />
                     <field name="trip_management_field" />
@@ -385,7 +385,7 @@
                     <field name="name" string="No."/>
                     <field name="out_time_out"/>
                     <field name="time_in"/>
-                    <field name="time_duration"/>
+                    <field name="time_duration" widget="float_time"/>
                     <field name="out_document_ref" />
                     <!--<field name="out_vehicle"/> -->
                     <field name="out_driver" />
@@ -445,7 +445,7 @@
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="fleet_vehicle_id" />
                                 <field name="out_driver" />
-                                <field name="time_duration" />
+                                <field name="time_duration" widget="float_time" />
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="odoometer_difference" />
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>  
@@ -512,7 +512,7 @@
                     <field name="name" string="No."/>
                     <field name="time_in"/>
                     <field name="out_time_out"/>
-                    <field name="time_duration" />
+                    <field name="time_duration" widget="float_time" />
                     <field name="out_document_ref" />
                     <field name="out_driver" />
                     <field name="trip_management_field" />
@@ -660,7 +660,7 @@
                     <field name="name" string="No."/>
                     <field name="time_out" />
                     <field name="time_in" />
-                    <field name="time_duration" />
+                    <field name="time_duration" widget="float_time" />
                     <field name="workers"/>
                     <field name="out_dept" />
                     <field name="out_document_ref" />
@@ -804,7 +804,7 @@
                     <field name="name" string="No."/>
                     <field name="time_in" />
                     <field name="time_out" />
-                    <field name="time_duration" />
+                    <field name="time_duration" widget="float_time"/>
                     <field name="workers"/>
                     <field name="out_dept" />
                     <field name="out_document_ref" />

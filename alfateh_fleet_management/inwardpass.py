@@ -569,17 +569,17 @@ class gate_pass_inwardpass_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.trip_management_field:
-			datetime_in = self.time_in
-			datetime_out = self.time_out
- 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
- 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
- 			timedelta = dt_e_obj - dt_s_obj
- 			days_hours  = timedelta.days
- 			sec = timedelta.seconds
- 			float_hours = sec/3600.0
+		datetime_in = self.time_in
+		datetime_out = self.time_out
+ 		dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 		dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 		timedelta = dt_e_obj - dt_s_obj
+ 		days_hours  = timedelta.days * 24
+ 		sec = timedelta.seconds
+ 		float_hours = sec/3600.0
+ 		self.time_duration = days_hours + float_hours
+ 		if self.trip_management_field:	
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
-			self.time_duration = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
@@ -636,17 +636,19 @@ class gate_pass_inwardshop_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.trip_management_field:
-			datetime_in = self.time_in
-			datetime_out = self.out_time_out
- 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
- 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
- 			timedelta = dt_s_obj - dt_e_obj
- 			days_hours = timedelta.days * 24
- 			sec = timedelta.seconds
- 			float_hours = sec/3600.0
+		
+		datetime_in = self.time_in
+		datetime_out = self.out_time_out
+ 		dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 		dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 		timedelta = dt_s_obj - dt_e_obj
+ 		days_hours = timedelta.days * 24
+ 		sec = timedelta.seconds
+ 		float_hours = sec/3600.0
+ 		self.time_duration = days_hours + float_hours
+
+ 		if self.trip_management_field:
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
-			self.time_duration = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
@@ -701,17 +703,18 @@ class gate_pass_inwardgen_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.trip_management_field:
-			datetime_in = self.time_in
-			datetime_out = self.out_time_out
- 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
- 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
- 			timedelta = dt_s_obj - dt_e_obj
- 			days_hours = timedelta.days
- 			sec = timedelta.seconds
- 			float_hours = sec/3600.0
+		datetime_in = self.time_in
+		datetime_out = self.out_time_out
+ 		dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 		dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 		timedelta = dt_s_obj - dt_e_obj
+ 		days_hours = timedelta.days * 24
+ 		sec = timedelta.seconds
+ 		float_hours = sec/3600.0
+
+ 		self.time_duration = days_hours + float_hours		
+ 		if self.trip_management_field:	
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
-			self.time_duration = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
@@ -762,17 +765,18 @@ class gate_pass_out_inwardgen_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.trip_management_field:
-			datetime_in = self.time_in
-			datetime_out = self.out_time_out
- 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
- 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
- 			timedelta = dt_s_obj - dt_e_obj
- 			days_hours = timedelta.days
- 			sec = timedelta.seconds
- 			float_hours = sec/3600.0
+		datetime_in = self.time_in
+		datetime_out = self.out_time_out
+ 		dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 		dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 		timedelta = dt_s_obj - dt_e_obj
+ 		days_hours = timedelta.days * 24
+ 		sec = timedelta.seconds
+ 		float_hours = sec/3600.
+ 		self.time_duration = days_hours + float_hours	
+
+ 		if self.trip_management_field:	
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
-			self.time_duration = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
@@ -824,17 +828,19 @@ class gate_pass_outwardgen_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.trip_management_field:
-			datetime_in = self.time_in
-			datetime_out = self.out_time_out
- 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
- 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
- 			timedelta = dt_s_obj - dt_e_obj
- 			days_hours = timedelta.days
- 			sec = timedelta.seconds
- 			float_hours = sec/3600.0
+		
+		datetime_in = self.time_in
+		datetime_out = self.out_time_out
+ 		dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 		dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 		timedelta = dt_s_obj - dt_e_obj
+ 		days_hours = timedelta.days * 24
+ 		sec = timedelta.seconds
+ 		float_hours = sec/3600.0
+ 		self.time_duration = days_hours + float_hours
+
+ 		if self.trip_management_field:	
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
-			self.time_duration = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
@@ -884,17 +890,19 @@ class gate_pass_inwardret_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.trip_management_field:
-			datetime_in = self.time_in
-			datetime_out = self.time_out
- 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
- 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
- 			timedelta = dt_s_obj - dt_e_obj
- 			days_hours = timedelta.days
- 			sec = timedelta.seconds
- 			float_hours = sec/3600.0
+		
+		datetime_in = self.time_in
+		datetime_out = self.time_out
+ 		dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 		dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 		timedelta = dt_s_obj - dt_e_obj
+ 		days_hours = timedelta.days * 24
+ 		sec = timedelta.seconds
+ 		float_hours = sec/3600.0
+ 		self.time_duration = days_hours + float_hours	
+
+ 		if self.trip_management_field:	
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
-			self.time_duration = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
