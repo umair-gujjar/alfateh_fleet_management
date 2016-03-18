@@ -25,7 +25,8 @@
         'fuel_rate_view.xml',
         'trip_management_view.xml',
         'location_view.xml',
-        'inwardpass.xml',
+        #'inwardpass.xml'
+        'inwardpass_new.xml',
         'driver_view.xml',
         'security/inwardpass_security.xml',
         'security/ir.model.access.csv',
