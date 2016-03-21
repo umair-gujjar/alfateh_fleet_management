@@ -8,7 +8,7 @@
             <field name="arch" type="xml">
                 <form string="Inwardpass">
                     <header attrs="{'invisible': [('outward_Category','=', False)]}">
-                       <button string="Gate In" type="object" name="vehicle_process" attrs="{'invisible': ['|',('state', '!=', 'vehicle_enter')]}"/>
+                       <button string="Gate In" type="object" name="vehicle_process" attrs="{'invisible': ['|',('state', '!=', 'vehicle_enter') , ('outward_Category', '=', 'general')]}"/>
                         <button string="Validate" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
                         <button string="Gate Out" type="object" name="vehicle_enter" attrs="{'invisible': ['|',('state','=','vehicle_enter') , ('outward_Category', '=', 'general')]}"/>
                         <field name="state" widget="statusbar" />
@@ -28,7 +28,7 @@
                                 <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <field name="out_document_ref" attrs="{'invisible': [('Category','!=','general')]}"/> 
+                                <field name="out_document_ref" attrs="{'invisible': [('outward_Category','!=','general')]}"/> 
                                 <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                             </group>
@@ -195,7 +195,7 @@
                     <header attrs="{'invisible': [('inward_Category','=', False)]}">
                         <button string="Gate Out" type="object" name="vehicle_process" attrs="{'invisible': [('state', '!=', 'vehicle_enter')]}"/>
                         <button string="Validate" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
-                        <button string="Gate In" type="object" name="vehicle_enter" attrs="{'invisible': ['|',('state','=','vehicle_enter') , ('Category', '=', 'general')]}"/>
+                        <button string="Gate In" type="object" name="vehicle_enter" attrs="{'invisible': ['|',('state','=','vehicle_enter') , ('inward_Category', '=', 'general')]}"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
