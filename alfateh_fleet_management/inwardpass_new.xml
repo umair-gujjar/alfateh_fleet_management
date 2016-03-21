@@ -31,6 +31,7 @@
                                 <field name="out_document_ref" attrs="{'invisible': [('outward_Category','!=','general')]}"/> 
                                 <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="own_vehicle"/>
                             </group>
                     
                             <group name="group_right">
@@ -155,6 +156,7 @@
                     <field name="time_in"/>
                     <field name="time_duration" widget="float_time" />
                     <field name="out_driver" />
+                    <field name="own_vehicle"/>
                     <field name="fleet_vehicle_id" />
                     <field name="trip_management_field" />
                     <field name="gp_odoo_meter" />
@@ -210,9 +212,10 @@
                                 <field name="lc_pc"/>
                                 <field name="invoice_ref" />
                                 <field name="supplier_details"/>
-                                <field name="vehicle_type"/>
+                                <field name="vehicle_type"  attrs="{'invisible': [('own_vehicle','=',False)]}"/>
                                 <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="out_nature" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="own_vehicle"/>
                                 <field name="out_sron" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
@@ -224,12 +227,12 @@
                                 <field name="lc_pc_ref"/>
                                 <field name="bilty" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <field name="vehicle_num"/>
+                                <field name="vehicle_num" attrs="{'invisible': [('own_vehicle','=',False)]}"/>
                                 <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
-                                <field name="fleet_vehicle_id" />
-                                <field name="out_driver" />
+                                <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('own_vehicle','!=',False)]}"/>
+                                <field name="fleet_vehicle_id" attrs="{'invisible': [('own_vehicle','!=',False)]}"/>
+                                <field name="out_driver" attrs="{'invisible': [('own_vehicle','!=',False)]}" />
                                 <field name="out_document_ref" />
                                 <!-- returnable -->
                                 <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'), ('inward_Category', '!=', 'returnable')]}"/>
@@ -346,6 +349,7 @@
                     <field name="time_in"/>
                     <field name="time_out" />
                     <field name="time_duration" widget="float_time" />
+                    <field name="own_vehicle"/>
                     <field name="supplier_details"/>
                     <field name="out_driver" />
                     <field name="trip_management_field"/> 
