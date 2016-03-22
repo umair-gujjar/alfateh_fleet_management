@@ -61,6 +61,7 @@ class outwardpass(osv.Model):
             ('returnable', 'Returnable'),
             ],default='', string="Select the Category"),
 	'lc_pc_ref' : fields.char('LC or PO Ref #',size=32),
+	
     'state' : fields.selection([
             ('vehicle_enter', 'Gate Out'),
             ('vehicle_process', 'Gate In'),
