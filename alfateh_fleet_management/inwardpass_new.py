@@ -25,7 +25,7 @@ class outwardpass(osv.Model):
 	'vehicle_num' : fields.char('Vehicle Number',size=32),
 	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle'),
 	'time_duration' : fields.float('Time Duration'),
-	'out_driver' : fields.char('Driver'),
+	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','=',True),('employee','=',True)]"),
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
 	'out_gon' : fields.char('GON #',),
@@ -61,6 +61,7 @@ class outwardpass(osv.Model):
             ('returnable', 'Returnable'),
             ],default='', string="Select the Category"),
 	'lc_pc_ref' : fields.char('LC or PO Ref #',size=32),
+	
     'state' : fields.selection([
             ('vehicle_enter', 'Gate Out'),
             ('vehicle_process', 'Gate In'),
@@ -130,7 +131,7 @@ class inwardpass(osv.Model):
 	'vehicle_num' : fields.char('Vehicle Number',size=32),
 	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle'),
 	'time_duration' : fields.float('Time Duration'),
-	'out_driver' : fields.char('Driver'),
+	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','=',True),('employee','=',True)]"),
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
 	'out_gon' : fields.char('GON #',),
