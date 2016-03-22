@@ -71,7 +71,7 @@ class outwardpass(osv.Model):
 
 	def create(self, cr, uid, vals, context=None):
 		sequence=self.pool.get('ir.sequence').get(cr, uid, 'outwardpass')
-		vals['name']=sequence
+		vals['name']="Out_"+vals['outward_Category']+"_"+sequence
 		vals['gin'] = sequence
 		vals['out_gon'] = sequence
 		return super(outwardpass, self).create(cr, uid, vals, context=context)
@@ -174,7 +174,7 @@ class inwardpass(osv.Model):
 
 	def create(self, cr, uid, vals, context=None):
 		sequence=self.pool.get('ir.sequence').get(cr, uid, 'inwardpass')
-		vals['name']=sequence
+		vals['name']="In_"+vals['inward_Category']+"_"+sequence
 		vals['gin'] = sequence
 		vals['out_gon'] = sequence
 		return super(inwardpass, self).create(cr, uid, vals, context=context)
