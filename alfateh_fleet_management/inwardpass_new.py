@@ -25,7 +25,7 @@ class outwardpass(osv.Model):
 	'vehicle_num' : fields.char('Vehicle Number',size=32),
 	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle'),
 	'time_duration' : fields.float('Time Duration'),
-	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','=',True),('employee','=',True)]"),
+	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','!=',True),('employee','=',True)]"),
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
 	'out_gon' : fields.char('GON #',),
@@ -66,7 +66,8 @@ class outwardpass(osv.Model):
             ('vehicle_enter', 'Gate Out'),
             ('vehicle_process', 'Gate In'),
             ('vehicle_exit', 'Complete'),
-            ],default='vehicle_enter')
+            ],default='vehicle_enter'),
+    'own_vehicle' : fields.boolean('OWN Vehicle'),
 	}
 
 	def create(self, cr, uid, vals, context=None):
@@ -131,7 +132,7 @@ class inwardpass(osv.Model):
 	'vehicle_num' : fields.char('Vehicle Number',size=32),
 	'fleet_vehicle_id' : fields.many2one('fleet.vehicle','Vehicle'),
 	'time_duration' : fields.float('Time Duration'),
-	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','=',True),('employee','=',True)]"),
+	'out_driver' : fields.many2one('res.partner','Driver',domain="['|',('customer','!=',True),('employee','=',True)]"),
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
 	'out_gon' : fields.char('GON #',),
@@ -167,7 +168,8 @@ class inwardpass(osv.Model):
             ('vehicle_enter', 'Gate In'),
             ('vehicle_process', 'Gate Out'),
             ('vehicle_exit', 'Complete'),
-            ],default='vehicle_enter')
+            ],default='vehicle_enter'),
+    'own_vehicle' : fields.boolean('OWN Vehicle'),
 	}
 
 
@@ -339,7 +341,7 @@ class gate_pass_outwardpass_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
-		#self.out_driver = self.trip_management_field.driver_id
+		self.out_driver = self.trip_management_field.driver_id
 
 	
 
@@ -406,7 +408,7 @@ class gate_pass_inwardpass_inherit(models.Model):
 		self.fleet_vehicle_id = self.trip_management_field.vehicle
 		self.gp_odoo_meter = self.trip_management_field.vehicle.odometer
 		self.gpi_odoo_meter = self.trip_management_field.vehicle.odometer
-		#self.out_driver = self.trip_management_field.driver_id
+		self.out_driver = self.trip_management_field.driver_id
 
 
 # For Write method code
