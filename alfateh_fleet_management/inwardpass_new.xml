@@ -35,8 +35,21 @@
                             </group>
                     
                             <group name="group_right">
-                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+
+
+                                <field name="gin_shop" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','Shop')]}"/>
+                                <field name="gin_mkt_pl" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','Market_Purchase')]}"/>
+                                <field name="out_gon_shop" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','Shop')]}"/>
+                                <field name="out_gon_mkt_pl" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','Market_Purchase')]}"/>
+                                <field name="gin_gen" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','General')]}"/>
+                                <field name="gin_ret" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','Returnable')]}"/>
+                                <field name="out_gon_gen" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','General')]}"/>
+                                <field name="out_gon_ret" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','Returnable')]}"/>
+
+
+
+
+
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="fleet_vehicle_id" />
                                 <field name="out_driver" />

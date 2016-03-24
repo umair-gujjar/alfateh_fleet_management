@@ -114,5 +114,103 @@
             <field name="padding">3</field>
         </record>
 
+        <record model="ir.sequence.type" id="seq_type_emp_id_shopin">
+            <field name="name">ShopIn</field>
+            <field name="code">Shopinpass</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_emp_id_shopin">
+            <field name="name">Name</field>
+            <field name="code">Shopinpass</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+        </record>
+
+        <record model="ir.sequence.type" id="seq_type_emp_id_shopout">
+            <field name="name">ShopOut</field>
+            <field name="code">Shopoutpass</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_emp_id_shopout">
+            <field name="name">Name</field>
+            <field name="code">Shopoutpass</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+        </record>
+
+        <record model="ir.sequence.type" id="seq_type_emp_id_mktin">
+            <field name="name">MarketIn</field>
+            <field name="code">Mktinpass</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_emp_id_mktin">
+            <field name="name">Name</field>
+            <field name="code">Mktinpass</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+        </record>
+
+        <record model="ir.sequence.type" id="seq_type_emp_id_mktout">
+            <field name="name">MarketOut</field>
+            <field name="code">Mktoutpass</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_emp_id_mktout">
+            <field name="name">Name</field>
+            <field name="code">Mktoutpass</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+        </record>
+
+
+        <record model="ir.sequence.type" id="seq_type_emp_id_genin">
+            <field name="name">GeneralIn</field>
+            <field name="code">Geninpass</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_emp_id_genin">
+            <field name="name">Name</field>
+            <field name="code">Geninpass</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+        </record>
+
+        <record model="ir.sequence.type" id="seq_type_emp_id_genout">
+            <field name="name">GeneralOut</field>
+            <field name="code">Genoutpass</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_emp_id_genout">
+            <field name="name">Name</field>
+            <field name="code">Genoutpass</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+        </record>
+
+
+        <record model="ir.sequence.type" id="seq_type_emp_id_retin">
+            <field name="name">ReturnableIn</field>
+            <field name="code">Retinpass</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_emp_id_retin">
+            <field name="name">Name</field>
+            <field name="code">Retinpass</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+        </record>
+
+        <record model="ir.sequence.type" id="seq_type_emp_id_retout">
+            <field name="name">ReturnableOut</field>
+            <field name="code">Retoutpass</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_emp_id_retout">
+            <field name="name">Name</field>
+            <field name="code">Retoutpass</field>
+            <field name="prefix"></field>
+            <field name="padding">3</field>
+        </record>
+
     </data>
 </openerp>
