@@ -8,9 +8,9 @@
             <field name="arch" type="xml">
                 <form string="Inwardpass">
                     <header attrs="{'invisible': [('outward_Category','=', False)]}">
-                       <button string="Gate In" type="object" name="vehicle_process" attrs="{'invisible': ['|',('state', '!=', 'vehicle_enter') , ('outward_Category', '=', 'general')]}"/>
+                       <button string="Gate In" type="object" name="vehicle_process" attrs="{'invisible': ['|',('state', '!=', 'vehicle_enter') , ('outward_Category', '=', 'General')]}"/>
                         <button string="Validate" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
-                        <button string="Gate Out" type="object" name="vehicle_enter" attrs="{'invisible': ['|',('state','=','vehicle_enter') , ('outward_Category', '=', 'general')]}"/>
+                        <button string="Gate Out" type="object" name="vehicle_enter" attrs="{'invisible': ['|',('state','=','vehicle_enter') , ('outward_Category', '=', 'General')]}"/>
                         <field name="state" widget="statusbar" />
                     </header>
                     <sheet>
@@ -22,16 +22,24 @@
                         <group name="group_top" attrs="{'invisible': [('outward_Category','=', False)]}">
                             <group name="group_left">
                                 <field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="srin" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="branch" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="out_reference_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"  />
+                                <field name="srin" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('outward_Category', '=', 'Returnable')]}"/>
+                                <field name="out_sron" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('outward_Category', '=', 'Returnable')]}"/>
+                                 <field name="rep_rec_no" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('outward_Category', '!=', 'Returnable')]}"/>
+                                <!--<field name="branch" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="out_reference_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"  /> -->
+                                <field name="supplier_details" attrs="{'invisible': [('outward_Category','=','Shop')]}"/>
+                                <field name="vehicle_num" attrs="{'invisible': [('own_vehicle','=',False)]}"/>
+                                <field name="driver_text" attrs="{'invisible': [('own_vehicle','=',False)]}"/>
                                 <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <field name="out_document_ref" attrs="{'invisible': [('outward_Category','!=','general')]}"/> 
-                                <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="invoice_ref" attrs="{'invisible': [('outward_Category','=','Shop')]}"/>
+                                <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','Shop')]}"/>
+                                <field name="own_vehicle" attrs="{'invisible': [('state','=','vehicle_process')]}" />
+                                <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','Shop')]}"/>
+                                <field name="transfer_order" attrs="{'invisible': [('outward_Category','!=','Shop')]}"/> 
+                                <field name="out_document_ref" attrs="{'invisible': [('outward_Category','=','Shop')]}"/> 
+                                <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('own_vehicle','=',True)]}"/>
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="own_vehicle"/>
+                                
                             </group>
                     
                             <group name="group_right">
@@ -45,24 +53,26 @@
 
 
 
-                                <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
-                                <field name="fleet_vehicle_id" />
-                                <field name="out_driver" />
+                                <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('own_vehicle','=',True),('outward_Category','=','General')]}"/>
+                                <field name="fleet_vehicle_id" attrs="{'invisible': [('own_vehicle','=',True)]}"/>
+                                <field name="vehicle_type_fleet" attrs="{'invisible': [('own_vehicle','=',False)]}"/>
+                                <field name="out_driver" attrs="{'invisible': [('own_vehicle','=',True)]}" />
                                 <!-- only returnable-->
-                                <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter') , ('outward_Category', '!=', 'returnable')]}"/>
-                                <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter') , ('outward_Category', '!=', 'returnable')]}"/>
-                                <field name="out_dept" attrs="{'invisible': [('outward_Category','!=','returnable')]}"/>
-                                <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'), ('outward_Category', '!=', 'returnable')]}"/>
-                                <field name="out_stock_location_id" attrs="{'invisible': [('outward_Category','!=','returnable')]}"/>
+                                <!--<field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter') , ('outward_Category', '!=', 'Returnable')]}"/> -->
+                                <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('outward_Category', '!=', 'Returnable')]}"/>
+                                <!--<field name="out_dept" attrs="{'invisible': [('outward_Category','!=','Returnable')]}"/> -->
+                               <!-- <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'), ('outward_Category', '!=', 'Returnable')]}"/> -->
+                                <field name="out_stock_location_id" attrs="{'invisible': [('outward_Category','!=','Returnable')]}"/>
                                 <!-- only returnable end-->
                                <!-- <field name="time_duration" widget="float_time" /> -->
-                                <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('own_vehicle','=',True)]}"/>
                                <!-- <field name="odoometer_difference"/> -->
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                
                             </group>
                         </group>
 
-                    <notebook colspan="3"  attrs="{'invisible': ['|',('outward_Category', '=', 'returnable') , ('outward_Category', '=', False)]}">
+                    <notebook colspan="3"  attrs="{'invisible': ['|',('outward_Category', '=', 'Returnable') , ('outward_Category', '=', False)]}">
                         <page string="Gate Out" >
                             <group>
                                     <field name="out_inshop_id" nolabel='1'>
@@ -80,7 +90,7 @@
                                     </field>
                             </group>
                         </page>
-                         <page string="Gate In" >
+                         <page string="Gate In" attrs="{'invisible': [('outward_Category', '=', 'General')]}">
                             <group >
                                     <field name="in_inshop_id" nolabel='1'>
                                         <tree editable="bottom">
@@ -91,7 +101,7 @@
                                     </field>
                             </group>
                         </page>
-                        <page string="Gate In Remarks" >
+                        <page string="Gate In Remarks" attrs="{'invisible': [('outward_Category', '=', 'General')]}">
                             <group>
                                     <field name="in_remarks" nolabel='1'>
                                     </field>
@@ -99,7 +109,7 @@
                         </page>
                     </notebook>
 
-                    <notebook colspan="3" attrs="{'invisible': ['|',('outward_Category', '!=', 'returnable') , ('outward_Category', '=', False)]}">
+                    <notebook colspan="3" attrs="{'invisible': ['|',('outward_Category', '!=', 'Returnable') , ('outward_Category', '=', False)]}">
                         <page string="Gate Out" >
                              <group>
                                     <field name="out_inret_id" nolabel='1'>
@@ -218,27 +228,30 @@
 
                         <group name="group_top" attrs="{'invisible': [('inward_Category','=', False)]}">
                             <group name="group_left">                             
-                                <field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <field name="lc_pc"/>
+                                <!--<field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
+                                <field name="lc_pc" attrs="{'invisible': [('inward_Category','!=','supplier')]}"/>
                                 <field name="invoice_ref" />
                                 <field name="supplier_details"/>
                                 <field name="vehicle_type"  attrs="{'invisible': [('own_vehicle','=',False)]}"/>
-                                <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <field name="out_nature" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="own_vehicle"/>
-                                <field name="out_sron" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <!--<field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
+                                <field name="own_vehicle" invisible="1"/>
+                                <!--<field name="out_nature" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
+                                 <field name="rep_rec_no" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category', '=', 'supplier')]}"/>
+                                
+                                <!--<field name="out_sron" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
+                               <!-- <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
+                                <!--<field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('own_vehicle','=',False)]}"/>
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
                             </group>
                     
                             <group name="group_right">
                                 <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="select_sequence" invisible="1"/>
-                                <field name="lc_pc_ref"/>
-                                <field name="bilty" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
-                                <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="lc_pc_ref" attrs="{'invisible': [('inward_Category','!=','supplier')]}"/>
+                                <field name="bilty" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('inward_Category','!=','supplier')]}"/>
+                                <!--<field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
                                 <field name="vehicle_num" attrs="{'invisible': [('own_vehicle','=',False)]}"/>
+                                <!--<field name="driver_text" attrs="{'invisible': [('own_vehicle','=',False)]}"/> -->
                                 <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="trip_management_field" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('own_vehicle','!=',False)]}"/>
@@ -246,15 +259,16 @@
                                 <field name="out_driver" attrs="{'invisible': [('own_vehicle','!=',False)]}" />
                                 <field name="out_document_ref" />
                                 <!-- returnable -->
-                                <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'), ('inward_Category', '!=', 'returnable')]}"/>
-                                <field name="out_dept" attrs="{'invisible': [('inward_Category','!=','returnable')]}" />
+                                <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category', '!=', 'returnable')]}"/>
+                                <!--<field name="out_dept" attrs="{'invisible': [('inward_Category','!=','returnable')]}" /> -->
                                 <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'), ('inward_Category', '!=', 'returnable')]}"/>
                                 <field name="out_stock_location_id" attrs="{'invisible': [('inward_Category','!=','returnable')]}" /> 
                                 <!-- end -->    
                                 <!-- <field name="time_duration"  widget="float_time"/> -->
-                                <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <!--<field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('own_vehicle','=',True)]}"/> -->
                                 <!--<field name="odoometer_difference" /> -->
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <!--<button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
+                                
                             </group>
                         </group>
 
@@ -277,7 +291,7 @@
                             </group>
                         </page>
 
-                        <page string="Gate Out " >
+                        <page string="Gate Out " attrs="{'invisible': [('inward_Category', '=', 'general')]}">
                             <group>
                                     <field name="out_inward_id" nolabel='1'>
                                         <tree editable="bottom">
@@ -288,7 +302,7 @@
                                     </field>
                             </group>
                         </page>
-                        <page string="Gate Out Remarks" >
+                        <page string="Gate Out Remarks" attrs="{'invisible': [('inward_Category', '=', 'general')]}">
                             <group>
                                     <field name="out_remarks" nolabel='1'>
                                     </field>

@@ -10,7 +10,13 @@ class alfateh_fleet_management(models.Model):
 	expiry_token = fields.Date('Expiry Token')
 	capacity = fields.Char('Capacity')
 	vehicle_status = fields.Char('Vehicle Status')
-
+	vehicle_type_fleet = fields.Selection([
+            ('Bus', 'Bus'),
+            ('Truck', 'Truck'),
+            ('Car', 'Car'),
+            ('Auto_Rickshaw', 'Auto Rickshaw'),
+            ('Van', 'Van'),
+            ],default='', string="Select Vehicle Type",)
 
 
 class alfateh_vehicle_cost(models.Model):

@@ -13,7 +13,7 @@ class outwardpass(osv.Model):
 	'vehicle' : fields.char('Vehicle',size=32),
 	'time_in' : fields.datetime('Time In',  ),
 	'vehicle_type' : fields.char('Vehicle Type',size=32),
-	'supplier_details': fields.many2one('res.partner','Supplier Details'),
+	'supplier_details': fields.many2one('res.partner','Supplier'),
 	'in_inward_id' : fields.one2many('in_outward','in_outwardpass_id',string='Details'),
 	'out_inward_id' : fields.one2many('out_outward','out_outwardpass_id',string='Details'),
 	'in_remarks' : fields.text('Remarks'),
@@ -29,7 +29,7 @@ class outwardpass(osv.Model):
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
 	'out_gon' : fields.char('GON #',),
-	'out_sron' : fields.char('SRON Ref.',size=32),
+	'out_sron' : fields.char('SRON #',size=32),
 	'out_time_out' : fields.datetime('Time Out',),
 	'out_vehicle' : fields.char('Vehicle',size=32),
 	'out_supplier_details': fields.many2one('res.partner','Supplier Details'),
@@ -47,14 +47,23 @@ class outwardpass(osv.Model):
 	'out_inret_id' : fields.one2many('out_inret','out_inwardret_id',string='Details'),
 	'in_inshop_id' : fields.one2many('in_inshop','in_inwardshop_id',string='Details'),
 	'out_inshop_id' : fields.one2many('out_inshop','out_inwardshop_id',string='Details'),
-	'select_sequence' : fields.many2one('ir.sequence','Select Sequence',required=True,help="Please select the sequence."),
+	'select_sequence' : fields.many2one('ir.sequence','Select Category',required=True,help="Please select the sequence."),
 	'workers': fields.char('No of Workers',size=32),
+	'transfer_order': fields.char('Transfer Order',size=32),
+	'driver_text': fields.char('Driver',size=32),
+	'rep_rec_no': fields.char('Repair Requisition No',size=32),
 	'lc_pc' : fields.selection([
             ('lc', 'LC'),
             ('pc', 'PO'),
             ],default='', string="LC or PO"),
 
-
+	'vehicle_type_fleet' : fields.selection([
+            ('Bus', 'Bus'),
+            ('Truck', 'Truck'),
+            ('Car', 'Car'),
+            ('Auto_Rickshaw', 'Auto Rickshaw'),
+            ('Van', 'Van'),
+            ],default='', string="Select Vehicle Type",),
 	'outward_Category' : fields.selection([
             ('Shop', 'Shop'),
             ('Market_Purchase', 'Market Purchase'),
@@ -68,7 +77,7 @@ class outwardpass(osv.Model):
             ('vehicle_process', 'Gate In'),
             ('vehicle_exit', 'Complete'),
             ],default='vehicle_enter'),
-    'own_vehicle' : fields.boolean('OWN Vehicle'),
+    'own_vehicle' : fields.boolean('Rented Vehicle'),
 	}
 
 	def create(self, cr, uid, vals, context=None):
@@ -125,7 +134,7 @@ class inwardpass(osv.Model):
 	'vehicle' : fields.char('Vehicle',size=32),
 	'time_in' : fields.datetime('Time In',  ),
 	'vehicle_type' : fields.char('Vehicle Type',size=32),
-	'supplier_details': fields.many2one('res.partner','Supplier Details'),
+	'supplier_details': fields.many2one('res.partner','Supplier '),
 	'in_inward_id' : fields.one2many('in_inward','in_inwardpass_id',string='Details'),
 	'out_inward_id' : fields.one2many('out_inward','out_inwardpass_id',string='Details'),
 	'in_remarks' : fields.text('Remarks'),
@@ -155,7 +164,8 @@ class inwardpass(osv.Model):
 	'out_outret_id' : fields.one2many('out_outret','out_outwardret_id',string='Details'),
 	'out_stock_location_id' : fields.many2one('stock.location','Dept'),
 	'out_document_ref' : fields.char('Document Ref #',size=32),
-	'select_sequence' : fields.many2one('ir.sequence','Select Sequence',required=True,help="Please select the sequence."),
+	'select_sequence' : fields.many2one('ir.sequence','Select Category',required=True,help="Please select the sequence."),
+	'rep_rec_no': fields.char('Repair Requisition No',size=32),
 	'lc_pc' : fields.selection([
             ('lc', 'LC'),
             ('pc', 'PO'),
@@ -173,7 +183,9 @@ class inwardpass(osv.Model):
             ('vehicle_process', 'Gate Out'),
             ('vehicle_exit', 'Complete'),
             ],default='vehicle_enter'),
-    'own_vehicle' : fields.boolean('OWN Vehicle'),
+    'own_vehicle' : fields.boolean('Rented Vehicle', default=True),
+    'transfer_order': fields.char('Transfer Order',size=32),
+    'driver_text': fields.char('Driver',size=32),
 	}
 
 
@@ -341,7 +353,8 @@ class gate_pass_outwardpass_inherit(models.Model):
 	@api.onchange('fleet_vehicle_id')
 	def on_change_vehicle(self):
 		self.gp_odoo_meter = self.fleet_vehicle_id.odometer
-		self.gpi_odoo_meter = self.fleet_vehicle_id.odometer			
+		self.gpi_odoo_meter = self.fleet_vehicle_id.odometer
+		self.vehicle_type_fleet = self.fleet_vehicle_id.vehicle_type_fleet
 	
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):
