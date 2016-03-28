@@ -14,7 +14,7 @@
                         <field name="state" widget="statusbar" />
                     </header>
                     <sheet>
-                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <h1><field name="name" invisible="1"/></h1>
                         <group name="group_top">
                             <field name="outward_Category" />
                         </group>    
@@ -37,14 +37,9 @@
                             <group name="group_right">
 
 
-                                <field name="gin_shop" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','Shop')]}"/>
-                                <field name="gin_mkt_pl" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','Market_Purchase')]}"/>
-                                <field name="out_gon_shop" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','Shop')]}"/>
-                                <field name="out_gon_mkt_pl" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','Market_Purchase')]}"/>
-                                <field name="gin_gen" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','General')]}"/>
-                                <field name="gin_ret" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','Returnable')]}"/>
-                                <field name="out_gon_gen" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','General')]}"/>
-                                <field name="out_gon_ret" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','Returnable')]}"/>
+                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="select_sequence" invisible="1"/>
+                                <field name="out_gon" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process')]}"/>
 
 
 
@@ -165,6 +160,8 @@
             <field name="arch" type="xml">
                 <tree string="inwardpass">
                     <field name="name" string="No."/>
+                    <field name="gin"/>
+                    <field name="out_gon" />
                     <field name="time_out" />
                     <field name="time_in"/>
                     <field name="time_duration" widget="float_time" />
@@ -175,7 +172,7 @@
                     <field name="gp_odoo_meter" />
                     <field name="gpi_odoo_meter"/>
                     <field name="odoometer_difference" />
-                    <field name="state" string="status" />
+                    <field name="state" string="Status" />
                 </tree>
             </field>
         </record>
@@ -214,7 +211,7 @@
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
-                        <h1><field name="name" attrs="{'invisible': [('name','=','/')]}"/></h1>
+                        <h1><field name="name" invisible="1"/></h1>
                         <group name="group_top">
                             <field name="inward_Category" />
                         </group>    
@@ -237,6 +234,7 @@
                     
                             <group name="group_right">
                                 <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
+                                <field name="select_sequence" invisible="1"/>
                                 <field name="lc_pc_ref"/>
                                 <field name="bilty" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
@@ -359,6 +357,8 @@
             <field name="arch" type="xml">
                 <tree string="inwardpass">
                     <field name="name" string="No."/>
+                    <field name="gin" />
+                    <field name="out_gon"/>
                     <field name="time_in"/>
                     <field name="time_out" />
                     <field name="time_duration" widget="float_time" />
@@ -370,7 +370,7 @@
                     <field name="gpi_odoo_meter"/>
                     <field name="gp_odoo_meter" />
                     <field name="odoometer_difference" />
-                    <field name="state" string="status" />
+                    <field name="state" string="Status" />
                 </tree>
             </field>
         </record>
