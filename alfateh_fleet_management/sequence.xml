@@ -212,5 +212,103 @@
             <field name="padding">3</field>
         </record>
 
+
+
+
+
+
+
+
+        <record model="ir.sequence.type" id="seq_type_outshopseq">
+            <field name="name">outshopseq</field>
+            <field name="code">outshopseq</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_outshopseq">
+            <field name="name">outshopseq</field>
+            <field name="code">outshopseq</field>
+            <field name="prefix">OUT-SHOP-</field>
+            <field name="padding">3</field>
+        </record>
+
+
+
+        <record model="ir.sequence.type" id="seq_type_outmarketseq">
+            <field name="name">outmarketseq</field>
+            <field name="code">outmarketseq</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_outmarketseq">
+            <field name="name">outmarketseq</field>
+            <field name="code">outmarketseq</field>
+            <field name="prefix">OUT-MP-</field>
+            <field name="padding">3</field>
+        </record>
+
+
+        <record model="ir.sequence.type" id="seq_type_outgeneralseq">
+            <field name="name">outgeneralseq</field>
+            <field name="code">outgeneralseq</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_outgeneralseq">
+            <field name="name">outgeneralseq</field>
+            <field name="code">outgeneralseq</field>
+            <field name="prefix">OUT-GEN-</field>
+            <field name="padding">3</field>
+        </record>
+
+
+        <record model="ir.sequence.type" id="seq_type_outreturnableseq">
+            <field name="name">outreturnableseq</field>
+            <field name="code">outreturnableseq</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_outreturnableseq">
+            <field name="name">outreturnableseq</field>
+            <field name="code">outreturnableseq</field>
+            <field name="prefix">OUT-RET-</field>
+            <field name="padding">3</field>
+        </record>
+
+
+        <record model="ir.sequence.type" id="seq_type_insupseq">
+            <field name="name">insupseq</field>
+            <field name="code">insupseq</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_insupseq">
+            <field name="name">insupseq</field>
+            <field name="code">insupseq</field>
+            <field name="prefix">IN-SHOP-</field>
+            <field name="padding">3</field>
+        </record>
+
+
+        <record model="ir.sequence.type" id="seq_type_ingeneralseq">
+            <field name="name">ingeneralseq</field>
+            <field name="code">ingeneralseq</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_ingeneralseq">
+            <field name="name">ingeneralseq</field>
+            <field name="code">ingeneralseq</field>
+            <field name="prefix">IN-GEN-</field>
+            <field name="padding">3</field>
+        </record>
+
+
+
+        <record model="ir.sequence.type" id="seq_type_inreturnableseq">
+            <field name="name">inreturnableseq</field>
+            <field name="code">inreturnableseq</field>
+        </record>
+
+        <record model="ir.sequence" id="seq_inreturnableseq">
+            <field name="name">inreturnableseq</field>
+            <field name="code">inreturnableseq</field>
+            <field name="prefix">IN-RET-</field>
+            <field name="padding">3</field>
+        </record>
     </data>
 </openerp>
