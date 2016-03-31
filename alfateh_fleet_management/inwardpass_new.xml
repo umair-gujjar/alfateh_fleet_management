@@ -42,8 +42,8 @@
                                 <field name="own_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}" />
                                 
                                 <field name="transfer_order" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('outward_Category','!=','Shop')]}"/> 
-                                <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('own_vehicle','=',True)]}"/>
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','!=','vehicle_process'),('own_vehicle','=',True)]}"/>
+                                <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|','|',('outward_Category','=','General'),('state','=','vehicle_enter'),('own_vehicle','=',True)]}"/>
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|','|',('outward_Category','=','General'),('state','!=','vehicle_process'),('own_vehicle','=',True)]}"/>
                                 
                             </group>
                     
@@ -69,9 +69,9 @@
                                <!-- <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'), ('outward_Category', '!=', 'Returnable')]}"/> -->
                                 <!-- only returnable end-->
                                <!-- <field name="time_duration" widget="float_time" /> -->
-                                <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('own_vehicle','=',True)]}"/>
+                                <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|','|',('outward_Category','=','General'),('state','=','vehicle_process'),('own_vehicle','=',True)]}"/>
                                <!-- <field name="odoometer_difference"/> -->
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','!=','vehicle_enter'),('own_vehicle','=',True)]}"/>
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|','|',('outward_Category','=','General'),('state','!=','vehicle_enter'),('own_vehicle','=',True)]}"/>
                                 
                             </group>
                         </group>
@@ -243,7 +243,7 @@
                                 <!--<field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
                                 <field name="own_vehicle" invisible="1"/>
                                 <!--<field name="out_nature" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
-                                 <field name="rep_rec_no" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category', '=', 'supplier')]}"/>
+                                 <field name="rep_rec_no" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category', '!=', 'returnable')]}"/>
                                 
                                 <!--<field name="out_sron" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
                                <!-- <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
@@ -254,11 +254,12 @@
                             <group name="group_right">
                                 <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process')]}"/>
                                 <field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('inward_Category','=','general')]}"/>
+                                <field name="lc_pc_ref" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category','!=','supplier')]}"/>
                                 <field name="out_document_ref" attrs="{'readonly': [('state','=','vehicle_exit')]}"/>
                                 <field name="select_sequence" invisible="1"/>
                                 <field name="select_sequence_out" invisible="1"/>
-                                <field name="lc_pc_ref" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category','!=','supplier')]}"/>
-                                <field name="bilty" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('inward_Category','!=','supplier')]}"/>
+                                
+                                <field name="bilty" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category','!=','supplier')]}"/>
                                 <!--<field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
                                 <field name="vehicle_num" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('own_vehicle','=',False)]}"/>
                                 <!--<field name="driver_text" attrs="{'invisible': [('own_vehicle','=',False)]}"/> -->
@@ -385,8 +386,8 @@
                 <tree string="inwardpass">
                     <field name="gin" />
                     <field name="out_gon"/>
-                    <field name="time_in"/>
-                    <field name="time_out" />
+                    <field name="out_time_in" />
+                    <field name="out_time_out" />
                     <field name="time_duration" widget="float_time" />
                     <!--<field name="own_vehicle"/>-->
                     <field name="supplier_details"/>

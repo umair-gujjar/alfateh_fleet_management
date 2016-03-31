@@ -64,7 +64,7 @@ class outwardpass(osv.Model):
             ('Car', 'Car'),
             ('Auto_Rickshaw', 'Auto Rickshaw'),
             ('Van', 'Van'),
-            ],default='', string="Select Vehicle Type",),
+            ],default='', string="Vehicle Type",),
 	'outward_Category' : fields.selection([
             ('Shop', 'Shop'),
             ('Market_Purchase', 'Market Purchase'),
@@ -133,7 +133,13 @@ class inwardpass(osv.Model):
 	'time_out' : fields.datetime('Time Out', ),
 	'vehicle' : fields.char('Vehicle',size=32),
 	'time_in' : fields.datetime('Time In',  ),
-	'vehicle_type' : fields.char('Vehicle Type',size=32),
+	'vehicle_type' : fields.selection([
+            ('Bus', 'Bus'),
+            ('Truck', 'Truck'),
+            ('Car', 'Car'),
+            ('Auto_Rickshaw', 'Auto Rickshaw'),
+            ('Van', 'Van'),
+            ],default='', string="Vehicle Type",),
 	'supplier_details': fields.many2one('res.partner','Supplier '),
 	'in_inward_id' : fields.one2many('in_inward','in_inwardpass_id',string='Details'),
 	'out_inward_id' : fields.one2many('out_inward','out_inwardpass_id',string='Details'),
@@ -332,6 +338,7 @@ class gate_pass_outwardpass_inherit(models.Model):
 		self.write({'state': 'vehicle_process'})
 		self.gin = self.select_sequence.prefix + str(self.select_sequence.number_next_actual)
 		self.select_sequence.number_next_actual = self.select_sequence.number_next_actual + 1
+		self.time_in = datetime.now()
 	@api.one
 	def vehicle_exit_gernal(self):
 		self.write({'state': 'vehicle_exit'})
@@ -444,6 +451,7 @@ class gate_pass_inwardpass_inherit(models.Model):
 		self.write({'state': 'vehicle_process'})
 		self.out_gon = self.select_sequence.prefix + str(self.select_sequence.number_next_actual)
 		self.select_sequence.number_next_actual = self.select_sequence.number_next_actual + 1
+		self.out_time_out = datetime.now()
 	@api.one
 	def vehicle_exit_gernal(self):
 		self.write({'state': 'vehicle_exit'})
@@ -451,9 +459,9 @@ class gate_pass_inwardpass_inherit(models.Model):
 	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		if self.time_in and self.time_out:
-			datetime_in = self.time_in
-			datetime_out = self.time_out
+		if self.out_time_in and self.out_time_out:
+			datetime_in = self.out_time_in
+			datetime_out = self.out_time_out
  			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
  			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
  			timedelta = dt_e_obj - dt_s_obj
