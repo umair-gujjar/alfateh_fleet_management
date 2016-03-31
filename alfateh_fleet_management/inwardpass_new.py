@@ -48,6 +48,7 @@ class outwardpass(osv.Model):
 	'in_inshop_id' : fields.one2many('in_inshop','in_inwardshop_id',string='Details'),
 	'out_inshop_id' : fields.one2many('out_inshop','out_inwardshop_id',string='Details'),
 	'select_sequence' : fields.many2one('ir.sequence','Select Category',required=True,help="Please select the sequence."),
+	'select_sequence_out' : fields.many2one('ir.sequence','Select Cat',required=True,help="Please select the sequence."),
 	'workers': fields.char('No of Workers',size=32),
 	'transfer_order': fields.char('Transfer Order',size=32),
 	'driver_text': fields.char('Driver',size=32),
@@ -82,9 +83,9 @@ class outwardpass(osv.Model):
 
 	def create(self, cr, uid, vals, context=None):
 		sequence=self.pool.get('ir.sequence').get(cr, uid, 'outwardpass')
-		seq_out_gon_shop = self.pool.get('ir.sequence').get(cr, uid, 'Shopoutpass')
-		vals['name']="Out_"+vals['outward_Category']+"_"+sequence
-		vals['out_gon'] = "Outward-"+vals['outward_Category']+"-"+seq_out_gon_shop
+		#seq_out_gon_shop = self.pool.get('ir.sequence').get(cr, uid, 'Shopoutpass')
+		vals['name']="NO "+sequence
+		#vals['out_gon'] = "Outward-"+vals['outward_Category']+"-"+seq_out_gon_shop
 
 		return super(outwardpass, self).create(cr, uid, vals, context=context)
 	_defaults = {
@@ -165,6 +166,7 @@ class inwardpass(osv.Model):
 	'out_stock_location_id' : fields.many2one('stock.location','Dept'),
 	'out_document_ref' : fields.char('Document Ref #',size=32),
 	'select_sequence' : fields.many2one('ir.sequence','Select Category',required=True,help="Please select the sequence."),
+	'select_sequence_out' : fields.many2one('ir.sequence','Select Cat',required=True,help="Please select the sequence."),
 	'rep_rec_no': fields.char('Repair Requisition No',size=32),
 	'lc_pc' : fields.selection([
             ('lc', 'LC'),
@@ -191,9 +193,9 @@ class inwardpass(osv.Model):
 
 	def create(self, cr, uid, vals, context=None):
 		sequence=self.pool.get('ir.sequence').get(cr, uid, 'inwardpass')
-		seq_gin_shop = self.pool.get('ir.sequence').get(cr, uid, 'Genoutpass')
-		vals['name']="In_"+vals['inward_Category']+"_"+sequence
-		vals['gin'] = "Inward-"+vals['inward_Category']+"-"+seq_gin_shop
+		#seq_gin_shop = self.pool.get('ir.sequence').get(cr, uid, 'Genoutpass')
+		vals['name']="NO "+sequence
+		#vals['gin'] = "Inward-"+vals['inward_Category']+"-"+seq_gin_shop
 		return super(inwardpass, self).create(cr, uid, vals, context=context)
 	_defaults = {
 				'gin': lambda obj, cr, uid, context: '/',
@@ -369,17 +371,37 @@ class gate_pass_outwardpass_inherit(models.Model):
 		sequence = self.env['ir.sequence']
 		if self.outward_Category:
 			if self.outward_Category == 'Shop':
-				search_seq = sequence.search([('name','=','outshopseq')])
+				search_seq = sequence.search([('name','=','outginshopseq')])
+				search_seq_gon = sequence.search([('name','=','outgonshopseq')])
 				self.select_sequence = search_seq
+				self.select_sequence_out = search_seq_gon
 			if self.outward_Category == 'Market_Purchase':
-				search_seq_market = sequence.search([('name','=','outmarketseq')])
+				search_seq_market = sequence.search([('name','=','outginmarketseq')])
+				search_seq_market_out = sequence.search([('name','=','outgonmarketseq')])
+				self.select_sequence_out = search_seq_market_out
 				self.select_sequence = search_seq_market
 			if self.outward_Category == 'General':
-				search_seq_gen = sequence.search([('name','=','outgeneralseq')])
+				search_seq_gen = sequence.search([('name','=','outgingeneralseq')])
+				search_seq_gen_out = sequence.search([('name','=','outgongeneralseq')])
+				self.select_sequence_out = search_seq_gen_out
 				self.select_sequence = search_seq_gen
 			if self.outward_Category == 'Returnable':
-				search_seq_ret = sequence.search([('name','=','outreturnableseq')])
+				search_seq_ret = sequence.search([('name','=','ginreturnableseq')])
+				search_seq_ret_out = sequence.search([('name','=','gonreturnableseq')])
+				self.select_sequence_out = search_seq_ret_out
 				self.select_sequence = search_seq_ret
+
+
+	@api.model
+	def create(self, values):
+		sequence = self.env['ir.sequence'].search([('id','=',values['select_sequence_out'])])
+		values['out_gon'] = sequence.prefix + str(sequence.number_next_actual)
+		sequence.number_next_actual = sequence.number_next_actual + 1
+		result = super(gate_pass_outwardpass_inherit, self).create(values)
+		#self.select_sequence_out.prefix + self.select_sequence_out.number_next_actual
+		#self.select_sequence_out.number_next_actual = self.select_sequence_out.number_next_actual + 1
+		return result
+
 # For Write method code
 	@api.multi
 	def write(self, values):
@@ -451,15 +473,29 @@ class gate_pass_inwardpass_inherit(models.Model):
 		sequence = self.env['ir.sequence']
 		if self.inward_Category:
 			if self.inward_Category == 'supplier':
-				search_seq = sequence.search([('name','=','insupseq')])
+				search_seq = sequence.search([('name','=','inginsupseq')])
 				self.select_sequence = search_seq
+				search_seq_sup_in = sequence.search([('name','=','ingonsupseq')])
+				self.select_sequence_out = search_seq_sup_in
 			if self.inward_Category == 'general':
-				search_seq_gen = sequence.search([('name','=','ingeneralseq')])
+				search_seq_gen = sequence.search([('name','=','ingingeneralseq')])
 				self.select_sequence = search_seq_gen
+				search_seq_gen_in = sequence.search([('name','=','ingongeneralseq')])
+				self.select_sequence_out = search_seq_gen_in
 			if self.inward_Category == 'returnable':
-				search_seq_ret = sequence.search([('name','=','inreturnableseq')])
+				search_seq_ret = sequence.search([('name','=','gonreturnableseq')])
 				self.select_sequence = search_seq_ret
-
+				search_seq_ret_in = sequence.search([('name','=','ginreturnableseq')])
+				self.select_sequence_out = search_seq_ret_in
+	@api.model
+	def create(self, values):
+		sequence = self.env['ir.sequence'].search([('id','=',values['select_sequence_out'])])
+		values['gin'] = sequence.prefix + str(sequence.number_next_actual)
+		sequence.number_next_actual = sequence.number_next_actual + 1
+		result = super(gate_pass_inwardpass_inherit, self).create(values)
+		#self.select_sequence_out.prefix + self.select_sequence_out.number_next_actual
+		#self.select_sequence_out.number_next_actual = self.select_sequence_out.number_next_actual + 1
+		return result
 # For Write method code
 	@api.multi
 	def write(self, values):

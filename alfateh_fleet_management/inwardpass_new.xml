@@ -10,7 +10,8 @@
                     <header attrs="{'invisible': [('outward_Category','=', False)]}">
                        <button string="Gate In" type="object" name="vehicle_process" attrs="{'invisible': ['|',('state', '!=', 'vehicle_enter') , ('outward_Category', '=', 'General')]}"/>
                         <button string="Validate" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
-                        <button string="Gate Out" type="object" name="vehicle_enter" attrs="{'invisible': ['|',('state','=','vehicle_enter') , ('outward_Category', '=', 'General')]}"/>
+                        <button string="Gate Out" type="object" name="vehicle_enter" invisible="1"/>
+                        <!--<button string="Gate Out" type="object" name="vehicle_enter" attrs="{'invisible': ['|',('state','=','vehicle_enter') , ('outward_Category', '=', 'General')]}"/> -->
                         <field name="state" widget="statusbar" />
                     </header>
                     <sheet>
@@ -21,6 +22,8 @@
 
                         <group name="group_top" attrs="{'invisible': [('outward_Category','=', False)]}">
                             <group name="group_left">
+                                <field name="out_gon" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process')]}"/>
+                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
                                 <field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="out_sron" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('outward_Category', '=', 'Returnable')]}"/>
                                 <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('outward_Category','!=','Shop')]}"/>
@@ -39,7 +42,7 @@
                                 
                                 <field name="transfer_order" attrs="{'invisible': [('outward_Category','!=','Shop')]}"/> 
                                 <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('own_vehicle','=',True)]}"/>
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/>
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','!=','vehicle_process'),('own_vehicle','=',True)]}"/>
                                 
                             </group>
                     
@@ -48,8 +51,9 @@
 
 
                                 <field name="select_sequence" invisible="1"/>
-                                <field name="out_gon" readonly="1" attrs="{'invisible': ['|',('state','=','vehicle_process')]}"/>
-                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="select_sequence_out" invisible="1"/>
+                                
+                                
                                 <field name="out_stock_location_id" attrs="{'invisible': [('outward_Category','!=','Returnable')]}"/>
 
 
@@ -67,7 +71,7 @@
                                <!-- <field name="time_duration" widget="float_time" /> -->
                                 <field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('own_vehicle','=',True)]}"/>
                                <!-- <field name="odoometer_difference"/> -->
-                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/>
+                                <button string="⇒ Update" type="object" name="odoometer_value_pass_gp" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','!=','vehicle_enter'),('own_vehicle','=',True)]}"/>
                                 
                             </group>
                         </group>
@@ -169,7 +173,6 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="inwardpass">
-                    <field name="name" string="No."/>
                     <field name="gin"/>
                     <field name="out_gon" />
                     <field name="time_out" />
@@ -215,9 +218,10 @@
             <field name="arch" type="xml">
                 <form string="Inwardpass">
                     <header attrs="{'invisible': [('inward_Category','=', False)]}">
-                        <button string="Gate Out" type="object" name="vehicle_process" attrs="{'invisible': [('state', '!=', 'vehicle_enter')]}"/>
+                        <button string="Gate Out" type="object" name="vehicle_process" attrs="{'invisible': ['|',('state', '!=', 'vehicle_enter'),('inward_Category','=','general')]}"/>
                         <button string="Validate" type="object" name="vehicle_exit" class="oe_highlight" attrs="{'invisible': [('state','!=','vehicle_process')]}"/>
-                        <button string="Gate In" type="object" name="vehicle_enter" attrs="{'invisible': ['|',('state','=','vehicle_enter') , ('inward_Category', '=', 'general')]}"/>
+                        <button string="Gate In" type="object" name="vehicle_enter" invisible="1"/>
+                       <!-- <button string="Gate In" type="object" name="vehicle_enter" attrs="{'invisible': ['|',('state','=','vehicle_enter') , ('inward_Category', '=', 'general')]}"/> -->
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet>
@@ -229,6 +233,8 @@
                         <group name="group_top" attrs="{'invisible': [('inward_Category','=', False)]}">
                             <group name="group_left">                             
                                 <!--<field name="time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
+                                <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="lc_pc" attrs="{'invisible': [('inward_Category','!=','supplier')]}"/>
                                 <field name="invoice_ref" />
                                 <field name="supplier_details"/>
@@ -245,10 +251,10 @@
                             </group>
                     
                             <group name="group_right">
-                                <field name="out_gon" readonly="1" attrs="{'invisible': [('state','=','vehicle_enter')]}"/>
+                                
                                 <field name="out_document_ref" />
-                                <field name="gin" readonly="1" attrs="{'invisible': [('state','=','vehicle_process')]}"/>
                                 <field name="select_sequence" invisible="1"/>
+                                <field name="select_sequence_out" invisible="1"/>
                                 <field name="lc_pc_ref" attrs="{'invisible': [('inward_Category','!=','supplier')]}"/>
                                 <field name="bilty" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'),('inward_Category','!=','supplier')]}"/>
                                 <!--<field name="time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}"/> -->
@@ -372,7 +378,6 @@
             <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="inwardpass">
-                    <field name="name" string="No."/>
                     <field name="gin" />
                     <field name="out_gon"/>
                     <field name="time_in"/>
