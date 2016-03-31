@@ -93,11 +93,10 @@ class outwardpass(osv.Model):
 				'out_gon': lambda obj, cr, uid, context: '/',
 
 				'time_out': lambda obj, cr, uid, context: datetime.now(),
-				'time_in': lambda obj, cr, uid, context: datetime.now(),
+				#'time_in': lambda obj, cr, uid, context: datetime.now(),
 				'out_date': lambda obj, cr, uid, context: datetime.now(),
 				'out_time_out': lambda obj, cr, uid, context: datetime.now(),
 				'date': lambda obj, cr, uid, context: datetime.now(),
-				'out_time_out': lambda obj, cr, uid, context: datetime.now(),
 				'out_time_in': lambda obj, cr, uid, context: datetime.now(),
 	 }		
 
@@ -200,11 +199,11 @@ class inwardpass(osv.Model):
 	_defaults = {
 				'gin': lambda obj, cr, uid, context: '/',
 				'out_gon': lambda obj, cr, uid, context: '/',
-
+				'out_time_in': lambda obj, cr, uid, context: datetime.now(),
 				'time_out': lambda obj, cr, uid, context: datetime.now(),
 				'time_in': lambda obj, cr, uid, context: datetime.now(),
 				'out_date': lambda obj, cr, uid, context: datetime.now(),
-				'out_time_out': lambda obj, cr, uid, context: datetime.now(),
+				#'out_time_out': lambda obj, cr, uid, context: datetime.now(),
 				'date': lambda obj, cr, uid, context: datetime.now(),
 	 }		
 
@@ -334,18 +333,22 @@ class gate_pass_outwardpass_inherit(models.Model):
 		self.gin = self.select_sequence.prefix + str(self.select_sequence.number_next_actual)
 		self.select_sequence.number_next_actual = self.select_sequence.number_next_actual + 1
 	@api.one
+	def vehicle_exit_gernal(self):
+		self.write({'state': 'vehicle_exit'})
+	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		datetime_in = self.time_in
-		datetime_out = self.time_out
-		dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
-		dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
-		timedelta = dt_s_obj - dt_e_obj
-		print timedelta
-		days_hours  = timedelta.days * 24
-		sec = timedelta.seconds
-		float_hours = sec/3600.0
-		self.time_duration = days_hours + float_hours
+		if self.time_in and self.time_out:
+			datetime_in = self.time_in
+			datetime_out = self.time_out
+			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+			timedelta = dt_s_obj - dt_e_obj
+			print timedelta
+			days_hours  = timedelta.days * 24
+			sec = timedelta.seconds
+			float_hours = sec/3600.0
+			self.time_duration = days_hours + float_hours
 		if self.trip_management_field:	
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
@@ -381,10 +384,11 @@ class gate_pass_outwardpass_inherit(models.Model):
 				self.select_sequence_out = search_seq_market_out
 				self.select_sequence = search_seq_market
 			if self.outward_Category == 'General':
-				search_seq_gen = sequence.search([('name','=','outgingeneralseq')])
+				#search_seq_gen = sequence.search([('name','=','outgingeneralseq')])
 				search_seq_gen_out = sequence.search([('name','=','outgongeneralseq')])
 				self.select_sequence_out = search_seq_gen_out
-				self.select_sequence = search_seq_gen
+				self.select_sequence = search_seq_gen_out
+				#self.select_sequence = search_seq_gen
 			if self.outward_Category == 'Returnable':
 				search_seq_ret = sequence.search([('name','=','ginreturnableseq')])
 				search_seq_ret_out = sequence.search([('name','=','gonreturnableseq')])
@@ -441,17 +445,22 @@ class gate_pass_inwardpass_inherit(models.Model):
 		self.out_gon = self.select_sequence.prefix + str(self.select_sequence.number_next_actual)
 		self.select_sequence.number_next_actual = self.select_sequence.number_next_actual + 1
 	@api.one
+	def vehicle_exit_gernal(self):
+		self.write({'state': 'vehicle_exit'})
+
+	@api.one
 	def vehicle_exit(self):
 		self.write({'state': 'vehicle_exit'})
-		datetime_in = self.time_in
-		datetime_out = self.time_out
- 		dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
- 		dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
- 		timedelta = dt_e_obj - dt_s_obj
- 		days_hours  = timedelta.days * 24
- 		sec = timedelta.seconds
- 		float_hours = sec/3600.0
- 		self.time_duration = days_hours + float_hours
+		if self.time_in and self.time_out:
+			datetime_in = self.time_in
+			datetime_out = self.time_out
+ 			dt_s_obj = datetime.strptime(datetime_in,"%Y-%m-%d %H:%M:%S")
+ 			dt_e_obj = datetime.strptime(datetime_out,"%Y-%m-%d %H:%M:%S")
+ 			timedelta = dt_e_obj - dt_s_obj
+ 			days_hours  = timedelta.days * 24
+ 			sec = timedelta.seconds
+ 			float_hours = sec/3600.0
+ 			self.time_duration = days_hours + float_hours
  		if self.trip_management_field:	
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
@@ -478,10 +487,11 @@ class gate_pass_inwardpass_inherit(models.Model):
 				search_seq_sup_in = sequence.search([('name','=','ingonsupseq')])
 				self.select_sequence_out = search_seq_sup_in
 			if self.inward_Category == 'general':
-				search_seq_gen = sequence.search([('name','=','ingingeneralseq')])
-				self.select_sequence = search_seq_gen
-				search_seq_gen_in = sequence.search([('name','=','ingongeneralseq')])
+				#search_seq_gen = sequence.search([('name','=','ingingeneralseq')])
+				#self.select_sequence = search_seq_gen
+				search_seq_gen_in = sequence.search([('name','=','outgingeneralseq')])
 				self.select_sequence_out = search_seq_gen_in
+				self.select_sequence = search_seq_gen_in
 			if self.inward_Category == 'returnable':
 				search_seq_ret = sequence.search([('name','=','gonreturnableseq')])
 				self.select_sequence = search_seq_ret
