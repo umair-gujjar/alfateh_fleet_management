@@ -49,7 +49,8 @@ class outwardpass(osv.Model):
 	'out_inshop_id' : fields.one2many('out_inshop','out_inwardshop_id',string='Details'),
 	'select_sequence' : fields.many2one('ir.sequence','Select Category',required=True,help="Please select the sequence."),
 	'select_sequence_out' : fields.many2one('ir.sequence','Select Cat',required=True,help="Please select the sequence."),
-	'workers': fields.char('No of Workers',size=32),
+	'workers_in': fields.char('No of Workers In',size=32),
+	'workers_out': fields.char('No of Workers Out',size=32),
 	'transfer_order': fields.char('Transfer Order',size=32),
 	'driver_text': fields.char('Driver',size=32),
 	'rep_rec_no': fields.char('Repair Requisition No',size=32),
@@ -59,11 +60,13 @@ class outwardpass(osv.Model):
             ],default='', string="LC or PO"),
 
 	'vehicle_type_fleet' : fields.selection([
-            ('Bus', 'Bus'),
             ('Truck', 'Truck'),
+            ('MiniTruck','Mini Truck'),
+            ('Pickup','Pickup'),
             ('Car', 'Car'),
             ('Auto_Rickshaw', 'Auto Rickshaw'),
             ('Van', 'Van'),
+            ('Motorcycle','Motorcycle'),
             ],default='', string="Vehicle Type",),
 	'outward_Category' : fields.selection([
             ('Shop', 'Shop'),
@@ -134,11 +137,13 @@ class inwardpass(osv.Model):
 	'vehicle' : fields.char('Vehicle',size=32),
 	'time_in' : fields.datetime('Time In',  ),
 	'vehicle_type' : fields.selection([
-            ('Bus', 'Bus'),
             ('Truck', 'Truck'),
+            ('MiniTruck','Mini Truck'),
+            ('Pickup','Pickup'),
             ('Car', 'Car'),
             ('Auto_Rickshaw', 'Auto Rickshaw'),
             ('Van', 'Van'),
+            ('Motorcycle','Motorcycle'),
             ],default='', string="Vehicle Type",),
 	'supplier_details': fields.many2one('res.partner','Supplier '),
 	'in_inward_id' : fields.one2many('in_inward','in_inwardpass_id',string='Details'),
@@ -154,7 +159,9 @@ class inwardpass(osv.Model):
 	'out_date' : fields.date('Date', ),
 	'out_nature' : fields.boolean('Return or Rejection'),
 	'out_gon' : fields.char('GON #',),
-	'workers': fields.char('No of Workers',size=32),
+	#'workers' : fields.char('No of Workers', size=32),
+	'worker_in': fields.char('No of Workers In',size=32),
+	'worker_out': fields.char('No of Workers Out',size=32),
 	'out_time_in' : fields.datetime('Time In',),
 	'out_sron' : fields.char('SRON Ref.',size=32),
 	'out_time_out' : fields.datetime('Time Out',),
@@ -366,7 +373,7 @@ class gate_pass_outwardpass_inherit(models.Model):
 	def on_change_vehicle(self):
 		self.gp_odoo_meter = self.fleet_vehicle_id.odometer
 		self.gpi_odoo_meter = self.fleet_vehicle_id.odometer
-		self.vehicle_type_fleet = self.fleet_vehicle_id.vehicle_type_fleet
+		#self.vehicle_type_fleet = self.fleet_vehicle_id.vehicle_type_fleet
 	
 	@api.onchange('trip_management_field')
 	def onchange_trip_field(self):

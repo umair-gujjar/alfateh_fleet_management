@@ -64,7 +64,9 @@
                                 <field name="out_driver" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('own_vehicle','=',True)]}" />
                                 <!-- only returnable-->
                                 <!--<field name="out_time_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter') , ('outward_Category', '!=', 'Returnable')]}"/> -->
-                                <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('outward_Category', '!=', 'Returnable')]}"/>
+                                
+                                <field name="workers_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('outward_Category', '!=', 'Returnable'),('state','=','vehicle_process')]}"/>
+                                <field name="workers_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('outward_Category', '!=', 'Returnable'),('state','=','vehicle_enter')]}"/>
                                 <!--<field name="out_dept" attrs="{'invisible': [('outward_Category','!=','Returnable')]}"/> -->
                                <!-- <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'), ('outward_Category', '!=', 'Returnable')]}"/> -->
                                 <!-- only returnable end-->
@@ -270,9 +272,10 @@
                                 <field name="out_driver" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('own_vehicle','!=',False)]}" />
 
                                 <!-- returnable -->
-                                <field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category', '!=', 'returnable')]}"/>
+                                <!--<field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category', '!=', 'returnable')]}"/> -->
+                                <field name="worker_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('inward_Category', '!=', 'Returnable'),('state','=','vehicle_enter')]}"/>
+                                <field name="worker_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('inward_Category', '!=', 'Returnable'),('state','=','vehicle_process')]}"/>
                                 <!--<field name="out_dept" attrs="{'invisible': [('inward_Category','!=','returnable')]}" /> -->
-
                                 
                                 <!-- Idrees changed this one   -->
                                 <!-- <field name="out_time_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_process'), ('inward_Category', '!=', 'returnable')]}"/> -->>

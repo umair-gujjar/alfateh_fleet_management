@@ -5,18 +5,18 @@ import time
 
 class alfateh_fleet_management(models.Model):
 	_inherit = 'fleet.vehicle'
-	engine_num = fields.Char('Engine Num')
+	engine_num = fields.Char('Engine Number')
 	average_consumption = fields.Float('Average Consumption')
 	expiry_token = fields.Date('Expiry Token')
 	capacity = fields.Char('Capacity')
 	vehicle_status = fields.Char('Vehicle Status')
-	vehicle_type_fleet = fields.Selection([
-            ('Bus', 'Bus'),
-            ('Truck', 'Truck'),
-            ('Car', 'Car'),
-            ('Auto_Rickshaw', 'Auto Rickshaw'),
-            ('Van', 'Van'),
-            ],default='', string="Select Vehicle Type",)
+	#vehicle_type_fleet = fields.Selection([
+            #('Bus', 'Bus'),
+            #('Truck', 'Truck'),
+            #('Car', 'Car'),
+            #('Auto_Rickshaw', 'Auto Rickshaw'),
+            #('Van', 'Van'),
+            #],default='', string="Select Vehicle Type",)
 
 
 class alfateh_vehicle_cost(models.Model):
