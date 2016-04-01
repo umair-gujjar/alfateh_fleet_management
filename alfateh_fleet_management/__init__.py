@@ -11,3 +11,4 @@ import checklist
 import branding_and_merchandise
 import wizard
 import inwardpass_new
+import random

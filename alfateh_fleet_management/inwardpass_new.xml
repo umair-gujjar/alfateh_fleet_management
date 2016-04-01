@@ -273,8 +273,8 @@
 
                                 <!-- returnable -->
                                 <!--<field name="workers" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('inward_Category', '!=', 'returnable')]}"/> -->
-                                <field name="worker_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('inward_Category', '!=', 'Returnable'),('state','=','vehicle_enter')]}"/>
-                                <field name="worker_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('inward_Category', '!=', 'Returnable'),('state','=','vehicle_process')]}"/>
+                                <field name="worker_in" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('inward_Category', '!=', 'returnable'),('state','=','vehicle_process')]}"/>
+                                <field name="worker_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|' , ('inward_Category', '!=', 'returnable'),('state','=','vehicle_enter')]}"/>
                                 <!--<field name="out_dept" attrs="{'invisible': [('inward_Category','!=','returnable')]}" /> -->
                                 
                                 <!-- Idrees changed this one   -->

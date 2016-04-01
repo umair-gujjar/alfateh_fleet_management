@@ -48,7 +48,7 @@ class outwardpass(osv.Model):
 	'in_inshop_id' : fields.one2many('in_inshop','in_inwardshop_id',string='Details'),
 	'out_inshop_id' : fields.one2many('out_inshop','out_inwardshop_id',string='Details'),
 	'select_sequence' : fields.many2one('ir.sequence','Select Category',required=True,help="Please select the sequence."),
-	'select_sequence_out' : fields.many2one('ir.sequence','Select Cat',required=True,help="Please select the sequence."),
+	'select_sequence_out' : fields.many2one('ir.sequence','Select Cat',help="Please select the sequence."),
 	'workers_in': fields.char('No of Workers In',size=32),
 	'workers_out': fields.char('No of Workers Out',size=32),
 	'transfer_order': fields.char('Transfer Order',size=32),
@@ -178,7 +178,7 @@ class inwardpass(osv.Model):
 	'out_stock_location_id' : fields.many2one('stock.location','Dept'),
 	'out_document_ref' : fields.char('Document Ref #',size=32),
 	'select_sequence' : fields.many2one('ir.sequence','Select Category',required=True,help="Please select the sequence."),
-	'select_sequence_out' : fields.many2one('ir.sequence','Select Cat',required=True,help="Please select the sequence."),
+	'select_sequence_out' : fields.many2one('ir.sequence','Select Cat',help="Please select the sequence."),
 	'rep_rec_no': fields.char('Repair Requisition No',size=32),
 	'lc_pc' : fields.selection([
             ('lc', 'LC'),
