@@ -7,6 +7,7 @@ class outwardpass(osv.Model):
 	'name': fields.char('Name',readonly=True),
 	'date' : fields.date('Date', ),
 	'invoice_ref' : fields.char('Invoice Ref #', size=32),
+	'invoice_ref_mp' : fields.char('Invoice Ref #', size=32),
 	'gin' : fields.char('GIN #',size=32 ),
 	'bilty' : fields.char('Bilty ',size=32),
 	'time_out' : fields.datetime('Time Out', ),
@@ -14,6 +15,7 @@ class outwardpass(osv.Model):
 	'time_in' : fields.datetime('Time In',  ),
 	'vehicle_type' : fields.char('Vehicle Type',size=32),
 	'supplier_details': fields.many2one('res.partner','Supplier'),
+	'supplier_details_mp': fields.many2one('res.partner','Supplier'),
 	'in_inward_id' : fields.one2many('in_outward','in_outwardpass_id',string='Details'),
 	'out_inward_id' : fields.one2many('out_outward','out_outwardpass_id',string='Details'),
 	'in_remarks' : fields.text('Remarks'),
@@ -200,6 +202,12 @@ class inwardpass(osv.Model):
     'own_vehicle' : fields.boolean('Rented Vehicle', default=True),
     'transfer_order': fields.char('Transfer Order',size=32),
     'driver_text': fields.char('Driver',size=32),
+    'transfer_out' : fields.boolean('Transfer Out'),
+    'transfer_out_dd' : fields.selection([
+            ('a', 'Return'),
+            ('b', 'Rejection'),
+            ],string="Transfer Out Type"),
+    
 	}
 
 
@@ -398,11 +406,11 @@ class gate_pass_outwardpass_inherit(models.Model):
 				self.select_sequence_out = search_seq_market_out
 				self.select_sequence = search_seq_market
 			if self.outward_Category == 'General':
-				#search_seq_gen = sequence.search([('name','=','outgingeneralseq')])
+				search_seq_gen = sequence.search([('name','=','outgingeneralseq')])
 				search_seq_gen_out = sequence.search([('name','=','outgongeneralseq')])
 				self.select_sequence_out = search_seq_gen_out
-				self.select_sequence = search_seq_gen_out
-				#self.select_sequence = search_seq_gen
+				#self.select_sequence = search_seq_gen_out
+				self.select_sequence = search_seq_gen
 			if self.outward_Category == 'Returnable':
 				search_seq_ret = sequence.search([('name','=','ginreturnableseq')])
 				search_seq_ret_out = sequence.search([('name','=','gonreturnableseq')])
@@ -502,11 +510,11 @@ class gate_pass_inwardpass_inherit(models.Model):
 				search_seq_sup_in = sequence.search([('name','=','ingonsupseq')])
 				self.select_sequence_out = search_seq_sup_in
 			if self.inward_Category == 'general':
-				#search_seq_gen = sequence.search([('name','=','ingingeneralseq')])
-				#self.select_sequence = search_seq_gen
+				search_seq_gen = sequence.search([('name','=','outgongeneralseq')])
+				self.select_sequence = search_seq_gen
 				search_seq_gen_in = sequence.search([('name','=','outgingeneralseq')])
 				self.select_sequence_out = search_seq_gen_in
-				self.select_sequence = search_seq_gen_in
+				#self.select_sequence = search_seq_gen_in
 			if self.inward_Category == 'returnable':
 				search_seq_ret = sequence.search([('name','=','gonreturnableseq')])
 				self.select_sequence = search_seq_ret
@@ -548,3 +556,23 @@ class gate_pass_inwardpass_inherit(models.Model):
 			self.fleet_vehicle_id.odometer = check_odometer
 		fuel_logs_rec = self.env['fleet.vehicle.odometer'].search([])
 		
+#class gate_in_inret_inherit(models.Model):
+#	_inherit = 'in_inret'
+
+#	@api.onchange('item_des')
+#	def on_change_item_des(self):
+#		self.brought_out_qty = self.item_des.brought_out_qty
+
+#class gate_out_inret_inherit(models.Model):
+#	_inherit = 'out_inret'
+
+#	@api.model
+#	def create(self, values):
+#		test = self.env['in_inret'].create(values)
+#		test1 = self.env['in_inret'].search([])
+#		print "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx"
+#		for i in test1:
+#			print i.item_des
+#		print test1
+#		result = super(gate_out_inret_inherit, self).create(values)
+#		return result
