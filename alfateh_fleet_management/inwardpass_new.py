@@ -53,7 +53,8 @@ class outwardpass(osv.Model):
 	'select_sequence_out' : fields.many2one('ir.sequence','Select Cat',help="Please select the sequence."),
 	'workers_in': fields.char('No of Workers In',size=32),
 	'workers_out': fields.char('No of Workers Out',size=32),
-	'transfer_order': fields.char('Transfer Order',size=32),
+	'transfer_order_out': fields.text('Transfer Order Out'),
+	'transfer_order_in': fields.text('Transfer Order In'),
 	'driver_text': fields.char('Driver',size=32),
 	'rep_rec_no': fields.char('Repair Requisition No',size=32),
 	'lc_pc' : fields.selection([
@@ -203,6 +204,7 @@ class inwardpass(osv.Model):
     'transfer_order': fields.char('Transfer Order',size=32),
     'driver_text': fields.char('Driver',size=32),
     'transfer_out' : fields.boolean('Transfer Out'),
+    'return_reject_ref' : fields.char('Return / Rejection Ref.'),
     'transfer_out_dd' : fields.selection([
             ('a', 'Return'),
             ('b', 'Rejection'),
