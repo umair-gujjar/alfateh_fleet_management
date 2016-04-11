@@ -96,13 +96,13 @@
                         </page>
                         <page string="Gate Out Remarks" attrs="{'invisible': [('state', '=', 'vehicle_process')]}">
                             <group>
-                                    <field name="out_remarks" nolabel='1'>
+                                    <field name="out_remarks_shop" nolabel='1'>
                                     </field>
                             </group>
                         </page>
                          <page string="Gate In" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group >
-                                    <field name="out_inshop_id" nolabel='1'>
+                                    <field name="in_inshop_id" nolabel='1'>
                                         <tree editable="bottom">
                                             <field name="uom"/>
                                             <field name="qty"/>
@@ -113,7 +113,7 @@
                         </page>
                         <page string="Gate In Remarks" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group>
-                                    <field name="in_remarks" nolabel='1'>
+                                    <field name="in_remarks_shop" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -137,7 +137,7 @@
                         </page>
                         <page string="Gate Out Remarks"  attrs="{'invisible': [('state', '=', 'vehicle_process')]}">
                             <group>
-                                    <field name="out_remarks" nolabel='1'>
+                                    <field name="out_remarks_ret" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -159,7 +159,7 @@
                         </page>
                         <page string="Gate In Remarks" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group>
-                                    <field name="in_remarks" nolabel='1'>
+                                    <field name="in_remarks_ret" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -309,7 +309,7 @@
                         </page>
                         <page string="Gate In Remarks" attrs="{'invisible': [('state', '=', 'vehicle_process')]}">
                             <group>
-                                    <field name="in_remarks" nolabel='1'>
+                                    <field name="in_remarks_sup" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -327,7 +327,7 @@
                         </page>
                         <page string="Gate Out Remarks" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group>
-                                    <field name="out_remarks" nolabel='1'>
+                                    <field name="out_remarks_sup" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -350,7 +350,7 @@
                         </page>
                         <page string="Gate In Remarks" attrs="{'invisible': [('state', '=', 'vehicle_process')]}">
                             <group>
-                                    <field name="in_remarks" nolabel='1'>
+                                    <field name="in_remarks_ret" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -372,7 +372,7 @@
                         </page>
                         <page string="Gate Out Remarks" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group>
-                                <field name="out_remarks" nolabel='1'>
+                                <field name="out_remarks_ret" nolabel='1'>
                                 </field>
                             </group>
                         </page>
