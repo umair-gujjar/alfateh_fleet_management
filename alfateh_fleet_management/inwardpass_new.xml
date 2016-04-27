@@ -44,7 +44,8 @@
                                 <field name="gi_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('outward_Category','!=','Shop')]}"/>
                                 <field name="own_vehicle" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_process')]}" />
                                 
-                                <field name="transfer_order" attrs="{'readonly': [('state','in',('vehicle_process','vehicle_exit'))],'invisible': [('outward_Category','!=','Shop')]}"/> 
+                                <field name="transfer_order_out" attrs="{'readonly': [('state','in',('vehicle_process','vehicle_exit'))],'invisible': ['|',('outward_Category','!=','Shop'),('state','=','vehicle_process')]}"/> 
+                                <field name="transfer_order_in" attrs="{'readonly': [('state','in',('vehicle_enter','vehicle_exit'))],'invisible': ['|',('outward_Category','!=','Shop'),('state','=','vehicle_enter')]}"/> 
                                 <field name="gpi_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('own_vehicle','=',True)]}"/>
                                 <button string="⇒ Update" type="object" name="odoometer_value_pass" class="oe_link" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','!=','vehicle_process'),('own_vehicle','=',True)]}"/>
                                 
@@ -95,13 +96,13 @@
                         </page>
                         <page string="Gate Out Remarks" attrs="{'invisible': [('state', '=', 'vehicle_process')]}">
                             <group>
-                                    <field name="out_remarks" nolabel='1'>
+                                    <field name="out_remarks_shop" nolabel='1'>
                                     </field>
                             </group>
                         </page>
                          <page string="Gate In" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group >
-                                    <field name="out_inshop_id" nolabel='1'>
+                                    <field name="in_inshop_id" nolabel='1'>
                                         <tree editable="bottom">
                                             <field name="uom"/>
                                             <field name="qty"/>
@@ -112,7 +113,7 @@
                         </page>
                         <page string="Gate In Remarks" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group>
-                                    <field name="in_remarks" nolabel='1'>
+                                    <field name="in_remarks_shop" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -136,7 +137,7 @@
                         </page>
                         <page string="Gate Out Remarks"  attrs="{'invisible': [('state', '=', 'vehicle_process')]}">
                             <group>
-                                    <field name="out_remarks" nolabel='1'>
+                                    <field name="out_remarks_ret" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -158,7 +159,7 @@
                         </page>
                         <page string="Gate In Remarks" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group>
-                                    <field name="in_remarks" nolabel='1'>
+                                    <field name="in_remarks_ret" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -251,6 +252,7 @@
                                  <field name="rep_rec_no" attrs="{'readonly': [('state','in',('vehicle_process','vehicle_exit'))],'invisible': [('inward_Category', '!=', 'returnable')]}"/>
                                 <field name="transfer_out" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('inward_Category', '!=', 'supplier')]}"/>
                                 <field name="transfer_out_dd" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('transfer_out', '!=', True)]}"/>
+                                <field name="return_reject_ref" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('transfer_out', '!=', True)]}"/>
                                 <!--<field name="out_sron" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
                                <!-- <field name="go_seal"  attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': [('state','=','vehicle_enter')]}"/> -->
                                 <!--<field name="gp_odoo_meter" attrs="{'readonly': [('state','=','vehicle_exit')],'invisible': ['|',('state','=','vehicle_enter'),('own_vehicle','=',False)]}"/>
@@ -307,7 +309,7 @@
                         </page>
                         <page string="Gate In Remarks" attrs="{'invisible': [('state', '=', 'vehicle_process')]}">
                             <group>
-                                    <field name="in_remarks" nolabel='1'>
+                                    <field name="in_remarks_sup" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -325,7 +327,7 @@
                         </page>
                         <page string="Gate Out Remarks" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group>
-                                    <field name="out_remarks" nolabel='1'>
+                                    <field name="out_remarks_sup" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -348,7 +350,7 @@
                         </page>
                         <page string="Gate In Remarks" attrs="{'invisible': [('state', '=', 'vehicle_process')]}">
                             <group>
-                                    <field name="in_remarks" nolabel='1'>
+                                    <field name="in_remarks_ret" nolabel='1'>
                                     </field>
                             </group>
                         </page>
@@ -370,7 +372,7 @@
                         </page>
                         <page string="Gate Out Remarks" attrs="{'invisible': [('state', '=', 'vehicle_enter')]}">
                             <group>
-                                <field name="out_remarks" nolabel='1'>
+                                <field name="out_remarks_ret" nolabel='1'>
                                 </field>
                             </group>
                         </page>
@@ -399,7 +401,7 @@
                     <!--<field name="own_vehicle"/>-->
                     <field name="supplier_details"/>
                     <!--<field name="out_driver" />-->
-                    <field name="trip_management_field"/> 
+                    <!--<field name="trip_management_field"/> --> 
                     <!--<field name="fleet_vehicle_id" /> -->
                     <field name="gpi_odoo_meter"/>
                     <field name="gp_odoo_meter" />
