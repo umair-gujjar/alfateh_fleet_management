@@ -197,9 +197,22 @@
 
         <menuitem name="Branding" id="menu_branding_root" sequence="70"/>
         <menuitem name="Branding" id="menu_brand_mang_root" parent="menu_branding_root" sequence="0"/>
+        
             <menuitem name="Branding Management" id="menu_brand_mang_child_one" parent="menu_brand_mang_root" action="action_brand_mang" sequence="0"/>
             <menuitem name="Assesment Checklist" id="menu_assesment_checklist_child_one" parent="menu_brand_mang_root" action="action_assesment_checklist" sequence="1"/>
-
+        <menuitem name="Configuration" id="menu_brand_man_config_root" parent="menu_branding_root" sequence="9"/>
+            <menuitem name="Contracts" id="menu_brand_man_config_child_one" parent="menu_brand_man_config_root" action="hr_contract.action_hr_contract" sequence="0"/>
+            <menuitem name="Employee Payslips" id="menu_brand_man_config_child_two" parent="menu_brand_man_config_root" action="hr_payroll.action_view_hr_payslip_form" sequence="2"/>
+            <menuitem name="Payslip Batches" id="menu_brand_man_config_child_three" parent="menu_brand_man_config_root" action="hr_payroll.action_hr_payslip_run_tree" sequence="3"/>
+            <menuitem name="Contract" id="menu_brand_man_config_child_four" parent="menu_brand_man_config_root" sequence="4"/>
+                <menuitem name="Contract Types" id="menu_brand_man_config_child_four_one" parent="menu_brand_man_config_child_four" action="hr_contract.action_hr_contract_type" sequence="1"/>
+            <menuitem name="Payroll" id="menu_brand_man_config_child_five" parent="menu_brand_man_config_root" sequence="5"/>
+                <menuitem name="Salary Structures" id="menu_cfg_pyrl_child_0" parent="menu_brand_man_config_child_five" action="hr_payroll.action_view_hr_payroll_structure_list_form" sequence="0"/>
+                <menuitem name="Salary Structures Hierarchy" id="menu_cfg_pyrl_child_1" parent="menu_brand_man_config_child_five" action="hr_payroll.action_view_hr_payroll_structure_tree" sequence="1"/>
+                <menuitem name="Salary Rule Categories" id="menu_cfg_pyrl_child_2" parent="menu_brand_man_config_child_five" action="hr_payroll.action_hr_salary_rule_category" sequence="2"/>
+                <menuitem name="Salary Rule Categories Hierarchy" id="menu_cfg_pyrl_child_3" parent="menu_brand_man_config_child_five" action="hr_payroll.action_hr_salary_rule_category_tree_view" sequence="3"/>
+                <menuitem name="Salary Rules" id="menu_cfg_pyrl_child_4" parent="menu_brand_man_config_child_five" action="hr_payroll.action_salary_rule_form" sequence="4"/>
+                <menuitem name="Contribution Registers" id="menu_cfg_pyrl_child_5" parent="menu_brand_man_config_child_five" action="hr_payroll.action_contribution_register_form" sequence="5"/>
 
 
     </data>
