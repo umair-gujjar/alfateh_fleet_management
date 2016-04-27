@@ -198,7 +198,31 @@ class purchase_qutoation_taxtech(models.Model):
     partner_id = fields.Many2one('res.partner','Related Partner')
 
 	
+# hr_ class inherit
+class alfateh_hr_payslip_custom(models.Model):
+	_inherit = 'hr.payslip'
 
+	@api.multi
+	def confirm_custom_entry(self):
+		if self.move_id:
+			recs = self.move_id.line_id
+			emp_partner_id = self.env['res.partner'].search([('name','=',self.employee_id.name)])
+			for item in recs:
+				item.partner_id = emp_partner_id.id
+	@api.multi
+	def write(self, move_id):
+		res = super(alfateh_hr_payslip_custom, self).write(move_id)
+		if self.move_id:
+			recs = self.move_id.line_id
+			#by name search we get employee partner name
+			#emp_partner_id = self.env['res.partner'].search([('name','=',self.employee_id.name)])
+			for item in recs:
+			#	item.partner_id = emp_partner_id.id
+
+			# by getting partner id from employee id we fetch partner name
+				item.partner_id = self.employee_id.partner_id.id
+
+		return res
 
 
 

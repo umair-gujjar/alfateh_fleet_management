@@ -15,7 +15,7 @@
     'website': "http://www.oxenlab.com",
     'category': 'aaps',
     'version': '0.1',
-    'depends': ['base','mail','fleet','stock'],
+    'depends': ['base','mail','fleet','stock','hr','hr_payroll'],
     'data': [
         # 'security/ir.model.access.csv',
         #'templates.xml',
