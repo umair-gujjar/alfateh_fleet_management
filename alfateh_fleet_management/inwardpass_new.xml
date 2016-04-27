@@ -85,7 +85,7 @@
                     <notebook colspan="3"  attrs="{'invisible': ['|',('outward_Category', '=', 'Returnable') , ('outward_Category', '=', False)]}">
                         <page string="Gate Out" attrs="{'invisible': [('state', '=', 'vehicle_process')]}" >
                             <group>
-                                    <field name="out_inshop_id" nolabel='1'>
+                                    <field name="in_inshop_id" nolabel='1'>
                                         <tree editable="bottom">
                                             <field name="uom"/>
                                             <field name="qty"/>
