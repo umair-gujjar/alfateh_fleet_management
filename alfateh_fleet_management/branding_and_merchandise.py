@@ -115,6 +115,23 @@ class branding_merchandise(models.Model):
 			'state': 'application'
 			})
 
+	@api.multi
+	def create_contract(self):
+		#print self.name_of_company.name
+		resee =self.env['hr.employee'].create({'name':self.name_of_company.name})
+		resee.partner_id = self.name_of_company
+
+		print 'xxxxx------'+str(resee.name)
+		
+		return {
+            'name': 'Contract Form',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': 'hr.contract',
+            'type': 'ir.actions.act_window',
+            'context': "{'employee_id': '%s'}" % (resee.id),
+        }
+
 
 class assesment_list(models.Model):
 	_name = 'assesment_list'
@@ -175,6 +192,10 @@ class select_assesment_list_fields(models.Model):
 		('3', 'Good'),
 		('4', 'Excellent/Yes')], string="Grade")
 	select_assesment_list_fields_id = fields.Many2one('branding.management','Check List')
+
+class purchase_qutoation_taxtech(models.Model):
+    _inherit = "hr.employee"
+    partner_id = fields.Many2one('res.partner','Related Partner')
 
 	
 

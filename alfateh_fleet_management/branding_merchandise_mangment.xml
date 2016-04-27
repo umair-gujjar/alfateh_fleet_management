@@ -2,7 +2,20 @@
     <data>
 
 
-         <record id="fleet_mang_custom_company_view_form" model="ir.ui.view">
+        <record id="branding_custom_employee_form_view" model="ir.ui.view">
+            <field name="name">branding_custom_employee_form_view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='user_id']" position="before">
+                    <field name="partner_id"/>
+                </xpath> 
+            </field>
+        </record>
+
+
+        <record id="fleet_mang_custom_company_view_form" model="ir.ui.view">
             <field name="name">fleet_mang_custom_company_view_form</field>
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="base.view_partner_form"/>
@@ -26,7 +39,7 @@
                     <header>
                         <button string="Go to Assesment" type="object" name="go_to_assesment" attrs="{'invisible': [('state', '=', 'assesment')]}"/>
                         <button string="Go to Application" type="object" name="go_to_application" attrs="{'invisible': [('state', '=', 'application')]}"/>
-
+                        <button string="Create Contract" type="object" name="create_contract" attrs="{'invisible': [('state', '=', 'application')]}"/>
                         <field name="state" widget="statusbar"/>
                     </header>
                     <sheet attrs="{'invisible': [('state', '=', 'application')]}">
