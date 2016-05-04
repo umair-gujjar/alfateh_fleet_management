@@ -16,6 +16,19 @@ class edit_company(models.Model):
 		('public_unlisted_company', 'Public Unlisted Company'),
 		('any_other_company', 'Any other company')], string="Type of Company")
 
+class custom_contract(models.Model):
+	_inherit = 'hr.contract'
+	x_purchase_amount = fields.Char('Purchase Amount')
+	x_purchase_qty = fields.Char('Purchase Qty')
+	x_sale_target = fields.Char('Sale Target')
+	x_select_cb = fields.Selection([
+		('cash', 'Cash'),
+		('bank','Bank')], string="Type")
+
+	wrkbk_cash_ids = fields.One2many('workbook_for_cash','wrkbk_for_cash')
+	wrkbk_bank_ids = fields.One2many('workbook_for_bank','wrkbk_for_bank')
+	
+
 
 
 class branding_merchandise(models.Model):
@@ -152,36 +165,6 @@ class assesment_list_fields(models.Model):
 	
 	assesment_list_fields_id = fields.Many2one('assesment_list','Check List')
 
-
-
-#class select_assesment_list(models.Model):
-	#_name = 'select_assesment_list'
-	#name = fields.Many2one('assesment_list','Select Assesment List')
-	#assesmnet_date = fields.Date('Date')
-	#company_name = fields.Char('Company Name')
-	#department = fields.Char('Department')
-	#sa_num = fields.Char('SA #')
-	#select_assesment_list_id = fields.One2many('select_assesment_list_fields','select_assesment_list_fields_id')
-	#@api.multi
-	#def action_create_assesment_list(self):
-		#self.select_assesment_list_id = self._prepare_assesment_list_lines(self.name)
-		#return True
-	#@api.multi
-	#def _prepare_assesment_list_lines(self, check, force_fill=False):
-		#new_data = []
-		#for line in check.check_list_id:
-			#data = self._prepare_assesment_list_line(check, line, fill=force_fill)
-			#new_data.append((0, 0, data))
-		#return new_data
-	#@api.multi
-	#def _prepare_assesment_list_line(self, check, line, fill=None):
-		#data = {
-			#'assesment_check': line.assesment_check,
-			#'factor': line.factor,
-			#'grade': line.grade,
-		#}
-		#return data
-
 class select_assesment_list_fields(models.Model):
 	_name = 'select_assesment_list_fields'
 	name = fields.Char('Name')
@@ -196,6 +179,24 @@ class select_assesment_list_fields(models.Model):
 class purchase_qutoation_taxtech(models.Model):
     _inherit = "hr.employee"
     partner_id = fields.Many2one('res.partner','Related Partner')
+
+
+class workbook_cash(models.Model):
+	_name = 'workbook_for_cash'
+	cash_location = fields.Char(string='Location')
+	cash_amount = fields.Float(string='Amount')
+	cash_date = fields.Char(string='Date')
+	
+	wrkbk_for_cash = fields.Many2one('hr.contract','Work cash Id')    
+
+class workbook_bank(models.Model):
+	_name = 'workbook_for_bank'
+	bank_location = fields.Char(string='Location')
+	bank_amount = fields.Float(string='Amount')
+	bank_date = fields.Char(string='Date')
+	bank_tax_section = fields.Char(string='Tax Section')
+	wrkbk_for_bank = fields.Many2one('hr.contract','Work bank Id')  
+
 
 	
 
