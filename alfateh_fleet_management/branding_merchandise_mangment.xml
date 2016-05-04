@@ -1,7 +1,26 @@
 <openerp>
     <data>
-
-
+        <!--<record id="hr_contract_alfateh_custom_journal_id_view_form" model="ir.ui.view">
+            <field name="name">hr_contract_alfateh_custom_journal_id_view_form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_payroll_account.hr_contract_form_inherit"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <field name="journal_id" string="Journal" position="replace">
+                </field>
+            </field>
+        </record> -->
+        <record id="hr_contract_alfateh_custom_struct_id_view_form" model="ir.ui.view">
+            <field name="name">hr_contract_alfateh_custom_struct_id_view_form</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_payroll.hr_contract_form_inherit"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='struct_id']" position="attributes">
+                    <attribute name="string">Contract Structure</attribute>
+                </xpath>
+            </field>
+        </record>
         <record id="branding_custom_employee_form_view" model="ir.ui.view">
             <field name="name">branding_custom_employee_form_view</field>
             <field name="model">hr.employee</field>
@@ -47,10 +66,16 @@
                 <xpath expr="//page[@string='Information']" position="after">
                     <page string="Agreement Summary" name="agreement_summary">
                         <group name="group_top">
-                            <group name="group_left">
-                            </group>
-                            <group name="group_right">
-                            </group>
+                            <field name="wrkbk_summary_ids" nolabel='1'>
+                                <tree editable="bottom">
+                                    <field name="location"/>
+                                    <field name="ntn_number"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="area_space"/>
+                                    <field name="no_of_amount"/>
+                                </tree>
+                            </field>
                         </group>
                     </page>
                 </xpath>
@@ -63,19 +88,19 @@
                             </group>
                         </group>    
                         <group name="group_top">
-                            <field name="wrkbk_cash_ids" nolabel='1'>
+                            <!--<field name="wrkbk_cash_ids" nolabel='1'>
                                 <tree editable="bottom">
                                     <field name="cash_location"/>
                                     <field name="cash_amount"/>
                                     <field name="cash_date"/>
                                 </tree>
-                            </field>
+                            </field> -->
                             <field name="wrkbk_bank_ids" nolabel='1'>
                                 <tree editable="bottom">
                                     <field name="bank_location"/>
                                     <field name="bank_amount"/>
                                     <field name="bank_date"/>
-                                    <field name="bank_tax_section"/>
+                                    <field name="bank_tax_section" attrs="{'invisible': [('x_select_cb','in','cash')]}"/>
                                 </tree>
                             </field>
                         </group>    
@@ -83,7 +108,7 @@
                 </xpath>
                 <field name="job_id" position="attributes">
                     <attribute name="invisible">True</attribute>
-                </field> 
+                </field>
                 <!--<field name="working_hours" position="attributes">
                     <attribute name="invisible">True</attribute>
                 </field> -->

@@ -27,6 +27,7 @@ class custom_contract(models.Model):
 
 	wrkbk_cash_ids = fields.One2many('workbook_for_cash','wrkbk_for_cash')
 	wrkbk_bank_ids = fields.One2many('workbook_for_bank','wrkbk_for_bank')
+	wrkbk_summary_ids = fields.One2many('summary_alfateh_workbook','alf_workbook_id')
 	
 
 
@@ -227,3 +228,12 @@ class alfateh_hr_payslip_custom(models.Model):
 
 
 
+class contract_summary_alfateh_workbook(models.Model):
+	_name = 'summary_alfateh_workbook'
+	location = fields.Char(string='Location')
+	ntn_number = fields.Char(string='NTN')
+	date_from = fields.Date(string='From')
+	date_to  = fields.Date(string='To')
+	area_space = fields.Char(string='Area/Space')
+	no_of_amount = fields.Float(string='Amount')
+	alf_workbook_id = fields.Many2one('hr.contract','Work Book Id')
