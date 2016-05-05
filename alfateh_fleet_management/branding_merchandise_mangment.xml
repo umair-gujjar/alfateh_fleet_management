@@ -10,6 +10,18 @@
                 </field>
             </field>
         </record> -->
+
+        <record id="hr_contract_alfateh_custom_view_tree" model="ir.ui.view">
+            <field name="name">hr_contract_alfateh_custom_view_tree</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='type_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+            </field>
+        </record>
         <record id="hr_contract_alfateh_custom_struct_id_view_form" model="ir.ui.view">
             <field name="name">hr_contract_alfateh_custom_struct_id_view_form</field>
             <field name="model">hr.contract</field>
@@ -44,7 +56,7 @@
                     <field name="x_ntn_num"/>
                     <field name="x_stn_num"/>
                     <field name="x_company_type"/> 
-                </xpath>    
+                </xpath>
             </field>
         </record>
 
@@ -116,7 +128,20 @@
                     <field name="x_purchase_amount"/>
                     <field name="x_purchase_qty"/>
                     <field name="x_sale_target"/> 
-                </xpath>     
+                </xpath>
+                <xpath expr="//field[@name='type_id']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+                <xpath expr="//field[@name='type_id']" position="after">
+                    <group name="contract_type" string="Contract Type">
+                        <field name="share_of_stock"/>
+                        <field name="ocd"/>
+                        <field name="shelf_renting"/>
+                        <field name="target_purchases"/>
+                        <field name="straight"/>
+                        <field name="cat_of_prod"/>
+                    </group>
+                </xpath>
             </field>
         </record>
 
@@ -300,7 +325,9 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-
+        <!--<record id="hr_payroll.menu_action_hr_salary_rule_form" model="ir.actions.act_window">
+            <field name="name">Contract Rules</field>
+        </record> -->
         <menuitem name="Branding" id="menu_branding_root" sequence="70"/>
         <menuitem name="Branding" id="menu_brand_mang_root" parent="menu_branding_root" sequence="0"/>
         
@@ -313,11 +340,11 @@
             <menuitem name="Contract" id="menu_brand_man_config_child_four" parent="menu_brand_man_config_root" sequence="4"/>
                 <menuitem name="Contract Types" id="menu_brand_man_config_child_four_one" parent="menu_brand_man_config_child_four" action="hr_contract.action_hr_contract_type" sequence="1"/>
             <menuitem name="Payroll" id="menu_brand_man_config_child_five" parent="menu_brand_man_config_root" sequence="5"/>
-                <menuitem name="Salary Structures" id="menu_cfg_pyrl_child_0" parent="menu_brand_man_config_child_five" action="hr_payroll.action_view_hr_payroll_structure_list_form" sequence="0"/>
-                <menuitem name="Salary Structures Hierarchy" id="menu_cfg_pyrl_child_1" parent="menu_brand_man_config_child_five" action="hr_payroll.action_view_hr_payroll_structure_tree" sequence="1"/>
-                <menuitem name="Salary Rule Categories" id="menu_cfg_pyrl_child_2" parent="menu_brand_man_config_child_five" action="hr_payroll.action_hr_salary_rule_category" sequence="2"/>
-                <menuitem name="Salary Rule Categories Hierarchy" id="menu_cfg_pyrl_child_3" parent="menu_brand_man_config_child_five" action="hr_payroll.action_hr_salary_rule_category_tree_view" sequence="3"/>
-                <menuitem name="Salary Rules" id="menu_cfg_pyrl_child_4" parent="menu_brand_man_config_child_five" action="hr_payroll.action_salary_rule_form" sequence="4"/>
+                <menuitem name="Contract Structures" id="menu_cfg_pyrl_child_0" parent="menu_brand_man_config_child_five" action="hr_payroll.action_view_hr_payroll_structure_list_form" sequence="0"/>
+                <menuitem name="Contract Structures Hierarchy" id="menu_cfg_pyrl_child_1" parent="menu_brand_man_config_child_five" action="hr_payroll.action_view_hr_payroll_structure_tree" sequence="1"/>
+                <menuitem name="Contract Rule Categories" id="menu_cfg_pyrl_child_2" parent="menu_brand_man_config_child_five" action="hr_payroll.action_hr_salary_rule_category" sequence="2"/>
+                <menuitem name="Contract Rule Categories Hierarchy" id="menu_cfg_pyrl_child_3" parent="menu_brand_man_config_child_five" action="hr_payroll.action_hr_salary_rule_category_tree_view" sequence="3"/>
+                <menuitem name="Contract Rules" id="menu_cfg_pyrl_child_4" parent="menu_brand_man_config_child_five" action="hr_payroll.action_salary_rule_form" sequence="4"/>
                 <menuitem name="Contribution Registers" id="menu_cfg_pyrl_child_5" parent="menu_brand_man_config_child_five" action="hr_payroll.action_contribution_register_form" sequence="5"/>
 
 

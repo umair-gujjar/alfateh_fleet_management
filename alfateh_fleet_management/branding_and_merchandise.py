@@ -24,7 +24,12 @@ class custom_contract(models.Model):
 	x_select_cb = fields.Selection([
 		('cash', 'Cash'),
 		('bank','Bank')], string="Type")
-
+	share_of_stock = fields.Boolean('Share  of stock in %')
+	ocd = fields.Boolean('Out of CAtegory Display')
+	shelf_renting = fields.Boolean('Shelf Renting')
+	target_purchases = fields.Boolean('Target Based (Qty & amount ) Purchases')
+	straight = fields.Boolean('Straight')
+	cat_of_prod = fields.Boolean('Catregory of Product %')
 	wrkbk_cash_ids = fields.One2many('workbook_for_cash','wrkbk_for_cash')
 	wrkbk_bank_ids = fields.One2many('workbook_for_bank','wrkbk_for_bank')
 	wrkbk_summary_ids = fields.One2many('summary_alfateh_workbook','alf_workbook_id')
