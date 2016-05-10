@@ -100,19 +100,19 @@
                             </group>
                         </group>    
                         <group name="group_top">
-                            <!--<field name="wrkbk_cash_ids" nolabel='1'>
+                            <field name="wrkbk_cash_ids" nolabel='1' attrs="{'invisible':[('x_select_cb','not in',['cash'])]}">
                                 <tree editable="bottom">
                                     <field name="cash_location"/>
                                     <field name="cash_amount"/>
                                     <field name="cash_date"/>
                                 </tree>
-                            </field> -->
-                            <field name="wrkbk_bank_ids" nolabel='1'>
+                            </field>
+                            <field name="wrkbk_bank_ids" nolabel='1' attrs="{'invisible':[('x_select_cb','not in',['bank'])]}" >
                                 <tree editable="bottom">
                                     <field name="bank_location"/>
                                     <field name="bank_amount"/>
                                     <field name="bank_date"/>
-                                    <field name="bank_tax_section" attrs="{'invisible': [('x_select_cb','in','cash')]}"/>
+                                    <field name="bank_tax_section"/>
                                 </tree>
                             </field>
                         </group>    

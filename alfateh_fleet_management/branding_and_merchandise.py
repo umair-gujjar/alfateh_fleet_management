@@ -201,10 +201,19 @@ class workbook_bank(models.Model):
 	bank_amount = fields.Float(string='Amount')
 	bank_date = fields.Char(string='Date')
 	bank_tax_section = fields.Char(string='Tax Section')
-	wrkbk_for_bank = fields.Many2one('hr.contract','Work bank Id')  
-
-
-	
+	select_cb = fields.Selection([
+		('cash', 'Cash'),
+		('bank','Bank')], string="Type")
+	wrkbk_for_bank = fields.Many2one('hr.contract','Work bank Id')
+#	@api.multi
+#	def _setdefaultcustom_entry(self):
+#		hr_contract_recs = self.env['hr.contract'].search([])
+#		print hr_contract_recs.x_select_cb
+#		res = hr_contract_recs.x_select_cb
+#		return res
+#	_defaults = {
+#	'select_cb': _setdefaultcustom_entry,
+#	}
 # hr_ class inherit
 class alfateh_hr_payslip_custom(models.Model):
 	_inherit = 'hr.payslip'
