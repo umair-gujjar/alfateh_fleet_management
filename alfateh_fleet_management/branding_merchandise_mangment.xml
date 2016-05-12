@@ -77,11 +77,12 @@
                     <attribute name="invisible">True</attribute>
                 </field>  
                 <xpath expr="//field[@name='advantages']" position="after">
-                    <field name="x_purchase_amount"/>
-                    <field name="x_purchase_qty"/>   
-                    <field name="x_monthly"/>
-                    <field name="x_quarty"/> 
-                    <field name="x_anual"/>
+                    <field name="x_purchase_amount_monthly"/>
+                    <field name="x_purchase_qty_monthly"/> 
+                    <field name="x_purchase_amount_quarty"/>
+                    <field name="x_purchase_qty_quarty"/>
+                    <field name="x_purchase_amount_anual"/>
+                    <field name="x_purchase_qty_anual"/>
                 </xpath>
                 <xpath expr="//page[@string='Information']" position="after">
                     <page string="Agreement Summary" name="agreement_summary">

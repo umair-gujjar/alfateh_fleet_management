@@ -20,9 +20,12 @@ class custom_contract(models.Model):
 	_inherit = 'hr.contract'
 	x_purchase_amount = fields.Char('Purchase Target')
 	x_purchase_qty = fields.Char('Purchase Qty')
-	x_monthly = fields.Float('Monthly')
-	x_quarty = fields.Float('Quartarly')
-	x_anual = fields.Float('Anually')
+	x_purchase_amount_monthly = fields.Float('Purchase Amount Monthly')
+	x_purchase_amount_quarty = fields.Float('Purchase Amount Quartarly')
+	x_purchase_amount_anual = fields.Float('Purchase Amount Anually')
+	x_purchase_qty_monthly = fields.Float('Purchase Qty Monthly')
+	x_purchase_qty_quarty = fields.Float('Purchase Qty Quartarly')
+	x_purchase_qty_anual = fields.Float('Purchase Qty Anually')
 	x_sale_target = fields.Char('Sale Target')
 	x_select_cb = fields.Selection([
 		('cash', 'Cash'),
