@@ -18,20 +18,24 @@ class edit_company(models.Model):
 
 class custom_contract(models.Model):
 	_inherit = 'hr.contract'
-	x_purchase_amount = fields.Char('Purchase Amount')
+	x_purchase_amount = fields.Char('Purchase Target')
 	x_purchase_qty = fields.Char('Purchase Qty')
+	x_monthly = fields.Float('Monthly')
+	x_quarty = fields.Float('Quartarly')
+	x_anual = fields.Float('Anually')
 	x_sale_target = fields.Char('Sale Target')
 	x_select_cb = fields.Selection([
 		('cash', 'Cash'),
 		('bank','Bank')], string="Type")
 	share_of_stock = fields.Boolean('Share  of stock in %')
-	ocd = fields.Boolean('Out of CAtegory Display')
+	ocd = fields.Boolean('Out of Category Display')
 	shelf_renting = fields.Boolean('Shelf Renting')
 	target_purchases = fields.Boolean('Target Based (Qty & amount ) Purchases')
 	straight = fields.Boolean('Straight')
 	cat_of_prod = fields.Boolean('Catregory of Product %')
 	wrkbk_cash_ids = fields.One2many('workbook_for_cash','wrkbk_for_cash')
 	wrkbk_bank_ids = fields.One2many('workbook_for_bank','wrkbk_for_bank')
+	wrkbk_area_ids = fields.One2many('workbook_for_area','wrkbk_area')
 	wrkbk_summary_ids = fields.One2many('summary_alfateh_workbook','alf_workbook_id')
 	
 
@@ -205,6 +209,16 @@ class workbook_bank(models.Model):
 		('cash', 'Cash'),
 		('bank','Bank')], string="Type")
 	wrkbk_for_bank = fields.Many2one('hr.contract','Work bank Id')
+
+class workbook_area(models.Model):
+	_name = 'workbook_for_area'
+	area_outlet = fields.Char(string='Outlet')
+	area_category = fields.Char(string='Category')
+	area_width = fields.Float(string='Width')
+	area_height = fields.Float(string='Height')
+	area_shelf = fields.Char(string='Shelf')
+
+	wrkbk_area = fields.Many2one('hr.contract','Work bank Id')	
 #	@api.multi
 #	def _setdefaultcustom_entry(self):
 #		hr_contract_recs = self.env['hr.contract'].search([])
