@@ -23,6 +23,8 @@ class fuelcards_management(models.Model):
 	card_recharge_liter = fields.Float('Recharge liters')
 	consume_id = fields.One2many('consume','fuelcard_consume_id',string='Details')
 	recharge_id = fields.One2many('recharge','fuelcard_recharge_id',string='Details')
+	card_consume_h_ids = fields.One2many('consumehistory','card_consume_h_id',string='Details')
+	card_recharge_h_ids = fields.One2many('rechargehistory','card_recharge_h_id',string='Details')
 	recharge_count = fields.Integer(string="Recharge",compute='compute_user_todo_count')
 
 	_defaults = {
@@ -58,6 +60,51 @@ class fuelcards_management(models.Model):
 				self.card_limit_remaining = self.card_limit_remaining + recharageable_ltrs
 			else:
 				self.card_limit_remaining = self.card_limit_remaining
+#for consume history 
+	@api.multi
+	def update_consume_history(self):
+		self.card_consume_h_ids.unlink()
+		self.card_consume_h_ids = self._prepare_mo_workbook_one_ids()
+
+	@api.multi
+	def _prepare_mo_workbook_one_ids(self):
+		new_data = []
+		all_recd_consume = self.env['consume'].search([('name','=',self.id)])
+		all_recd = self.env['consume'].search([])
+		print all_recd_consume
+		print all_recd
+		for line in all_recd_consume:
+			data = self._prepare_workbook_one_line(line)
+			new_data.append(data)
+		return new_data
+	@api.multi
+	def _prepare_workbook_one_line(self, data):
+		data = {
+		'card_consume_date': data.card_consume_date,
+		'card_consume_liter': data.card_consume_liter,
+			}
+		return data
+#for recharge history
+	@api.multi
+	def update_recharge_history(self):
+		self.card_recharge_h_ids.unlink()
+		self.card_recharge_h_ids = self._prepare_workbook_one_ids()
+
+	@api.multi
+	def _prepare_workbook_one_ids(self):
+		new_data = []
+		all_recd_recharge = self.env['recharge'].search([('name','=',self.id)])
+		for line in all_recd_recharge:
+			data = self._prepare_workbook_one_lines(line)
+			new_data.append(data)
+		return new_data
+	@api.multi
+	def _prepare_workbook_one_lines(self, data):
+		data = {
+		'card_recharge_date': data.card_recharge_date,
+		'card_recharge_liter': data.card_recharge_liter,
+			}
+		return data
 class consume(models.Model):
 	_name = 'consume'
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
@@ -130,3 +177,15 @@ class consumtion_fuel_log_model(models.Model):
 			remaining_fuel = self.card_name.card_limit_remaining - consumed_liter_fuel
 			self.card_name.card_limit_remaining = remaining_fuel
 		return result
+
+class consumehistory(models.Model):
+	_name = 'consumehistory'
+	card_consume_date = fields.Date('Date')
+	card_consume_liter = fields.Float('Consume liters')
+	card_consume_h_id = fields.Many2one('fuelcard.management',string='Consume')
+
+class rechargehistory(models.Model):
+	_name = 'rechargehistory'
+	card_recharge_date = fields.Date('Date')
+	card_recharge_liter = fields.Float('Recharge liters')
+	card_recharge_h_id = fields.Many2one('fuelcard.management',string='Recharge')

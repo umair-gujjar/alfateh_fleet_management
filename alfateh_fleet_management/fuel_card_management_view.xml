@@ -42,9 +42,10 @@
                         </group>
                         <notebook>
                             <page string="Consume History">
+                                <button name="update_consume_history" type="object" string="Update History" />
                                 <group>
                                     <tree>
-                                        <field name="consume_id" nolabel="1" >
+                                        <field name="card_consume_h_ids" nolabel="1" >
                                             <tree editable="bottom"  >
                                                 <field name="card_consume_date" />
                                                 <field name="card_consume_liter" />
@@ -54,9 +55,10 @@
                                 </group>
                             </page>
                             <page string="Recharge History">
+                                <button name="update_recharge_history" type="object" string="Update History" />
                                 <group>
                                     <tree>
-                                        <field name="recharge_id" nolabel="1" >
+                                        <field name="card_recharge_h_ids" nolabel="1" >
                                             <tree editable="bottom"  >
                                                 <field name="card_recharge_date" />
                                                 <field name="card_recharge_liter" />
