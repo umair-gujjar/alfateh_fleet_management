@@ -123,3 +123,61 @@ class trip_management(models.Model):
 			self.variance_trip_cost =  self.actual_trip_cost - self.projected_trip_cost
 			self.variance_route_distance =  self.actual_trip_route_distance - self.route_distance
 
+#update button for varience 
+	@api.multi
+	def variance_field_update_button(self):
+		if self.projected_trip_time or self.actual_trip_time or self.projected_trip_fuel or self.actual_trip_fuel or self.projected_trip_fuel_cost or self.actual_trip_fuel_cost or self.projected_trip_other_cost or self.actual_trip_other_cost or self.projected_trip_cost or self.actual_trip_cost:
+
+			self.variance_trip_time =  self.actual_trip_time - self.projected_trip_time
+
+			self.variance_trip_fuel =  self.actual_trip_fuel - self.projected_trip_fuel
+
+			self.variance_trip_fuel_cost =  self.actual_trip_fuel_cost - self.projected_trip_fuel_cost
+
+			self.variance_trip_other_cost =  self.actual_trip_other_cost - self.projected_trip_other_cost
+
+			self.variance_trip_cost =  self.actual_trip_cost - self.projected_trip_cost
+			self.variance_route_distance =  self.actual_trip_route_distance - self.route_distance
+
+#for getting actual fuel cost
+	@api.onchange('actual_trip_fuel')
+	def onchange_actual_trip_fuel_field(self):
+		fuel_rate_rec = self.env['fuel.rate']
+		if self.actual_trip_fuel:
+			if self.vehicle.fuel_type == 'fuel_gasoline_rate':
+				self.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_gasoline_rate * self.actual_trip_fuel
+			elif self.vehicle.fuel_type == 'fuel_hioctane_rate':
+				self.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_hioctane_rate * self.actual_trip_fuel
+			elif self.vehicle.fuel_type == 'fuel_cng_rate':
+				self.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_cng_rate * self.actual_trip_fuel
+			else:
+				self.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_disel_rate * self.actual_trip_fuel
+class fleet_vehicle_cost_alfateh_custom(models.Model):
+	_inherit = 'fleet.vehicle.cost'
+	@api.model
+	def create(self, values):
+		result = super(fleet_vehicle_cost_alfateh_custom, self).create(values)
+		record_of_trip = self.env['trip.management'].search([('id','=',values['vehicle_trip'])])
+		record_of_trip.actual_trip_other_cost = record_of_trip.actual_trip_other_cost + values['amount']
+		record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost + values['amount']
+		return result
+	@api.multi
+	def write(self, values):
+		record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
+		print "XXXXXXXXXXXXXXXXXX"
+		print self.amount
+		official_trip_amount = record_of_trip.actual_trip_other_cost
+		last_amount = official_trip_amount - self.amount
+		actual_trip_cost_amount = record_of_trip.actual_trip_cost - self.amount
+		result =  super(fleet_vehicle_cost_alfateh_custom,self).write(values)
+		record_of_trip.actual_trip_other_cost = last_amount + self.amount
+		record_of_trip.actual_trip_cost = actual_trip_cost_amount + self.amount
+		print self.amount
+		return result
+
+	@api.multi
+	def unlink(self):
+		record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
+		record_of_trip.actual_trip_other_cost = record_of_trip.actual_trip_other_cost - self.amount
+		record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost - self.amount
+		return super(fleet_vehicle_cost_alfateh_custom,self).unlink()

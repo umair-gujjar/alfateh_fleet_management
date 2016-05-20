@@ -54,6 +54,7 @@
                                 </group>
                             </page>
                             <page string="Variance" >
+                                <button name="variance_field_update_button" type="object" string="Update Variance" />
                                 <group string="Variance">
                                     <group name="group_left">
                                         <field name="variance_trip_time" widget="float_time" sum="Total Hours"/>
