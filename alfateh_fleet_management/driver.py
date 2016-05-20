@@ -15,9 +15,9 @@ class route_driver(models.Model):
 	driver_employee_id = fields.Char('Employee ID')
 	driver_dob = fields.Date('D.O.B')
 	driver_age = fields.Float('Age(years)')
-	driver_check_id = fields.Boolean('Driver')
+	driver_check_id = fields.Boolean('Driver', default=True)
 	driver_lic_type = fields.Selection([('motor_cycle','Motor Cycle' ),('motor_car','Motor Car'),('ltv','LTV'),('htv','HTV'),('tractor_agriculture','Tractor Agriculture')],string='Licence Type') 
-
+	filter_field = fields.Char('Driver')
 	_defaults = {
     'customer': False,
     }
