@@ -52,14 +52,14 @@ class fuelcards_management(models.Model):
 		res['domain'] = [('name','=', current_recharge.id)]
 		return res
 
-	@api.one
-	def recharge(self):
-		if self.card_limit and self.card_limit_remaining:
-			recharageable_ltrs = self.card_limit - self.card_limit_remaining
-			if self.card_limit_remaining < self.card_limit:
-				self.card_limit_remaining = self.card_limit_remaining + recharageable_ltrs
-			else:
-				self.card_limit_remaining = self.card_limit_remaining
+	#@api.one
+	#def recharge(self):
+	#	if self.card_limit and self.card_limit_remaining:
+	#		recharageable_ltrs = self.card_limit - self.card_limit_remaining
+	#		if self.card_limit_remaining < self.card_limit:
+	#			self.card_limit_remaining = self.card_limit_remaining + recharageable_ltrs
+	#		else:
+	#			self.card_limit_remaining = self.card_limit_remaining
 #for consume history 
 	@api.multi
 	def update_consume_history(self):
@@ -150,10 +150,43 @@ class recharge(models.Model):
 	card_recharge_liter = fields.Float('Recharge liters')
 	card_recharge_description = fields.Text('Description')
 	fuelcard_recharge_id = fields.Many2one('fuelcard.management',string='Recharge')
+	fuel_type = fields.Selection([('fuel_gasoline_rate', 'Gasoline'), ('fuel_disel_rate', 'Diesel'), ('fuel_hioctane_rate', 'Hi-Octane'), ('fuel_cng_rate', 'CNG')], 'Fuel Type',select=True, help='Fuel Used by the vehicle')
+	fuel_amount = fields.Float('Fuel Amount')
+
 
 	_defaults = {
 	'card_recharge_date': datetime.now(),
 	}
+
+	@api.onchange('fuel_type','card_recharge_liter')
+	def onchange_atfc_atoc_field(self):
+		fuel_rate_rec = self.env['fuel.rate']
+		if self.fuel_type and self.card_recharge_liter:
+			if self.fuel_type == 'fuel_gasoline_rate':
+				self.fuel_amount = fuel_rate_rec.search([]).fuel_gasoline_rate * self.card_recharge_liter
+			elif self.fuel_type == 'fuel_hioctane_rate':
+				self.fuel_amount = fuel_rate_rec.search([]).fuel_hioctane_rate * self.card_recharge_liter
+			elif self.fuel_type == 'fuel_cng_rate':
+				self.fuel_amount = fuel_rate_rec.search([]).fuel_cng_rate * self.card_recharge_liter
+			else:
+				self.fuel_amount = fuel_rate_rec.search([]).fuel_disel_rate * self.card_recharge_liter
+
+	@api.model
+	def create(self, vals):
+		result = super(recharge, self).create(vals)
+		recharge_liter_fuel = vals['card_recharge_liter']
+		fuel_management_card = self.env['fuelcard.management'].search([('id','=', vals.get('name'))])
+		remaining_fuel = fuel_management_card.card_limit_remaining + recharge_liter_fuel
+		fuel_management_card.card_limit_remaining = remaining_fuel
+		return result
+	@api.multi
+	def write(self, values):
+		result = super(recharge, self).write(values)
+		if self.name and self.card_recharge_liter:
+			recharge_liter_fuel = self.card_recharge_liter
+			remaining_fuel = self.card_name.card_limit_remaining + recharge_liter_fuel
+			self.card_name.card_limit_remaining = remaining_fuel
+		return result
 
 
 class consumtion_fuel_log_model(models.Model):

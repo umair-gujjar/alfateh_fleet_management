@@ -152,12 +152,16 @@ class trip_management(models.Model):
 				self.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_cng_rate * self.actual_trip_fuel
 			else:
 				self.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_disel_rate * self.actual_trip_fuel
+
 class fleet_vehicle_cost_alfateh_custom(models.Model):
 	_inherit = 'fleet.vehicle.cost'
 	@api.model
 	def create(self, values):
+		print values
 		result = super(fleet_vehicle_cost_alfateh_custom, self).create(values)
-		record_of_trip = self.env['trip.management'].search([('id','=',values['vehicle_trip'])])
+		#record_of_trip = self.env['trip.management'].search([('id','=',values['vehicle_trip'])])
+		record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
+		print record_of_trip
 		record_of_trip.actual_trip_other_cost = record_of_trip.actual_trip_other_cost + values['amount']
 		record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost + values['amount']
 		return result

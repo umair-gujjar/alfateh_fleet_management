@@ -8,9 +8,9 @@
             <field name="arch" type="xml">
                 
                 <form string="Fuel Card Management">
-                    <header>
+                    <!-- <header>
                         <button name="recharge" type="object" string="Recharge Liters"/>
-                    </header>
+                    </header> -->
                     <sheet>
                         <!--<h1><field name="card_name" attrs="{'invisible': [('card_name','=','/')]}"/></h1>-->
                          <div class="oe_title">
@@ -46,7 +46,7 @@
                                 <group>
                                     <tree>
                                         <field name="card_consume_h_ids" nolabel="1" >
-                                            <tree editable="bottom"  >
+                                            <tree editable="bottom" create="false"  >
                                                 <field name="card_consume_date" />
                                                 <field name="card_consume_liter" />
                                             </tree>    
@@ -59,7 +59,7 @@
                                 <group>
                                     <tree>
                                         <field name="card_recharge_h_ids" nolabel="1" >
-                                            <tree editable="bottom"  >
+                                            <tree editable="bottom" create="false"  >
                                                 <field name="card_recharge_date" />
                                                 <field name="card_recharge_liter" />
                                             </tree>
@@ -207,10 +207,12 @@
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="card_recharge_date"/>
+                                <field name="fuel_type"/>
                             </group>
                     
                             <group name="group_right">
                                 <field name="card_recharge_liter" />
+                                <field name="fuel_amount" />
                             </group>
                         </group>
                         
