@@ -89,9 +89,10 @@ class trip_management(models.Model):
 			self.route_distance = self.route.route_distance
 			self.projected_trip_time = self.route.route_time
 			if self.vehicle.average_consumption:
-				self.projected_trip_fuel = self.route_distance / self.vehicle.average_consumption 
+				self.projected_trip_fuel = self.route_distance / self.vehicle.average_consumption
+				self.actual_trip_fuel = self.actual_trip_route_distance / self.vehicle.average_consumption 
 			self.projected_trip_cost = self.route.route_total_cost
-
+			self.projected_trip_other_cost = self.route.route_other_cost
 			if self.route.name:
 				self.name = self.date+" "+ self.route.name
 
@@ -101,6 +102,10 @@ class trip_management(models.Model):
 		if self.actual_trip_fuel_cost or self.actual_trip_other_cost:
 			self.actual_trip_cost = self.actual_trip_fuel_cost + self.actual_trip_other_cost
 
+	@api.onchange('actual_trip_route_distance')
+	def onchange_atrd_field(self):
+			if self.vehicle.average_consumption:
+				self.actual_trip_fuel = self.actual_trip_route_distance / self.vehicle.average_consumption 
 #calculate projected total trip cost on changing values of projected fuel and projected other cost
 	@api.onchange('projected_trip_fuel_cost','projected_trip_other_cost')
 	def onchange_atfc_atoc_field1(self):
