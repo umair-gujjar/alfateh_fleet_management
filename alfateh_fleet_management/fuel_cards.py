@@ -51,15 +51,6 @@ class fuelcards_management(models.Model):
 		})
 		res['domain'] = [('name','=', current_recharge.id)]
 		return res
-
-	#@api.one
-	#def recharge(self):
-	#	if self.card_limit and self.card_limit_remaining:
-	#		recharageable_ltrs = self.card_limit - self.card_limit_remaining
-	#		if self.card_limit_remaining < self.card_limit:
-	#			self.card_limit_remaining = self.card_limit_remaining + recharageable_ltrs
-	#		else:
-	#			self.card_limit_remaining = self.card_limit_remaining
 #for consume history 
 	@api.multi
 	def update_consume_history(self):
@@ -109,7 +100,8 @@ class consume(models.Model):
 	_name = 'consume'
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
 	name = fields.Many2one('fuelcard.management','Card Number')
-	card_consume_date = fields.Date('Date')
+	consume_id_log = fields.Integer('Consume Id')
+	card_consume_date = fields.Datetime('Date')
 	card_consume_liter = fields.Float('Consume liters')
 	card_consume_description = fields.Text('Description')
 	card_available_liter = fields.Float('Available liters')
@@ -191,26 +183,47 @@ class recharge(models.Model):
 
 class consumtion_fuel_log_model(models.Model):
 	_inherit = 'fleet.vehicle.log.fuel'
+	date = fields.Datetime('Date')
+	_defaults = {
+	'date': datetime.now(),
+	}
 #For create method code
 	@api.model
 	def create(self, vals):
-		
 		consumed_liter_fuel = vals['liter']
-		#print vals['liter']
-		#print vals.get('card_name')
 		fuel_management_card = self.env['fuelcard.management'].search([('id','=', vals.get('card_name'))])
 		remaining_fuel = fuel_management_card.card_limit_remaining - consumed_liter_fuel
 		fuel_management_card.card_limit_remaining = remaining_fuel
+		consume_records = self.env['consume']
 		result = super(consumtion_fuel_log_model, self).create(vals)
+
+		res = {
+		 'name': vals['card_name'],
+		 'card_consume_liter': vals['liter'],
+		 'card_available_liter': fuel_management_card.card_limit_remaining,
+		 'card_consume_date':vals['date'],
+		 }
+		consume_records.create(res)
 		return result
 	@api.multi
 	def write(self, values):
+		consumed_liter_fuel_before = self.liter
 		result = super(consumtion_fuel_log_model, self).write(values)
 		if self.card_name and self.liter:
 			consumed_liter_fuel = self.liter
-			remaining_fuel = self.card_name.card_limit_remaining - consumed_liter_fuel
+			remaining_fuel = self.card_name.card_limit_remaining - consumed_liter_fuel + consumed_liter_fuel_before
 			self.card_name.card_limit_remaining = remaining_fuel
+		#record_of_trip = self.env['consume'].search([('card_consume_date','=',self.date)])
+		#record_of_trip.card_consume_liter = self.liter
+		#record_of_trip.card_available_liter = self.card_name.card_limit_remaining
 		return result
+
+	@api.multi
+	def unlink(self):
+		record_of_trip = self.env['consume'].search([('card_consume_date','=',self.date)])
+		record_of_trip.unlink()
+		return super(consumtion_fuel_log_model,self).unlink()
+
 
 class consumehistory(models.Model):
 	_name = 'consumehistory'
