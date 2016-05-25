@@ -194,13 +194,14 @@ class consumtion_fuel_log_model(models.Model):
 #For create method code
 	@api.model
 	def create(self, vals):
-		result = super(consumtion_fuel_log_model, self).create(vals)
+		
 		consumed_liter_fuel = vals['liter']
 		#print vals['liter']
 		#print vals.get('card_name')
 		fuel_management_card = self.env['fuelcard.management'].search([('id','=', vals.get('card_name'))])
 		remaining_fuel = fuel_management_card.card_limit_remaining - consumed_liter_fuel
 		fuel_management_card.card_limit_remaining = remaining_fuel
+		result = super(consumtion_fuel_log_model, self).create(vals)
 		return result
 	@api.multi
 	def write(self, values):
