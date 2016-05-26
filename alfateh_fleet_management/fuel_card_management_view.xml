@@ -145,6 +145,7 @@
                         <group name="group_top">
                             <group name="group_left">
                                 <field name="card_consume_date"/>
+                                <field name="consume_id_log" invisible="True"/>
                             </group>
                     
                             <group name="group_right">

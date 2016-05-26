@@ -100,7 +100,7 @@ class consume(models.Model):
 	_name = 'consume'
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
 	name = fields.Many2one('fuelcard.management','Card Number')
-	consume_id_log = fields.Integer('Consume Id')
+	consume_id_log = fields.Char('Consume Id')
 	card_consume_date = fields.Datetime('Date')
 	card_consume_liter = fields.Float('Consume liters')
 	card_consume_description = fields.Text('Description')
@@ -117,12 +117,13 @@ class consume(models.Model):
 			self.card_available_liter = self.name.card_limit_remaining
 	@api.multi
 	def write(self, values):
+		before_limit = self.card_consume_liter
 		result = super(consume, self).write(values)
 		if self.card_consume_liter:
 			available_limit = self.card_available_liter
 			consume_limit = self.card_consume_liter
-			remaining_limit = available_limit - consume_limit
-		if self.card_consume_liter:
+			remaining_limit = (available_limit - consume_limit) + before_limit
+		#if self.card_consume_liter:
 			self.name.card_limit_remaining = remaining_limit
 		return result
 	@api.one
@@ -195,32 +196,34 @@ class consumtion_fuel_log_model(models.Model):
 		remaining_fuel = fuel_management_card.card_limit_remaining - consumed_liter_fuel
 		fuel_management_card.card_limit_remaining = remaining_fuel
 		consume_records = self.env['consume']
+		self_recs = self.env['fleet.vehicle.log.fuel'].search([])
+		test_rec = self_recs[-1].id + 1
 		result = super(consumtion_fuel_log_model, self).create(vals)
-
 		res = {
 		 'name': vals['card_name'],
 		 'card_consume_liter': vals['liter'],
 		 'card_available_liter': fuel_management_card.card_limit_remaining,
 		 'card_consume_date':vals['date'],
+		 'consume_id_log' : test_rec,
 		 }
 		consume_records.create(res)
 		return result
 	@api.multi
 	def write(self, values):
-		consumed_liter_fuel_before = self.liter
+		#consumed_liter_fuel_before = self.liter
 		result = super(consumtion_fuel_log_model, self).write(values)
-		if self.card_name and self.liter:
-			consumed_liter_fuel = self.liter
-			remaining_fuel = self.card_name.card_limit_remaining - consumed_liter_fuel + consumed_liter_fuel_before
-			self.card_name.card_limit_remaining = remaining_fuel
-		#record_of_trip = self.env['consume'].search([('card_consume_date','=',self.date)])
-		#record_of_trip.card_consume_liter = self.liter
-		#record_of_trip.card_available_liter = self.card_name.card_limit_remaining
+		#self.card_name.card_limit_remaining = self.card_name.card_limit_remaining + consumed_liter_fuel_before
+		#self.card_name.card_limit_remaining = self.card_name.card_limit_remaining - self.liter
+		record_of_trip = self.env['consume'].search([('consume_id_log','=',self.id)])
+		record_of_trip.card_consume_liter = self.liter
+		record_of_trip.card_available_liter = self.card_name.card_limit_remaining
 		return result
 
 	@api.multi
 	def unlink(self):
-		record_of_trip = self.env['consume'].search([('card_consume_date','=',self.date)])
+		record_of_trip = self.env['consume'].search([('consume_id_log','=',self.id)])
+		liter_add = self.card_name.card_limit_remaining + self.liter
+		self.card_name.card_limit_remaining = liter_add
 		record_of_trip.unlink()
 		return super(consumtion_fuel_log_model,self).unlink()
 
