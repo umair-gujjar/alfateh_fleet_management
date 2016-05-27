@@ -20,11 +20,11 @@ class alfateh_fleet_management(models.Model):
 	batteries = fields.Char('Batteries')
 	power_steering_oil = fields.Char('Power Steering Oil')
 	greecing = fields.Char('Greecing')
-	
+	engine_oil_change_value = fields.Float(string='Odometer (Engine Oil)')
 	oil_filter_value = fields.Float('Odometer (Oil Filter)')
 	air_filter_value = fields.Float('Odometer (Air Filter)')
 	gear_oil_value = fields.Float('Odometer (Gear Oil)')
-	engine_oil_change_value = fields.Float(string='Odometer (Engine Oil)')
+
 
 class alfateh_vehicle_cost(models.Model):
 	_inherit = 'fleet.vehicle.cost'
@@ -43,10 +43,10 @@ class fuel_log(models.Model):
 
 class fuel_service_log(models.Model):
 	_inherit = 'fleet.vehicle.log.services'
-	engine_oil_change_value = fields.Float('Engine Oil')
-	oil_filter_value = fields.Float('Oil Filter')
-	air_filter_value = fields.Float('Air Filter')
-	gear_oil_value = fields.Float('Gear Oil')
+	engine_oil_change_value = fields.Float('Odometer (Engine Oil)')
+	oil_filter_value = fields.Float('Odometer (Oil Filter)')
+	air_filter_value = fields.Float('Odometer (Air Filter)')
+	gear_oil_value = fields.Float('Odometer (Gear Oil)')
 	@api.model
 	def create(self, vals):
 		current_vehicles = self.env['fleet.vehicle'].search([('id','=',vals['vehicle_id'])])

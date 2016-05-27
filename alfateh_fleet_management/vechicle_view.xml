@@ -87,7 +87,7 @@
             <field name="inherit_id" ref="fleet.fleet_vehicle_log_services_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='odometer']" position="after">
+                <xpath expr="//group[@string='Odometer Details']" position="inside">
                     <field name="engine_oil_change_value" />
                     <field name="oil_filter_value" />
                     <field name="air_filter_value" />
