@@ -20,14 +20,11 @@ class alfateh_fleet_management(models.Model):
 	batteries = fields.Char('Batteries')
 	power_steering_oil = fields.Char('Power Steering Oil')
 	greecing = fields.Char('Greecing')
-	#vehicle_type_fleet = fields.Selection([
-            #('Bus', 'Bus'),
-            #('Truck', 'Truck'),
-            #('Car', 'Car'),
-            #('Auto_Rickshaw', 'Auto Rickshaw'),
-            #('Van', 'Van'),
-            #],default='', string="Select Vehicle Type",)
-
+	
+	oil_filter_value = fields.Float('Odometer (Oil Filter)')
+	air_filter_value = fields.Float('Odometer (Air Filter)')
+	gear_oil_value = fields.Float('Odometer (Gear Oil)')
+	engine_oil_change_value = fields.Float(string='Odometer (Engine Oil)')
 
 class alfateh_vehicle_cost(models.Model):
 	_inherit = 'fleet.vehicle.cost'
@@ -44,4 +41,38 @@ class fuel_log(models.Model):
 	
 	
 
+class fuel_service_log(models.Model):
+	_inherit = 'fleet.vehicle.log.services'
+	engine_oil_change_value = fields.Float('Engine Oil')
+	oil_filter_value = fields.Float('Oil Filter')
+	air_filter_value = fields.Float('Air Filter')
+	gear_oil_value = fields.Float('Gear Oil')
+	@api.model
+	def create(self, vals):
+		current_vehicles = self.env['fleet.vehicle'].search([('id','=',vals['vehicle_id'])])
+		current_vehicles.engine_oil_change_value = current_vehicles.engine_oil_change_value + vals['engine_oil_change_value']
+		current_vehicles.oil_filter_value = current_vehicles.oil_filter_value + vals['oil_filter_value']
+		current_vehicles.air_filter_value = current_vehicles.air_filter_value + vals['air_filter_value']
+		current_vehicles.gear_oil_value = current_vehicles.gear_oil_value + vals['gear_oil_value']
+		return super(fuel_service_log,self).create(vals)
+	@api.multi
+	def write(self, vals):
+		before_engine_oil_change_value = self.engine_oil_change_value
+		before_oil_filter_value = self.oil_filter_value
+		before_air_filter_value = self.air_filter_value
+		before_gear_oil_value = self.gear_oil_value
+		result =  super(fuel_service_log,self).write(vals)
+		self.vehicle_id.engine_oil_change_value = (self.vehicle_id.engine_oil_change_value + self.engine_oil_change_value) - before_engine_oil_change_value
+		self.vehicle_id.oil_filter_value = (self.vehicle_id.oil_filter_value + self.oil_filter_value) - before_oil_filter_value
+		self.vehicle_id.air_filter_value = (self.vehicle_id.air_filter_value + self.air_filter_value) - before_air_filter_value
+		self.vehicle_id.gear_oil_value = (self.vehicle_id.gear_oil_value + self.gear_oil_value) - before_gear_oil_value
+		return result
 
+	@api.multi
+	def unlink(self):
+		current_vehicles = self.env['fleet.vehicle'].search([('id','=',self.vehicle_id.id)])
+		current_vehicles.engine_oil_change_value = current_vehicles.engine_oil_change_value - self.engine_oil_change_value
+		current_vehicles.oil_filter_value = current_vehicles.oil_filter_value - self.oil_filter_value
+		current_vehicles.air_filter_value = current_vehicles.air_filter_value - self.air_filter_value
+		current_vehicles.gear_oil_value = current_vehicles.gear_oil_value - self.gear_oil_value
+		return super(fuel_service_log,self).unlink()
