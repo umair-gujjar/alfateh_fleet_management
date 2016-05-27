@@ -10,6 +10,16 @@ class alfateh_fleet_management(models.Model):
 	expiry_token = fields.Date('Expiry Token')
 	capacity = fields.Char('Capacity')
 	vehicle_status = fields.Char('Vehicle Status')
+	engine_oil_change = fields.Integer('Engine Oil Change')
+	oil_filter = fields.Integer('Oil Filter')
+	air_filter = fields.Integer('Air Filter')
+	brake_oil = fields.Char('Brake Oil')
+	gear_oil = fields.Integer('Gear Oil')
+	wheel_alignment = fields.Char('Wheel Alignment')
+	kamni = fields.Char('Kamni')
+	batteries = fields.Char('Batteries')
+	power_steering_oil = fields.Char('Power Steering Oil')
+	greecing = fields.Char('Greecing')
 	#vehicle_type_fleet = fields.Selection([
             #('Bus', 'Bus'),
             #('Truck', 'Truck'),

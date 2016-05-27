@@ -20,9 +20,28 @@
                 <xpath expr="//field[@name='driver_id']" position="attributes">
                     <attribute name="attrs">{'invisible': True}</attribute>
                 </xpath>
-                <!-- <xpath expr="//field[@name='vehicle_status']" position="after">
-                    <field name="vehicle_type_fleet"/>
-                </xpath> -->
+                <xpath expr="//form/sheet" position="inside">
+                    <notebook>
+                        <page string="Repair Criteria">
+                                <group name="top" >
+                                    <group name="left" >
+                                        <field name="engine_oil_change" />
+                                        <field name="oil_filter" />
+                                        <field name="air_filter" />
+                                        <field name="brake_oil" />
+                                        <field name="gear_oil" />
+                                    </group>
+                                    <group name="right">
+                                        <field name="wheel_alignment" />
+                                        <field name="kamni" />
+                                        <field name="batteries" />
+                                        <field name="power_steering_oil" />
+                                        <field name="greecing" />
+                                    </group>
+                                </group>
+                            </page>
+                    </notebook>
+                </xpath>
             </field>
         </record>
 
