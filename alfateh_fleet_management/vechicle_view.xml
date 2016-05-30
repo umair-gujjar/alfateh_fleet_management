@@ -78,6 +78,12 @@
                 <xpath expr="//field[@name='vehicle_id']" position="after">
                     <field name="card_name" />
                 </xpath>
+                <xpath expr="//field[@name='odometer']" position="attributes">
+                    <attribute name="attrs">{'invisible': True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='odometer']" position="after">
+                    <field name="odoo_meter" />
+                </xpath>
             </field>
         </record>
 
