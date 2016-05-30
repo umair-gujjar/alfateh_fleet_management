@@ -35,13 +35,24 @@ class fuel_log(models.Model):
 	_inherit = 'fleet.vehicle.log.fuel'
 	card_name = fields.Many2one('fuelcard.management',string='Card Name', required=True)
 	odoo_meter = fields.Float(string='Odometer Value')
+	fuel_type = fields.Selection([('fuel_gasoline_rate', 'Gasoline'), ('fuel_disel_rate', 'Diesel'), ('fuel_hioctane_rate', 'Hi-Octane'), ('fuel_cng_rate', 'CNG')], 'Fuel Type', help='Fuel Used by the vehicle')
 
 	@api.onchange('card_name')
 	def testing_lter_change(self):
-		print self.card_name
-	
-	
-
+		if self.vehicle_id:
+			self.fuel_type	= self.vehicle_id.fuel_type
+	@api.onchange('fuel_type')
+	def onchange_atfc_atoc_field(self):
+		fuel_rate_rec = self.env['fuel.rate']
+		if self.fuel_type:
+			if self.fuel_type == 'fuel_gasoline_rate':
+				self.price_per_liter = fuel_rate_rec.search([]).fuel_gasoline_rate 
+			elif self.fuel_type == 'fuel_hioctane_rate':
+				self.price_per_liter = fuel_rate_rec.search([]).fuel_hioctane_rate 
+			elif self.fuel_type == 'fuel_cng_rate':
+				self.price_per_liter = fuel_rate_rec.search([]).fuel_cng_rate 
+			else:
+				self.price_per_liter = fuel_rate_rec.search([]).fuel_disel_rate 
 class fuel_service_log(models.Model):
 	_inherit = 'fleet.vehicle.log.services'
 	engine_oil_change_value = fields.Float('Odometer (Engine Oil)')
