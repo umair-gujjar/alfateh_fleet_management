@@ -24,7 +24,21 @@ class alfateh_fleet_management(models.Model):
 	oil_filter_value = fields.Float('Odometer (Oil Filter)')
 	air_filter_value = fields.Float('Odometer (Air Filter)')
 	gear_oil_value = fields.Float('Odometer (Gear Oil)')
-
+	engine_oil_chk_box = fields.Boolean(string='Engine Oil', compute='_compute_odometer_value')
+	oil_filter_chk_box = fields.Boolean(string='Oil Filter', compute='_compute_odometer_value')
+	air_filter_chk_box = fields.Boolean(string='Air Filter', compute='_compute_odometer_value')
+	gear_oil_chk_box = fields.Boolean(string='Gear Oil', compute='_compute_odometer_value')
+	@api.one
+	@api.depends('odometer')
+	def _compute_odometer_value(self):
+		if self.odometer > self.gear_oil_value:
+			self.gear_oil_chk_box = True
+		if self.odometer > self.air_filter_value:
+			self.air_filter_chk_box = True
+		if self.odometer > self.oil_filter_value:
+			self.oil_filter_chk_box = True
+		if self.odometer > self.engine_oil_change_value:
+			self.engine_oil_chk_box = True
 
 class alfateh_vehicle_cost(models.Model):
 	_inherit = 'fleet.vehicle.cost'
