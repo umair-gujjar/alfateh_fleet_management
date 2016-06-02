@@ -163,30 +163,27 @@ class fleet_vehicle_cost_alfateh_custom(models.Model):
 	@api.model
 	def create(self, values):
 		result = super(fleet_vehicle_cost_alfateh_custom, self).create(values)
-		if self.vehicle_trip:
+		if values['vehicle_trip']:
 			record_of_trip = self.env['trip.management'].search([('id','=',values['vehicle_trip'])])
-		#record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
-#		print record_of_trip
+			print record_of_trip.actual_trip_other_cost
 			record_of_trip.actual_trip_other_cost = record_of_trip.actual_trip_other_cost + values['amount']
-			record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost + values['amount']
+			#record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost + values['amount']
+	
 		return result
 	@api.multi
 	def write(self, values):
 		record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
-		print "XXXXXXXXXXXXXXXXXX"
-		print self.amount
 		official_trip_amount = record_of_trip.actual_trip_other_cost
 		last_amount = official_trip_amount - self.amount
 		actual_trip_cost_amount = record_of_trip.actual_trip_cost - self.amount
 		result =  super(fleet_vehicle_cost_alfateh_custom,self).write(values)
 		record_of_trip.actual_trip_other_cost = last_amount + self.amount
-		record_of_trip.actual_trip_cost = actual_trip_cost_amount + self.amount
-		print self.amount
+		#record_of_trip.actual_trip_cost = actual_trip_cost_amount + self.amount
 		return result
 
 	@api.multi
 	def unlink(self):
 		record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
 		record_of_trip.actual_trip_other_cost = record_of_trip.actual_trip_other_cost - self.amount
-		record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost - self.amount
+		#record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost - self.amount
 		return super(fleet_vehicle_cost_alfateh_custom,self).unlink()

@@ -33,7 +33,7 @@
                                     </group>
                                     <group name="right">
                                         <field name="wheel_alignment" />
-                                        <field name="kamni" />
+                                        <field name="kamani" />
                                         <field name="batteries" />
                                         <field name="power_steering_oil" />
                                         <field name="greecing" />
@@ -43,10 +43,26 @@
                         <page string="Next Repair">
                                 <group name="top" >
                                     <group name="left" >
-                                        <field name="engine_oil_change_value" />
-                                        <field name="oil_filter_value" />
-                                        <field name="air_filter_value" />
-                                        <field name="gear_oil_value" />
+                                        <label for="engine_oil_change_value" />
+                                        <div>
+                                            <field name="engine_oil_change_value"  class="oe_inline"/>
+                                            <field name="engine_oil_chk_box"  class="oe_inline"/>
+                                        </div>
+                                        <label for="oil_filter_value" />
+                                        <div>
+                                            <field name="oil_filter_value"  class="oe_inline"/>
+                                            <field name="oil_filter_chk_box"  class="oe_inline"/>
+                                        </div>
+                                        <label for="air_filter_value" />
+                                        <div>
+                                            <field name="air_filter_value"  class="oe_inline"/>
+                                            <field name="air_filter_chk_box"  class="oe_inline"/>
+                                        </div>
+                                        <label for="gear_oil_value" />
+                                        <div>
+                                            <field name="gear_oil_value"  class="oe_inline"/>
+                                            <field name="gear_oil_chk_box"  class="oe_inline"/>
+                                        </div>
                                     </group>
                                     <group name="right">
                                     </group>

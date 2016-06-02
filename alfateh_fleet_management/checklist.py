@@ -20,7 +20,7 @@ class check_list_fields(models.Model):
 
 class select_check_list(models.Model):
 	_name = 'select_check_list'
-	name = fields.Many2one('check_list','Select Check List')
+	name = fields.Many2one('check_list','Daily Check List')
 	list_date = fields.Date('Date')
 	Vehicle_id = fields.Many2one('fleet.vehicle','Vehicle')
 	vehicle_type = fields.Char('Vehicle Type')
