@@ -160,30 +160,31 @@ class trip_management(models.Model):
 
 class fleet_vehicle_cost_alfateh_custom(models.Model):
 	_inherit = 'fleet.vehicle.cost'
-	@api.model
-	def create(self, values):
-		result = super(fleet_vehicle_cost_alfateh_custom, self).create(values)
-		if values['vehicle_trip']:
-			record_of_trip = self.env['trip.management'].search([('id','=',values['vehicle_trip'])])
-			print record_of_trip.actual_trip_other_cost
-			record_of_trip.actual_trip_other_cost = record_of_trip.actual_trip_other_cost + values['amount']
-			#record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost + values['amount']
 	
-		return result
-	@api.multi
-	def write(self, values):
-		record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
-		official_trip_amount = record_of_trip.actual_trip_other_cost
-		last_amount = official_trip_amount - self.amount
-		actual_trip_cost_amount = record_of_trip.actual_trip_cost - self.amount
-		result =  super(fleet_vehicle_cost_alfateh_custom,self).write(values)
-		record_of_trip.actual_trip_other_cost = last_amount + self.amount
+	#@api.model
+	#def create(self, values):
+		#result = super(fleet_vehicle_cost_alfateh_custom, self).create(values)
+		#if values['vehicle_trip'] > 0:
+		#	record_of_trip = self.env['trip.management'].search([('id','=',values['vehicle_trip'])])
+		#	print record_of_trip.actual_trip_other_cost
+		#	record_of_trip.actual_trip_other_cost = record_of_trip.actual_trip_other_cost + values['amount']
+			#record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost + values['amount']
+		#return result
+	
+	#@api.multi
+	#def write(self, values):
+	#	record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
+	#	official_trip_amount = record_of_trip.actual_trip_other_cost
+	#	last_amount = official_trip_amount - self.amount
+	#	actual_trip_cost_amount = record_of_trip.actual_trip_cost - self.amount
+	#	result =  super(fleet_vehicle_cost_alfateh_custom,self).write(values)
+	#	record_of_trip.actual_trip_other_cost = last_amount + self.amount
 		#record_of_trip.actual_trip_cost = actual_trip_cost_amount + self.amount
-		return result
+	#	return result
 
-	@api.multi
-	def unlink(self):
-		record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
-		record_of_trip.actual_trip_other_cost = record_of_trip.actual_trip_other_cost - self.amount
+	#@api.multi
+	#def unlink(self):
+	#	record_of_trip = self.env['trip.management'].search([('id','=',self.vehicle_trip.id)])
+	#	record_of_trip.actual_trip_other_cost = record_of_trip.actual_trip_other_cost - self.amount
 		#record_of_trip.actual_trip_cost = record_of_trip.actual_trip_cost - self.amount
-		return super(fleet_vehicle_cost_alfateh_custom,self).unlink()
+	#	return super(fleet_vehicle_cost_alfateh_custom,self).unlink()

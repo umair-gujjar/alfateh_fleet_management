@@ -197,15 +197,16 @@ class consumtion_fuel_log_model(models.Model):
 		fuel_management_card.card_limit_remaining = remaining_fuel
 		consume_records = self.env['consume']
 		self_recs = self.env['fleet.vehicle.log.fuel'].search([])
+		print self_recs
 		test_rec = self_recs[-1].id + 1
 		result = super(consumtion_fuel_log_model, self).create(vals)
 		res = {
-		 'name': vals['card_name'],
-		 'card_consume_liter': vals['liter'],
-		 'card_available_liter': fuel_management_card.card_limit_remaining,
-		 'card_consume_date':vals['date'],
-		 'consume_id_log' : test_rec,
-		 }
+			'name': vals['card_name'],
+			'card_consume_liter': vals['liter'],
+			'card_available_liter': fuel_management_card.card_limit_remaining,
+			'card_consume_date':vals['date'],
+			'consume_id_log' : test_rec,
+		}
 		consume_records.create(res)
 		return result
 	@api.multi

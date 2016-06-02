@@ -73,6 +73,20 @@
             </field>
         </record>
 
+        <record id="fleetvehicle_alfateh_search_view" model="ir.ui.view">
+            <field name="name">fleetvehicle_alfateh_search_view</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='alert_true']" position="after">
+                    <filter string="Engine Oil" name="filter_driver" domain="[('engine_oil_chk_box','=', 1)]" />
+                    <filter string="Oil Filter" name="filter_driver" domain="[('oil_filter_chk_box','=', 1)]" />
+                    <filter string="Air Filter" name="filter_driver" domain="[('air_filter_chk_box','=', 1)]" />
+                    <filter string="Gear Oil" name="filter_driver" domain="[('gear_oil_chk_box','=', 1)]" />
+                </xpath> 
+            </field>
+        </record>
+
         <record id="fleet_mang_custom_cost_view_form" model="ir.ui.view">
             <field name="name">fleet_mang_custom_cost_view_form</field>
             <field name="model">fleet.vehicle.cost</field>
