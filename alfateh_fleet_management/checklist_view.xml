@@ -99,7 +99,7 @@
             </field>
         </record>
         <record model="ir.actions.act_window" id="action_maintaince_checklist_one">
-            <field name="name">Select Check List</field>
+            <field name="name">Daily Check List</field>
             <field name="res_model">select_check_list</field>
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
@@ -107,6 +107,6 @@
 
         <menuitem name="Checklist" id="menu_maintaince_checklist_root" parent="fleet.menu_root" sequence="2"/>
         <menuitem name="Vehicle Maintainace Checklist" id="menu_maintaince_checklist_child_one" parent="menu_maintaince_checklist_root" action="action_maintaince_checklist" sequence="0"/>
-        <menuitem name="Select Check List" id="menu_maintaince_checklist_child_two" parent="menu_maintaince_checklist_root" action="action_maintaince_checklist_one" sequence="1"/>
+        <menuitem name="Daily Check List" id="menu_maintaince_checklist_child_two" parent="menu_maintaince_checklist_root" action="action_maintaince_checklist_one" sequence="1"/>
     </data>
 </openerp>

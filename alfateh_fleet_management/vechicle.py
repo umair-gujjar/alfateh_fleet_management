@@ -16,7 +16,7 @@ class alfateh_fleet_management(models.Model):
 	brake_oil = fields.Char('Brake Oil')
 	gear_oil = fields.Integer('Gear Oil')
 	wheel_alignment = fields.Char('Wheel Alignment')
-	kamni = fields.Char('Kamni')
+	kamani = fields.Char('Kamani')
 	batteries = fields.Char('Batteries')
 	power_steering_oil = fields.Char('Power Steering Oil')
 	greecing = fields.Char('Greecing')
@@ -24,10 +24,11 @@ class alfateh_fleet_management(models.Model):
 	oil_filter_value = fields.Float('Odometer (Oil Filter)')
 	air_filter_value = fields.Float('Odometer (Air Filter)')
 	gear_oil_value = fields.Float('Odometer (Gear Oil)')
-	engine_oil_chk_box = fields.Boolean(string='Engine Oil', compute='_compute_odometer_value')
-	oil_filter_chk_box = fields.Boolean(string='Oil Filter', compute='_compute_odometer_value')
-	air_filter_chk_box = fields.Boolean(string='Air Filter', compute='_compute_odometer_value')
-	gear_oil_chk_box = fields.Boolean(string='Gear Oil', compute='_compute_odometer_value')
+	engine_oil_chk_box = fields.Boolean(string='Engine Oil', compute='_compute_odometer_value' , store=True)
+	oil_filter_chk_box = fields.Boolean(string='Oil Filter', compute='_compute_odometer_value' , store=True)
+	air_filter_chk_box = fields.Boolean(string='Air Filter', compute='_compute_odometer_value' , store=True)
+	gear_oil_chk_box = fields.Boolean(string='Gear Oil', compute='_compute_odometer_value' , store=True )
+	
 	@api.one
 	@api.depends('odometer')
 	def _compute_odometer_value(self):

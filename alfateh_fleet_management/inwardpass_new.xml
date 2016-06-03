@@ -173,6 +173,22 @@
             </field>
         </record>
 
+        <record id="outwardpass_alfateh_search_view" model="ir.ui.view">
+            <field name="name">outwardpass_alfateh_search_view</field>
+            <field name="model">outwardpass</field>
+            <field name="arch" type="xml">
+                <search string="Group Consume">
+                    <filter string="Today" name="filter_driver" domain="[('create_date','&gt;=',current_date)]" />
+                    <group expand="0" string="Group By">
+                        <filter string="Vehicle" icon="terp-partner" domain="[]" context="{'group_by':'fleet_vehicle_id'}"/>
+                        <filter string="Driver" icon="terp-partner" domain="[]" context="{'group_by':'out_driver'}"/>
+                        <filter string="State" icon="terp-partner" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Category" icon="terp-partner" domain="[]" context="{'group_by':'outward_Category'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="view_outwardpass_tree" model="ir.ui.view">
             <field name="name">outwardpass</field>
             <field name="model">outwardpass</field>
@@ -193,20 +209,6 @@
                     <field name="odoometer_difference" />
                     <field name="state" string="Status" />
                 </tree>
-            </field>
-        </record>
-
-        <record id="customer_outward_search_view" model="ir.ui.view">
-            <field name="name">customer_outward_search_view</field>
-            <field name="model">outwardpass</field>
-            <field name="type">search</field>
-            <field name="arch" type="xml">
-                <search string="states">
-                    <group expand="0" string="Group By">
-                        <filter name="groupby_state" context="{'group_by' : 'state'}" string="state"/>
-                        <filter name="groupby_category" context="{'group_by' : 'outward_Category'}" string="Category"/>
-                    </group>
-                </search>
             </field>
         </record>
 
@@ -387,6 +389,21 @@
             </field>
         </record>
 
+
+        <record id="inwardpass_alfateh_search_view" model="ir.ui.view">
+            <field name="name">inwardpass_alfateh_search_view</field>
+            <field name="model">inwardpass</field>
+            <field name="arch" type="xml">
+                <search string="Group Consume">
+                    <filter string="Today" name="filter_driver" domain="[('create_date','&gt;=',current_date)]" />
+                    <group expand="0" string="Group By">
+                        <filter string="State" icon="terp-partner" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Category" icon="terp-partner" domain="[]" context="{'group_by':'inward_Category'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         <record id="view_inwardpass_tree" model="ir.ui.view">
             <field name="name">inwardpass</field>
             <field name="model">inwardpass</field>
@@ -411,19 +428,6 @@
             </field>
         </record>
 
-         <record id="customer_inward_search_view" model="ir.ui.view">
-            <field name="name">customer_inward_search_view</field>
-            <field name="model">inwardpass</field>
-            <field name="type">search</field>
-            <field name="arch" type="xml">
-                <search string="states">
-                    <group expand="0" string="Group By">
-                        <filter name="groupby_state" context="{'group_by' : 'state'}" string="state"/>
-                        <filter name="groupby_category" context="{'group_by' : 'inward_Category'}" string="Category"/>
-                    </group>
-                </search>
-            </field>
-        </record>
 
         <record model="ir.actions.act_window" id="action_inwardpass">
             <field name="name">Inward</field>

@@ -81,6 +81,20 @@
             </field>
         </record>
 
+        <record id="trip_alfateh_search_view" model="ir.ui.view">
+            <field name="name">trip_alfateh_search_view</field>
+            <field name="model">trip.management</field>
+            <field name="arch" type="xml">
+                <search string="Search Trip">
+                    <group expand="0" string="Group By">
+                        <filter string="Vehicle" icon="terp-partner" domain="[]" context="{'group_by':'vehicle'}"/>
+                        <filter string="Driver" icon="terp-go-month" domain="[]" context="{'group_by':'driver_id'}"/>
+                        <filter string="Route" icon="terp-go-month" domain="[]" context="{'group_by':'route'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
         
 
         <record id="alfateh_trip_mang_view_tree" model="ir.ui.view">
