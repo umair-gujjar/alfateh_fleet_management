@@ -440,7 +440,8 @@ class gate_pass_outwardpass_inherit(models.Model):
 		#print fuel_logs_rec[-1]
 		#print fuel_logs_rec[-1].value
 		if self.gpi_odoo_meter:
-			fuel_logs_rec[-1].value = self.gpi_odoo_meter
+			if len(fuel_logs_rec) > 0:
+				fuel_logs_rec[-1].value = self.gpi_odoo_meter
 		return result
 
 	@api.multi
