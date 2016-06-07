@@ -41,6 +41,14 @@ class alfateh_fleet_management(models.Model):
 		if self.odometer > self.engine_oil_change_value:
 			self.engine_oil_chk_box = True
 
+	@api.multi
+	def uncheck_odometer_value(self):
+		self.gear_oil_chk_box = False
+		self.air_filter_chk_box = False
+		self.oil_filter_chk_box = False
+		self.engine_oil_chk_box = False
+
+
 class alfateh_vehicle_cost(models.Model):
 	_inherit = 'fleet.vehicle.cost'
 	vehicle_trip = fields.Many2one('trip.management', string="Trip" ,domain="[('date','=',date)]")

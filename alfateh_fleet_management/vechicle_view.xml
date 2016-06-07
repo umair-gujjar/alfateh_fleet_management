@@ -6,6 +6,9 @@
             <field name="inherit_id" ref="fleet.fleet_vehicle_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
+                <header>
+                    <button name="uncheck_odometer_value" type="object" string="Uncheck" />
+                </header>
                 <xpath expr="//field[@name='vin_sn']" position="after">
                     <field name="engine_num"/>
                     <field name="average_consumption"/>
