@@ -38,7 +38,7 @@
                     
                             <group name="group_right">
                                 <field name="route"/>
-                                <field name="driver_id"/>
+                                <field name="driver_id" domain="[('driver_check_id','=',True)]"/>
                                 <field name="actual_trip_time" widget="float_time" sum="Total Time"/>
                                 <field name="actual_trip_fuel"/>
                                 <field name="actual_trip_fuel_cost"/>
