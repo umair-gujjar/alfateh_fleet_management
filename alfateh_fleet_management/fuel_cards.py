@@ -12,8 +12,8 @@ class fuelcards_management(models.Model):
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
 	name = fields.Char('Card Number')
 	card_company = fields.Char('Company')
-	card_limit = fields.Float('Limit( in liters)')
-	card_limit_remaining = fields.Float('Remaining Liters')
+	card_limit = fields.Float('Limit')
+	card_limit_remaining = fields.Float('Remaining')
 	card_issue_data = fields.Date('Issue Date')
 	card_expiry_data = fields.Date('Expiry Date')
 	card_description = fields.Text('Description')
@@ -102,9 +102,9 @@ class consume(models.Model):
 	name = fields.Many2one('fuelcard.management','Card Number')
 	consume_id_log = fields.Char('Consume Id')
 	card_consume_date = fields.Datetime('Date')
-	card_consume_liter = fields.Float('Consume liters')
+	card_consume_liter = fields.Float('Consume Amount')
 	card_consume_description = fields.Text('Description')
-	card_available_liter = fields.Float('Available liters')
+	card_available_liter = fields.Float('Available Amount')
 	fuelcard_consume_id = fields.Many2one('fuelcard.management',string='Consume')
 
 	_defaults = {
@@ -140,7 +140,7 @@ class recharge(models.Model):
 	_inherit = ['mail.thread', 'ir.needaction_mixin']
 	name = fields.Many2one('fuelcard.management','Card Number')
 	card_recharge_date = fields.Date('Date')
-	card_recharge_liter = fields.Float('Recharge liters')
+	card_recharge_liter = fields.Float('Recharge Amount')
 	card_recharge_description = fields.Text('Description')
 	fuelcard_recharge_id = fields.Many2one('fuelcard.management',string='Recharge')
 	fuel_type = fields.Selection([('fuel_gasoline_rate', 'Gasoline'), ('fuel_disel_rate', 'Diesel'), ('fuel_hioctane_rate', 'Hi-Octane'), ('fuel_cng_rate', 'CNG')], 'Fuel Type',select=True, help='Fuel Used by the vehicle')
