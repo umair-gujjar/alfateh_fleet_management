@@ -1,9 +1,6 @@
 <?xml version="1.0"  encoding="utf-8"?>
 <openerp>
     <data>
-
-
-
         <record id="validate_account_move_line_view1" model="ir.ui.view">
             <field name="name">Recharge Fuel Cards</field>
             <field name="model">fuelcardwizard.fuel_card_management</field>
