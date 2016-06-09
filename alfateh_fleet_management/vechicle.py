@@ -65,7 +65,7 @@ class fuel_log(models.Model):
 	def testing_lter_change(self):
 		if self.vehicle_id:
 			self.fuel_type	= self.vehicle_id.fuel_type
-			self.amount_card	= self.card_name.card_limit_remaining
+			#self.amount_card	= self.card_name.card_limit_remaining
 	@api.onchange('fuel_type')
 	def onchange_atfc_atoc_field(self):
 		fuel_rate_rec = self.env['fuel.rate']
@@ -79,10 +79,13 @@ class fuel_log(models.Model):
 			else:
 				self.price_per_liter = fuel_rate_rec.search([]).fuel_disel_rate
 
-	@api.onchange('amount_card','price_per_liter')
+	@api.onchange('amount_card','price_per_liter','liter')
 	def new_amount_lter_change(self):
 		if self.fuel_type:
-			self.liter = self.amount_card / self.price_per_liter
+			if self.amount_card:
+				self.liter = self.amount_card / self.price_per_liter
+			elif self.liter:
+				self.amount_card = self.liter * self.price_per_liter
 
 class fuel_service_log(models.Model):
 	_inherit = 'fleet.vehicle.log.services'

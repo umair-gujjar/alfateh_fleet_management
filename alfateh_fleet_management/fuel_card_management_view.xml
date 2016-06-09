@@ -161,8 +161,8 @@
                             </group>
                     
                             <group name="group_right">
-                                <field name="card_consume_liter" />
                                 <field name="card_available_liter"/>
+                                <field name="card_consume_liter" />
                             </group>
                         </group>
                         
@@ -198,8 +198,8 @@
                 <tree string="Fuel Card Consume">
                     <field name="name"/>
                     <field name="card_consume_date"/>
-                    <field name="card_consume_liter"/>
                     <field name="card_available_liter"/>
+                    <field name="card_consume_liter"/>
                 </tree>
             </field>
         </record>
