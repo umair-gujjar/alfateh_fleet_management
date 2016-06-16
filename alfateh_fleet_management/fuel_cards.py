@@ -4,7 +4,7 @@ import datetime
 from datetime import date, datetime
 import time
 from openerp import models, fields, api
-
+from openerp.exceptions import Warning
 
 # Fuel card Management
 class fuelcards_management(models.Model):
@@ -158,13 +158,25 @@ class recharge(models.Model):
 		fuel_rate_rec = self.env['fuel.rate']
 		if self.fuel_type and self.card_recharge_liter:
 			if self.fuel_type == 'fuel_gasoline_rate':
-				self.fuel_amount =  self.card_recharge_liter / fuel_rate_rec.search([]).fuel_gasoline_rate  
+				if fuel_rate_rec.search([]).fuel_gasoline_rate == 0:
+					raise Warning('Gasoline Rate is Zero it cannot get the amount Please Change its value in Fuel Rates !')
+				else:
+					self.fuel_amount =  self.card_recharge_liter / fuel_rate_rec.search([]).fuel_gasoline_rate  
 			elif self.fuel_type == 'fuel_hioctane_rate':
-				self.fuel_amount = self.card_recharge_liter / fuel_rate_rec.search([]).fuel_hioctane_rate 
+				if fuel_rate_rec.search([]).fuel_hioctane_rate == 0:
+					raise Warning('Hi-Octane Rate is Zero it cannot get the amount Please Change its value in Fuel Rates !')
+				else:
+					self.fuel_amount = self.card_recharge_liter / fuel_rate_rec.search([]).fuel_hioctane_rate 
 			elif self.fuel_type == 'fuel_cng_rate':
-				self.fuel_amount = self.card_recharge_liter / fuel_rate_rec.search([]).fuel_cng_rate 
+				if fuel_rate_rec.search([]).fuel_cng_rate == 0:
+					raise Warning('CNG Rate is Zero it cannot get the amount Please Change its value in Fuel Rates !')
+				else:
+					self.fuel_amount = self.card_recharge_liter / fuel_rate_rec.search([]).fuel_cng_rate 
 			else:
-				self.fuel_amount = self.card_recharge_liter / fuel_rate_rec.search([]).fuel_disel_rate 
+				if fuel_rate_rec.search([]).fuel_disel_rate == 0:
+					raise Warning('Diesel Rate is Zero it cannot get the amount Please Change its value in Fuel Rates !')
+				else:
+					self.fuel_amount = self.card_recharge_liter / fuel_rate_rec.search([]).fuel_disel_rate 
 
 	@api.model
 	def create(self, vals):
