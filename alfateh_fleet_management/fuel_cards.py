@@ -220,7 +220,7 @@ class consumtion_fuel_log_model(models.Model):
 		#self.card_name.card_limit_remaining = self.card_name.card_limit_remaining + consumed_liter_fuel_before
 		#self.card_name.card_limit_remaining = self.card_name.card_limit_remaining - self.liter
 		record_of_trip = self.env['consume'].search([('consume_id_log','=',self.id)])
-		record_of_trip.card_consume_liter = self.liter
+		record_of_trip.card_consume_liter = self.amount_card
 		record_of_trip.card_available_liter = self.card_name.card_limit_remaining
 		return result
 
