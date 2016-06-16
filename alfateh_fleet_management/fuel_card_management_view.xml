@@ -38,6 +38,7 @@
                             <group name="group_right">
                                 <field name="card_issue_data" />
                                 <field name="card_expiry_data" />
+                                <field name="fuel_type" />
                             </group>
                         </group>
                         <notebook>

@@ -26,6 +26,7 @@ class fuelcards_management(models.Model):
 	card_consume_h_ids = fields.One2many('consumehistory','card_consume_h_id',string='Details')
 	card_recharge_h_ids = fields.One2many('rechargehistory','card_recharge_h_id',string='Details')
 	recharge_count = fields.Integer(string="Recharge",compute='compute_user_todo_count')
+	fuel_type = fields.Selection([('fuel_gasoline_rate', 'Gasoline'), ('fuel_disel_rate', 'Diesel'), ('fuel_hioctane_rate', 'Hi-Octane'), ('fuel_cng_rate', 'CNG')], 'Fuel Type', required=True, help='Fuel Used by the vehicle')
 
 	_defaults = {
 	'card_issue_data': datetime.now(),
@@ -48,6 +49,7 @@ class fuelcards_management(models.Model):
 		res['context'].update({
 			'default_name': current_recharge.id,
 			'default_card_recharge_liter' : recharageable_ltrs,
+			'default_fuel_type' : current_recharge.fuel_type,
 		})
 		res['domain'] = [('name','=', current_recharge.id)]
 		return res
@@ -185,14 +187,15 @@ class recharge(models.Model):
 		fuel_management_card = self.env['fuelcard.management'].search([('id','=', vals.get('name'))])
 		remaining_fuel = fuel_management_card.card_limit_remaining + recharge_liter_fuel
 		fuel_management_card.card_limit_remaining = remaining_fuel
+		vals['fuel_type'] = fuel_management_card.fuel_type
 		return result
 	@api.multi
 	def write(self, values):
 		result = super(recharge, self).write(values)
 		if self.name and self.card_recharge_liter:
 			recharge_liter_fuel = self.card_recharge_liter
-			remaining_fuel = self.card_name.card_limit_remaining + recharge_liter_fuel
-			self.card_name.card_limit_remaining = remaining_fuel
+			remaining_fuel = self.name.card_limit_remaining + recharge_liter_fuel
+			self.name.card_limit_remaining = remaining_fuel
 		return result
 
 
