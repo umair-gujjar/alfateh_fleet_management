@@ -379,6 +379,19 @@ class gate_pass_outwardpass_inherit(models.Model):
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
 
+			
+			
+			self.trip_management_field.actual_trip_fuel = self.trip_management_field.actual_trip_route_distance / self.trip_management_field.vehicle.average_consumption
+			fuel_rate_rec = self.env['fuel.rate']
+			if self.trip_management_field.vehicle.fuel_type == 'fuel_gasoline_rate':
+				self.trip_management_field.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_gasoline_rate * self.trip_management_field.actual_trip_fuel
+			elif self.trip_management_field.vehicle.fuel_type == 'fuel_hioctane_rate':
+				self.trip_management_field.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_hioctane_rate * self.trip_management_field.actual_trip_fuel
+			elif self.trip_management_field.vehicle.fuel_type == 'fuel_cng_rate':
+				self.trip_management_field.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_cng_rate * self.trip_management_field.actual_trip_fuel
+			else:
+				self.trip_management_field.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_disel_rate * self.trip_management_field.actual_trip_fuel
+			self.trip_management_field.actual_trip_cost = self.trip_management_field.actual_trip_fuel_cost + self.trip_management_field.actual_trip_other_cost
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
 		
 	@api.onchange('fleet_vehicle_id')
@@ -492,6 +505,21 @@ class gate_pass_inwardpass_inherit(models.Model):
  		if self.trip_management_field:	
 			self.trip_management_field.actual_trip_time = days_hours + float_hours
 			self.trip_management_field.actual_trip_route_distance = self.gpi_odoo_meter - self.gp_odoo_meter
+
+
+			
+			
+			self.trip_management_field.actual_trip_fuel = self.trip_management_field.actual_trip_route_distance / self.trip_management_field.vehicle.average_consumption
+			fuel_rate_rec = self.env['fuel.rate']
+			if self.trip_management_field.vehicle.fuel_type == 'fuel_gasoline_rate':
+				self.trip_management_field.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_gasoline_rate * self.trip_management_field.actual_trip_fuel
+			elif self.trip_management_field.vehicle.fuel_type == 'fuel_hioctane_rate':
+				self.trip_management_field.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_hioctane_rate * self.trip_management_field.actual_trip_fuel
+			elif self.trip_management_field.vehicle.fuel_type == 'fuel_cng_rate':
+				self.trip_management_field.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_cng_rate * self.trip_management_field.actual_trip_fuel
+			else:
+				self.trip_management_field.actual_trip_fuel_cost = fuel_rate_rec.search([]).fuel_disel_rate * self.trip_management_field.actual_trip_fuel
+			self.trip_management_field.actual_trip_cost = self.trip_management_field.actual_trip_fuel_cost + self.trip_management_field.actual_trip_other_cost
 
 		self.odoometer_difference = self.gpi_odoo_meter - self.gp_odoo_meter	
 	@api.onchange('fleet_vehicle_id')
