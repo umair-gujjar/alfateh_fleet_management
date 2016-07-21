@@ -231,12 +231,27 @@ class consumtion_fuel_log_model(models.Model):
 	@api.multi
 	def write(self, values):
 		#consumed_liter_fuel_before = self.liter
+		record = self.env['consume']
+		record_of_trip = record.search([('consume_id_log','=',self.id)])
+		record_of_trip.unlink()
+		amount_consumed_before = self.amount_card
+		fuel_management_card = self.card_name.card_limit_remaining
+		self.card_name.card_limit_remaining = fuel_management_card  + amount_consumed_before
 		result = super(consumtion_fuel_log_model, self).write(values)
 		#self.card_name.card_limit_remaining = self.card_name.card_limit_remaining + consumed_liter_fuel_before
 		#self.card_name.card_limit_remaining = self.card_name.card_limit_remaining - self.liter
-		record_of_trip = self.env['consume'].search([('consume_id_log','=',self.id)])
-		record_of_trip.card_consume_liter = self.amount_card
-		record_of_trip.card_available_liter = self.card_name.card_limit_remaining
+		amount_consumed = self.amount_card
+		remaing = self.card_name.card_limit_remaining
+		self.card_name.card_limit_remaining = remaing  - amount_consumed
+		available_amount = self.card_name.card_limit_remaining
+		res = {
+			'name': self.card_name.id,
+			'card_consume_liter': amount_consumed,
+			'card_available_liter': available_amount,
+			'card_consume_date':self.date,
+			'consume_id_log' : self.id,
+		}
+		record.create(res)
 		return result
 
 	@api.multi
